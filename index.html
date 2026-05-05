@@ -2191,15 +2191,18 @@ function esc(s) {
 function render() {
   const container = document.getElementById('chartContainer');
   const execs = getExecs();
+  const allEmployees = data.employees;
   
-  // Find special people
+  // Find special people (execs from Executive dept)
   const matt = execs.find(e => e.name === SPECIAL_PEOPLE.MATT_VISSER);
   const brent = execs.find(e => e.name === SPECIAL_PEOPLE.BRENT_RAMEY);
   const ryan = execs.find(e => e.name === SPECIAL_PEOPLE.RYAN_CAUFFMAN);
   const rob = execs.find(e => e.name === SPECIAL_PEOPLE.ROB_FARNES);
   const nathan = execs.find(e => e.name === SPECIAL_PEOPLE.NATHAN_CARRIZALES);
-  const blake = execs.find(e => e.name === SPECIAL_PEOPLE.BLAKE_VISSER);
-  const deb = execs.find(e => e.name === SPECIAL_PEOPLE.DEB_KELLER);
+  
+  // Find strategic leaders (may be in different departments)
+  const blake = allEmployees.find(e => e.name === SPECIAL_PEOPLE.BLAKE_VISSER);
+  const deb = allEmployees.find(e => e.name === SPECIAL_PEOPLE.DEB_KELLER);
 
   let html = '';
 
