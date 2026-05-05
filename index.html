@@ -2187,23 +2187,15 @@ function esc(s) {
   return d.innerHTML;
 }
 
-// ---- Custom Two-Branch Render ----
+// ---- Person-Based Hierarchical Tree Render ----
 function render() {
   const container = document.getElementById('chartContainer');
-  const execs = getExecs();
   const allEmployees = data.employees;
   
-  // Find special people (execs from Executive dept)
-  const matt = execs.find(e => e.name === SPECIAL_PEOPLE.MATT_VISSER);
-  const brent = execs.find(e => e.name === SPECIAL_PEOPLE.BRENT_RAMEY);
-  const ryan = execs.find(e => e.name === SPECIAL_PEOPLE.RYAN_CAUFFMAN);
-  const rob = execs.find(e => e.name === SPECIAL_PEOPLE.ROB_FARNES);
-  const nathan = execs.find(e => e.name === SPECIAL_PEOPLE.NATHAN_CARRIZALES);
+  // Find Matt Visser (top of org)
+  const matt = allEmployees.find(e => e.name === SPECIAL_PEOPLE.MATT_VISSER);
+  const brent = allEmployees.find(e => e.name === SPECIAL_PEOPLE.BRENT_RAMEY);
   
-  // Find strategic leaders (may be in different departments)
-  const blake = allEmployees.find(e => e.name === SPECIAL_PEOPLE.BLAKE_VISSER);
-  const deb = allEmployees.find(e => e.name === SPECIAL_PEOPLE.DEB_KELLER);
-
   let html = '';
 
   // ===== OWNERSHIP TIER =====
@@ -2212,84 +2204,90 @@ function render() {
   if (brent) html += renderOwnershipCard(brent);
   html += '</div>';
 
-  // ===== BRANCH CONTAINER =====
-  html += '<div class="branch-container">';
-  
-  // ----- LEFT BRANCH: Executive Leadership -----
-  html += '<div class="branch">';
-  html += '<div class="branch-label executive">Executive Leadership</div>';
-  
-  const executiveLeaders = [ryan, rob, nathan].filter(Boolean);
-  
-  if (executiveLeaders.length > 0) {
-    html += '<div class="exec-row">';
-    executiveLeaders.forEach(exec => {
-      html += renderExecCard(exec, 'executive-branch');
-    });
-    html += '</div>';
+  // ===== HIERARCHICAL TREE =====
+  if (matt) {
+    // Get Matt's direct reports
+    const mattReports = allEmployees.filter(e => e.reportsTo === matt.name);
     
-    // Departments under Executive Leadership
-    html += '<div class="dept-columns">';
-    executiveLeaders.forEach(exec => {
-      const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
-      if (execDepts.length > 0) {
-        html += '<div class="dept-column">';
-        execDepts.forEach(dept => {
-          html += renderDeptCard(dept, 'executive');
-        });
-        html += '</div>';
-      }
-    });
-    html += '</div>';
-  }
-  
-  html += '</div>'; // end Executive Leadership branch
-  
-  // ----- RIGHT BRANCH: Strategic Leadership -----
-  html += '<div class="branch">';
-  html += '<div class="branch-label strategic">Strategic Leadership</div>';
-  
-  const strategicLeaders = [blake, deb].filter(Boolean);
-  
-  if (strategicLeaders.length > 0) {
-    // Stack each leader with their departments vertically
-    strategicLeaders.forEach(exec => {
-      // Leader card
-      html += '<div style="margin-bottom: 24px;">';
-      html += renderExecCard(exec, 'strategic-branch');
-      html += '</div>';
+    // Separate into Executive (Ryan, Rob, Nathan) vs Strategic (Blake, Deb)
+    const executiveBranch = mattReports.filter(e => 
+      [SPECIAL_PEOPLE.RYAN_CAUFFMAN, SPECIAL_PEOPLE.ROB_FARNES, SPECIAL_PEOPLE.NATHAN_CARRIZALES].includes(e.name)
+    );
+    const strategicBranch = mattReports.filter(e =>
+      [SPECIAL_PEOPLE.BLAKE_VISSER, SPECIAL_PEOPLE.DEB_KELLER].includes(e.name)
+    );
+    
+    html += '<div class="branch-container">';
+    
+    // ----- LEFT BRANCH: Executive Leadership -----
+    if (executiveBranch.length > 0) {
+      html += '<div class="branch">';
+      html += '<div class="branch-label executive">Executive Leadership</div>';
+      html += '<div style="display: flex; flex-direction: column; gap: 32px; align-items: center;">';
       
-      // Their departments directly below
-      const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
-      if (execDepts.length > 0) {
-        html += '<div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">';
-        execDepts.forEach(dept => {
-          html += renderDeptCard(dept, 'strategic');
-        });
-        html += '</div>';
-      }
-    });
-  }
-  
-  html += '</div>'; // end Strategic Leadership branch
-  
-  html += '</div>'; // end branch-container
-  
-  // Show unassigned departments (if any)
-  const unassignedDepts = getNonExecDepts().filter(d => !d.reportsTo);
-  if (unassignedDepts.length > 0) {
-    html += '<div style="margin-top:48px">';
-    html += '<div style="text-align:center;font-weight:700;color:var(--text-secondary);margin-bottom:24px">Unassigned Departments</div>';
-    html += '<div class="dept-columns">';
-    unassignedDepts.forEach(dept => {
-      html += '<div class="dept-column">';
-      html += renderDeptCard(dept, 'unassigned');
-      html += '</div>';
-    });
-    html += '</div></div>';
+      executiveBranch.forEach(person => {
+        html += renderPersonTree(person, 0, 'executive');
+      });
+      
+      html += '</div></div>';
+    }
+    
+    // ----- RIGHT BRANCH: Strategic Leadership -----
+    if (strategicBranch.length > 0) {
+      html += '<div class="branch">';
+      html += '<div class="branch-label strategic">Strategic Leadership</div>';
+      html += '<div style="display: flex; flex-direction: column; gap: 32px; align-items: center;">';
+      
+      strategicBranch.forEach(person => {
+        html += renderPersonTree(person, 0, 'strategic');
+      });
+      
+      html += '</div></div>';
+    }
+    
+    html += '</div>'; // end branch-container
   }
 
   container.innerHTML = html;
+}
+
+// Recursively render person and their direct reports
+function renderPersonTree(person, level, branchType) {
+  const directReports = data.employees.filter(e => e.reportsTo === person.name);
+  const color = branchType === 'strategic' ? 'var(--strategic)' : 'var(--exec)';
+  const deptColor = getDeptColor(person.department);
+  
+  let html = '<div style="display: flex; flex-direction: column; align-items: center; margin: 16px 0;">';
+  
+  // Person card
+  const matchClass = isMatch(person) ? ' search-match' : '';
+  html += `<div class="exec-card ${branchType}-branch${matchClass}" onclick="openEditEmployee('${person.id}')" 
+           draggable="true" ondragstart="onDragStart(event,'${person.id}')" style="min-width: 200px;">`;
+  html += `<div class="emp-avatar" style="background:${level === 0 ? color : deptColor}">${esc(person.initials)}</div>`;
+  html += `<div class="emp-name">${esc(person.name)}</div>`;
+  html += `<div class="emp-title">${esc(person.title)}</div>`;
+  if (person.department && person.department !== 'Executive') {
+    html += `<div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">${esc(person.department)}</div>`;
+  }
+  html += `</div>`;
+  
+  // Direct reports
+  if (directReports.length > 0) {
+    html += '<div style="margin-top: 16px; padding-left: 40px; border-left: 2px solid #cbd5e1; position: relative;">';
+    
+    directReports.forEach((report, idx) => {
+      html += '<div style="position: relative; margin-bottom: 16px;">';
+      // Horizontal connector line
+      html += '<div style="position: absolute; left: -40px; top: 24px; width: 40px; height: 2px; background: #cbd5e1;"></div>';
+      html += renderPersonTree(report, level + 1, branchType);
+      html += '</div>';
+    });
+    
+    html += '</div>';
+  }
+  
+  html += '</div>';
+  return html;
 }
 
 function renderOwnershipCard(emp) {
