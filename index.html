@@ -999,7 +999,7 @@ function getDefaultData() {
       "reportsTo": null,
       "initials": "MV",
       "name": "Matt Visser",
-      "title": "Chief Executive Officer",
+      "title": "Chief Executive Officer & Owner",
       "department": "Executive",
       "teamId": "id-mngbtxsbgioc9"
     },
@@ -1018,10 +1018,10 @@ function getDefaultData() {
       "id": "id-mnf1whftrxy78",
       "email": "brent@victig.com",
       "phone": "",
-      "reportsTo": "Matt Visser",
+      "reportsTo": null,
       "initials": "BR",
       "name": "Brent Ramey",
-      "title": "Chief Sales Officer",
+      "title": "Owner, Chief Counsel & Special Projects",
       "department": "Executive",
       "teamId": "id-mngbtxsbgioc9"
     },
@@ -1033,8 +1033,8 @@ function getDefaultData() {
       "initials": "DK",
       "name": "Deb Keller",
       "title": "President",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
+      "department": "Strategic Leadership",
+      "teamId": "id-strategic-team"
     },
     {
       "id": "id-mnf1whftk7th5",
@@ -1150,11 +1150,12 @@ function getDefaultData() {
       "id": "id-mnf1whft9zhnl",
       "email": "blakev@victig.com",
       "phone": "",
-      "reportsTo": null,
+      "reportsTo": "Matt Visser",
       "initials": "BV",
       "name": "Blake Visser",
       "title": "Director of Sales",
-      "department": "Sales & Marketing"
+      "department": "Strategic Leadership",
+      "teamId": "id-strategic-team"
     },
     {
       "id": "id-mnf1whftfqyl1",
@@ -1826,7 +1827,7 @@ function getDefaultData() {
     {
       "id": "id-mnf1whftktipw",
       "name": "Sales & Marketing",
-      "reportsTo": "Brent Ramey",
+      "reportsTo": "Blake Visser",
       "color": "#e74c3c",
       "managerId": "id-mnf1whft9zhnl"
     },
@@ -1892,6 +1893,13 @@ function getDefaultData() {
       "reportsTo": "Rob Farnes",
       "managerId": "id-mnf1whfte91uq",
       "color": "#2c3e50"
+    },
+    {
+      "id": "id-strategic-leadership",
+      "name": "Strategic Leadership",
+      "reportsTo": "Matt Visser",
+      "color": "#7B68EE",
+      "managerId": null
     }
   ],
   "teams": [
@@ -1996,6 +2004,12 @@ function getDefaultData() {
       "name": "General Marketing",
       "departmentId": "id-mnf29bbntw6cq",
       "leaderId": "id-mnf1whft7jog4"
+    },
+    {
+      "id": "id-strategic-team",
+      "name": "General",
+      "departmentId": "id-strategic-leadership",
+      "leaderId": null
     }
   ]
 };
