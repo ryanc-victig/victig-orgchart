@@ -980,7 +980,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <script>
 // ---- State ----
-const STORAGE_KEY = 'victig-org-chart-v3';
+const STORAGE_KEY = 'victig-org-chart-v4';
 const COLLAPSE_KEY = 'victig-team-collapse';
 let confirmResolveCallback = null;
 let searchQuery = '';
@@ -1150,12 +1150,11 @@ function getDefaultData() {
       "id": "id-mnf1whft9zhnl",
       "email": "blakev@victig.com",
       "phone": "",
-      "reportsTo": "Matt Visser",
+      "reportsTo": null,
       "initials": "BV",
       "name": "Blake Visser",
       "title": "Director of Sales",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
+      "department": "Sales & Marketing"
     },
     {
       "id": "id-mnf1whftfqyl1",
@@ -1827,7 +1826,7 @@ function getDefaultData() {
     {
       "id": "id-mnf1whftktipw",
       "name": "Sales & Marketing",
-      "reportsTo": "Blake Visser",
+      "reportsTo": "Brent Ramey",
       "color": "#e74c3c",
       "managerId": "id-mnf1whft9zhnl"
     },
