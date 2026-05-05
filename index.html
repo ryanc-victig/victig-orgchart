@@ -2252,25 +2252,23 @@ function render() {
   const strategicLeaders = [blake, deb].filter(Boolean);
   
   if (strategicLeaders.length > 0) {
-    html += '<div class="exec-row">';
+    // Stack each leader with their departments vertically
     strategicLeaders.forEach(exec => {
+      // Leader card
+      html += '<div style="margin-bottom: 24px;">';
       html += renderExecCard(exec, 'strategic-branch');
-    });
-    html += '</div>';
-    
-    // Departments under Strategic Leadership
-    html += '<div class="dept-columns">';
-    strategicLeaders.forEach(exec => {
+      html += '</div>';
+      
+      // Their departments directly below
       const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
       if (execDepts.length > 0) {
-        html += '<div class="dept-column">';
+        html += '<div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">';
         execDepts.forEach(dept => {
           html += renderDeptCard(dept, 'strategic');
         });
         html += '</div>';
       }
     });
-    html += '</div>';
   }
   
   html += '</div>'; // end Strategic Leadership branch
