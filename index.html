@@ -15,6 +15,8 @@
   --shadow-lg: 0 4px 16px rgba(0,0,0,.12);
   --radius: 10px;
   --exec: #4A90E2;
+  --strategic: #8B5CF6; /* Purple for Strategic Leadership */
+  --ownership-gold: #F59E0B;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
@@ -80,96 +82,96 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   padding: 32px 24px 64px; overflow-x: auto; min-height: calc(100vh - 60px);
 }
 
-/* ---- CEO Section ---- */
-.ceo-section {
-  display: flex; justify-content: center; margin-bottom: 24px; position: relative;
+/* ---- OWNERSHIP TIER ---- */
+.ownership-tier {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+  position: relative;
 }
-.ceo-section::after {
+.ownership-tier::after {
   content: '';
   position: absolute;
-  bottom: -12px;
+  bottom: -16px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 12px;
+  height: 16px;
   background: #cbd5e1;
 }
 
-/* ---- Executive Row ---- */
-.exec-row {
+/* ---- BRANCH CONTAINER ---- */
+.branch-container {
   display: flex;
   justify-content: center;
-  gap: 48px;
-  flex-wrap: nowrap;
+  gap: 80px;
   margin-bottom: 48px;
   position: relative;
   padding: 0 40px;
 }
+
+/* ---- BRANCH (Executive or Strategic) ---- */
+.branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 400px;
+}
+
+.branch-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 20px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.branch-label.executive {
+  background: linear-gradient(135deg, var(--exec), #357ABD);
+  color: #fff;
+}
+
+.branch-label.strategic {
+  background: linear-gradient(135deg, var(--strategic), #6D28D9);
+  color: #fff;
+}
+
+/* ---- EXECUTIVE ROW ---- */
+.exec-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+/* Connector from exec row to departments */
 .exec-row::before {
   content: '';
   position: absolute;
-  top: -12px;
+  bottom: -16px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 12px;
+  height: 16px;
   background: #cbd5e1;
 }
 
-/* ---- Executive Column Container ---- */
-.exec-columns {
+/* ---- DEPT COLUMNS BELOW EXECS ---- */
+.dept-columns {
   display: flex;
   justify-content: center;
   gap: 40px;
   flex-wrap: wrap;
   align-items: flex-start;
-  position: relative;
 }
 
-/* Horizontal line connecting executives */
-.exec-columns::before {
-  content: '';
-  position: absolute;
-  top: 56px; /* Position at middle of exec cards */
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: #cbd5e1;
-  z-index: 0;
-}
-
-.exec-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  min-width: 320px;
-  z-index: 1; /* Above the horizontal line */
-}
-
-/* Vertical connector from exec to departments */
-.column-connector {
-  width: 2px;
-  height: 30px;
-  background: #cbd5e1;
-  margin: 8px 0;
-  flex-shrink: 0;
-}
-
-.exec-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 4px 12px;
-  background: rgba(0,0,0,0.03);
-  border-radius: 12px;
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-/* ---- Department Column ---- */
 .dept-column {
   display: flex;
   flex-direction: column;
@@ -196,13 +198,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
 }
 .dept-header .dept-actions button:hover { background: rgba(255,255,255,.4); }
-.dept-reports { 
-  padding: 6px 16px 10px; font-size: 12px; font-weight: 600; color: #fff; opacity: .95;
-  display: flex; align-items: center; gap: 6px;
-}
-.dept-reports::before {
-  content: '↳'; font-size: 16px; opacity: .7;
-}
 
 .dept-body { padding: 8px; max-height: 600px; overflow-y: auto; }
 .dept-body::-webkit-scrollbar { width: 4px; }
@@ -438,7 +433,53 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   text-overflow: ellipsis;
 }
 
-/* Executive card variant */
+/* Ownership & Executive card variants */
+.ownership-card {
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+  padding: 20px 24px;
+  text-align: center;
+  min-width: 180px;
+  cursor: pointer;
+  transition: all .2s;
+  border: 3px solid var(--ownership-gold);
+  position: relative;
+}
+.ownership-card::before {
+  content: '★';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: var(--ownership-gold);
+  opacity: 0.6;
+}
+.ownership-card:hover {
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.4);
+  transform: translateY(-3px);
+}
+.ownership-card .emp-avatar {
+  margin: 0 auto 10px;
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+  background: var(--ownership-gold);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.ownership-card .emp-name {
+  font-size: 16px;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--text);
+}
+.ownership-card .emp-title { 
+  font-size: 12px;
+  color: #92400E;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
 .exec-card {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -469,6 +510,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   justify-content: center;
 }
 .exec-card .emp-title { font-size: 12px; }
+
+/* Branch-specific executive card styling */
+.exec-card.executive-branch {
+  border-color: var(--exec);
+}
+.exec-card.strategic-branch {
+  border-color: var(--strategic);
+}
 
 /* ---- Modal ---- */
 .modal-overlay {
@@ -728,12 +777,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   body { background: #fff; }
   .chart-container { padding: 16px; }
   .directory-container { padding: 16px; }
-  .dept-card {
+  .dept-card, .exec-card, .ownership-card {
     break-inside: avoid;
-    box-shadow: none;
-    border: 1px solid #ddd;
-  }
-  .exec-card {
     box-shadow: none;
     border: 1px solid #ddd;
   }
@@ -746,9 +791,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   }
   .teams-container::before { display: none; }
   .team-section::before { display: none; }
-  .ceo-section::after, .exec-columns::before, .column-connector { display: none; }
+  .ownership-tier::after, .exec-row::before { display: none; }
   
-  /* Directory print styles */
   .directory-table {
     border: 1px solid #ddd;
   }
@@ -762,15 +806,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   }
 }
 @media (max-width: 1200px) {
-  .exec-columns {
-    gap: 24px;
+  .branch-container {
+    gap: 40px;
   }
-  .exec-column {
-    min-width: 280px;
-  }
-  .exec-columns::before {
-    left: 5%;
-    right: 5%;
+  .branch {
+    min-width: 320px;
   }
 }
 @media (max-width: 768px) {
@@ -788,20 +828,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     margin-bottom: 8px;
   }
   .toolbar input[type="text"] { width: 160px; }
-  .exec-columns {
+  .branch-container {
     flex-direction: column;
     gap: 32px;
   }
-  .exec-columns::before {
-    display: none; /* Hide horizontal line on mobile */
-  }
-  .exec-column {
+  .branch {
     width: 100%;
     max-width: 400px;
   }
   .dept-card { width: 100%; max-width: 340px; }
   
-  /* Directory mobile styles */
   .directory-container {
     padding: 16px 12px;
   }
@@ -980,1025 +1016,29 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <script>
 // ---- State ----
-const STORAGE_KEY = 'victig-org-chart-v4';
+const STORAGE_KEY = 'victig-org-chart-v5';  // Updated storage key
 const COLLAPSE_KEY = 'victig-team-collapse';
 let confirmResolveCallback = null;
 let searchQuery = '';
+
+// Define special people for the org structure
+const SPECIAL_PEOPLE = {
+  MATT_VISSER: 'Matt Visser',
+  BRENT_RAMEY: 'Brent Ramey',
+  RYAN_CAUFFMAN: 'Ryan Cauffman',
+  ROB_FARNES: 'Rob Farnes',
+  NATHAN_CARRIZALES: 'Nathan Carrizales',
+  BLAKE_VISSER: 'Blake Visser',
+  DEB_KELLER: 'Deb Keller'
+};
 
 function uid() {
   return 'id-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
 function getDefaultData() {
-  return {
-  "employees": [
-    {
-      "id": "id-mnf1whftp88q6",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MV",
-      "name": "Matt Visser",
-      "title": "Chief Executive Officer & Owner",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
-    },
-    {
-      "id": "id-mnf1whfthtjlg",
-      "email": "ryanc@victig.com",
-      "phone": "307-272-9136",
-      "reportsTo": "Matt Visser",
-      "initials": "RC",
-      "name": "Ryan Cauffman",
-      "title": "Chief Revenue Officer",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
-    },
-    {
-      "id": "id-mnf1whftrxy78",
-      "email": "brent@victig.com",
-      "phone": "",
-      "reportsTo": "Matt Visser",
-      "initials": "BR",
-      "name": "Brent Ramey",
-      "title": "Owner, Chief Counsel & Special Projects",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
-    },
-    {
-      "id": "id-mnf1whft8qras",
-      "email": "dkeller@victig.com",
-      "phone": "",
-      "reportsTo": "Matt Visser",
-      "initials": "DK",
-      "name": "Deb Keller",
-      "title": "President",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
-    },
-    {
-      "id": "id-mnf1whftk7th5",
-      "email": "",
-      "phone": "",
-      "reportsTo": "Matt Visser",
-      "initials": "RF",
-      "name": "Rob Farnes",
-      "title": "Chief Operating Officer",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
-    },
-    {
-      "id": "id-mnf1whftpgxvw",
-      "email": "nathan@victig.com",
-      "phone": "307-921-4557",
-      "reportsTo": "Matt Visser",
-      "initials": "NC",
-      "name": "Nathan Carrizales",
-      "title": "Chief Financial Officer",
-      "department": "Executive",
-      "teamId": "id-mngbtxsbgioc9"
-    },
-    {
-      "id": "id-mnf1whftmou04",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "TT",
-      "name": "Tristen Talbert",
-      "title": "Director of Development & Emerging Technology",
-      "department": "Systems & Internal Support",
-      "teamId": "id-mobyjn6ftd5vj"
-    },
-    {
-      "id": "id-mnf1whftm1are",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "VB",
-      "name": "Valynne Bowers",
-      "title": "Contract - Accounting",
-      "department": "Systems & Internal Support",
-      "teamId": "id-mngbtxsbap1rq"
-    },
-    {
-      "id": "id-mnf1whft7gyba",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "DH",
-      "name": "Derek Hinton",
-      "title": "Legal Resource",
-      "department": "Legal",
-      "teamId": "id-mngbtxsbnw1bg"
-    },
-    {
-      "id": "id-mnf1whftdodso",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "DW",
-      "name": "Derek Wood",
-      "title": "Director of Marketing",
-      "department": "Sales & Marketing",
-      "teamId": "id-mnggq2z4mwzzc"
-    },
-    {
-      "id": "id-mnf1whft7jog4",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "DR",
-      "name": "Dustin Roethel",
-      "title": "Systems Admin / Marketing",
-      "department": "Systems & Internal Support",
-      "teamId": "id-mohi1sspcmuzj"
-    },
-    {
-      "id": "id-mnf1whftxs5hr",
-      "email": "max@victig.com",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MR",
-      "name": "Max Ramey",
-      "title": "Assistant to the Director of Marketing",
-      "department": "Sales & Marketing",
-      "teamId": "id-mnggq2z4mwzzc"
-    },
-    {
-      "id": "id-mnf1whft31xif",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "BV",
-      "name": "Brooke Visser",
-      "title": "Contract - Marketing",
-      "department": "Sales & Marketing",
-      "teamId": "id-mnggq2z4mwzzc"
-    },
-    {
-      "id": "id-mnf1whft0gs2w",
-      "email": "jelle@victig.com",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JE",
-      "name": "Josh Elle",
-      "title": "VP of Systems &",
-      "department": "Systems & Internal Support",
-      "teamId": "id-mngbtxsbap1rq"
-    },
-    {
-      "id": "id-mnf1whft9zhnl",
-      "email": "blakev@victig.com",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "BV",
-      "name": "Blake Visser",
-      "title": "Director of Sales",
-      "department": "Sales & Marketing"
-    },
-    {
-      "id": "id-mnf1whftfqyl1",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "RW",
-      "name": "Richard White",
-      "title": "Contract - Sales",
-      "department": "Sales & Marketing",
-      "teamId": "id-mngbtxsbqwxh5"
-    },
-    {
-      "id": "id-mnf1whfterce1",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MV",
-      "name": "Morgan Verhoef",
-      "title": "Sales Development Rep.",
-      "department": "Sales & Marketing",
-      "teamId": "id-mngbtxsbqwxh5"
-    },
-    {
-      "id": "id-mnf1whfti7goz",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JD",
-      "name": "Josh Diederich",
-      "title": "Sales Development Rep.",
-      "department": "Sales & Marketing",
-      "teamId": "id-mngbtxsbqwxh5"
-    },
-    {
-      "id": "id-mnf1whftnw91c",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "ST",
-      "name": "Stephan Treanor",
-      "title": "Senior Business Development Rep.",
-      "department": "Sales & Marketing",
-      "teamId": "id-mngbtxsbqwxh5"
-    },
-    {
-      "id": "id-mnf1whftz0u2r",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JP",
-      "name": "Jake Pfau",
-      "title": "Onboarding Director",
-      "department": "Onboarding"
-    },
-    {
-      "id": "id-mnf1whft7zhq8",
-      "email": "",
-      "phone": "",
-      "reportsTo": "Deb Keller",
-      "initials": "KR",
-      "name": "Karri Ramey",
-      "title": "Specialty Searches",
-      "department": "Specialty Force"
-    },
-    {
-      "id": "id-mnf1whftpb1e3",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "TF",
-      "name": "Tiffany Fitzgerald",
-      "title": "Specialty Searches",
-      "department": "Specialty Force",
-      "teamId": "id-mngg1n4nc8het"
-    },
-    {
-      "id": "id-mnf1whft9dpxm",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "SS",
-      "name": "Sam Salvador",
-      "title": "Specialty Searches",
-      "department": "Specialty Force",
-      "teamId": "id-mngg1n4nc8het"
-    },
-    {
-      "id": "id-mnf1whftn7c9u",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "ER",
-      "name": "Ericka Rodriguez",
-      "title": "Specialty Searches",
-      "department": "Drug Testing",
-      "teamId": "id-mngbtxsbsatjw"
-    },
-    {
-      "id": "id-mnf1whfto2lad",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "CR",
-      "name": "Conli Ramey",
-      "title": "Specialty Searches",
-      "department": "Specialty Force",
-      "teamId": "id-mngg1n4nc8het"
-    },
-    {
-      "id": "id-mnf1whfta6pgh",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "RB",
-      "name": "Rhio Barrera",
-      "title": "DT & OCC Coordinator",
-      "department": "Drug Testing"
-    },
-    {
-      "id": "id-mnf1whftg1rk2",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JC",
-      "name": "Janette Captain",
-      "title": "Drug Testing",
-      "department": "Drug Testing",
-      "teamId": "id-mngbtxsbsatjw"
-    },
-    {
-      "id": "id-mnf1whftfkhfp",
-      "email": "cfloto@victig.com",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "CF",
-      "name": "Chris Floto",
-      "title": "Drug Testing",
-      "department": "Drug Testing",
-      "teamId": "id-mngbtxsbsatjw"
-    },
-    {
-      "id": "id-mnf1whft07bd3",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "KB",
-      "name": "Kim Bass",
-      "title": "Customer Success Manager",
-      "department": "Customer Success",
-      "teamId": "id-mngbtxsbfyvyc"
-    },
-    {
-      "id": "id-mnf1whftnt941",
-      "email": "",
-      "phone": "",
-      "reportsTo": "Ryan Cauffman",
-      "initials": "OL",
-      "name": "Ophelia Lachen",
-      "title": "Director of Risk Management",
-      "department": "Risk Management",
-      "teamId": "id-mngbtxsb03omf"
-    },
-    {
-      "id": "id-mnf1whftyqkj9",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "RM",
-      "name": "Rob McDermott",
-      "title": "Customer Success Manager",
-      "department": "Customer Success",
-      "teamId": "id-mngbtxsbfyvyc"
-    },
-    {
-      "id": "id-mnf1whftwuhww",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JV",
-      "name": "Jums Ventura",
-      "title": "Operations Support",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w"
-    },
-    {
-      "id": "id-mnf1whftvc2f3",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "LL",
-      "name": "Lawrence Lubang",
-      "title": "Operations Support",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w"
-    },
-    {
-      "id": "id-mnf1whft8e7x9",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "IH",
-      "name": "Ian Hamill",
-      "title": "Team Lead",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w"
-    },
-    {
-      "id": "id-mnf1whft8anxu",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JP",
-      "name": "Jan Pineda",
-      "title": "Operations Support",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w"
-    },
-    {
-      "id": "id-mnf1whfttzh7m",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MS",
-      "name": "Mackensie Schwab",
-      "title": "Operations Support",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w"
-    },
-    {
-      "id": "id-mnf1whft7asbu",
-      "email": "btower@victig.com",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "BT",
-      "name": "Bridget Tower",
-      "title": "Customer Support, Speciality Clients",
-      "department": "Customer Support",
-      "teamId": "id-mnz690q1utbcz"
-    },
-    {
-      "id": "id-mnf1whfte91uq",
-      "email": "alimcd@victig.com",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "AH",
-      "name": "Alison Hamill",
-      "title": "Customer Support Manager, Compliance & Disputes Lead",
-      "department": "Customer Support"
-    },
-    {
-      "id": "id-mnf1whftjvjso",
-      "email": "",
-      "phone": "",
-      "reportsTo": "Alison Hamill",
-      "initials": "TO",
-      "name": "Tannah O'Banion",
-      "title": "Customer Support, Communications",
-      "department": "Customer Support",
-      "teamId": "id-mnz690q1utbcz"
-    },
-    {
-      "id": "id-mnf1whftuohhi",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "KT",
-      "name": "Kayla Thompson",
-      "title": "Customer Support, Disputes",
-      "department": "Customer Support",
-      "teamId": "id-mnz690q1utbcz"
-    },
-    {
-      "id": "id-mnf1whftcs6u3",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "RC",
-      "name": "Renato Cabrera",
-      "title": "Customer Support, Internationals",
-      "department": "Customer Support",
-      "teamId": "id-mnz690q1utbcz"
-    },
-    {
-      "id": "id-mnf1whftqjfk1",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "TG",
-      "name": "Trish Gustin",
-      "title": "Director of Verifications",
-      "department": "Verifications",
-      "teamId": "id-mngbydc4rljet"
-    },
-    {
-      "id": "id-mnf1whft2d0qq",
-      "email": "alane@victig.com",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "AM",
-      "name": "Annah Madsen",
-      "title": "Systems and Records Administrator",
-      "department": "Customer Success",
-      "teamId": "id-mngbtxsbfyvyc"
-    },
-    {
-      "id": "id-mnf1whftmevmy",
-      "email": "",
-      "phone": "",
-      "reportsTo": "Trish Gustin",
-      "initials": "MC",
-      "name": "Myssy Clayson",
-      "title": "Assistant Manager",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whft54t3r",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MB",
-      "name": "Marilee Bray",
-      "title": "Education Verifications",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftp9w30",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "CS",
-      "name": "Christina Solheim",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftghxa5",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "AG",
-      "name": "Avery Gustin",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftumibj",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MC",
-      "name": "Marcie Crawford",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftahnxp",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "KP",
-      "name": "Kayliene Pearson",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whft9o4qo",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "DR",
-      "name": "Davis Romney",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftqvl9a",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "LD",
-      "name": "Linnea Davis",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftuvnly",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "RC",
-      "name": "Rebekah Carter",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftsptow",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "GR",
-      "name": "Gillian Ragan",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftjawfo",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "BW",
-      "name": "Britney White",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whfthbdz2",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "KT",
-      "name": "Kaitlin Thune",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftla045",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "AT",
-      "name": "Ana Thurber",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftw99i2",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "FH",
-      "name": "Fiona Humphreys",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftsx4ix",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "PC",
-      "name": "Paul Clayson",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whft7z6bm",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "RB",
-      "name": "Rochelle Buyse",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftxudog",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MP",
-      "name": "Melanie Pulley",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whfttbtty",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "CG",
-      "name": "Carmen Guevara",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whfttft4z",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "RM",
-      "name": "Rebeca Mason",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftu4z4h",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JC",
-      "name": "Jessica Carlson",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whft3s9z6",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "JN",
-      "name": "Jackie Nuttall",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whfth2o47",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "DB",
-      "name": "Darcie Bailey",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whft29oxo",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "SA",
-      "name": "Shawnee Allred",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf1whftph2ho",
-      "email": "",
-      "phone": "",
-      "reportsTo": null,
-      "initials": "MF",
-      "name": "Maura Foster",
-      "title": "Verifier",
-      "department": "Verifications",
-      "teamId": "id-mngbtxsb5rwnv"
-    },
-    {
-      "id": "id-mnf20eei7x9rw",
-      "name": "Marcee Qualls",
-      "initials": "MQ",
-      "title": "Clerk of Accounting",
-      "department": "Accounting",
-      "reportsTo": "Nathan Carrizales",
-      "email": "",
-      "phone": "",
-      "teamId": "id-mngbtxsbgd3zm"
-    },
-    {
-      "id": "id-mnf23xvtks3uc",
-      "name": "Easton Maylett",
-      "initials": "EM",
-      "title": "Assistant",
-      "department": "Systems & Internal Support",
-      "reportsTo": null,
-      "email": "",
-      "phone": "",
-      "teamId": "id-mngbtxsbap1rq"
-    },
-    {
-      "id": "id-mngg9mb4lp4t6",
-      "name": "Todd Higey",
-      "initials": "TH",
-      "title": "Legal Counsel",
-      "department": "Legal",
-      "reportsTo": null,
-      "email": "",
-      "phone": "",
-      "teamId": "id-mngbtxsbnw1bg"
-    },
-    {
-      "id": "id-mo077au5bhgxz",
-      "name": "Dessire Magana",
-      "initials": "DM",
-      "title": "Customer Support",
-      "department": "Customer Support",
-      "teamId": "id-mnz690q1utbcz",
-      "reportsTo": null,
-      "email": "",
-      "phone": ""
-    },
-    {
-      "id": "id-mo079oj8qkqq0",
-      "name": "Kate Florez",
-      "initials": "KF",
-      "title": "Research & Quality Assurance Manager",
-      "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
-      "email": "kflorez@victig.com",
-      "phone": "(866) 886-5644"
-    },
-    {
-      "id": "id-mo07do93hcn01",
-      "name": "Jana Munar",
-      "initials": "JM",
-      "title": "Research Support",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w",
-      "reportsTo": null,
-      "email": "",
-      "phone": ""
-    },
-    {
-      "id": "id-mo07e665akw11",
-      "name": "Sarah Freeman",
-      "initials": "SF",
-      "title": "Research Support",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w",
-      "reportsTo": null,
-      "email": "",
-      "phone": ""
-    }
-  ],
-  "departments": [
-    {
-      "id": "id-mnf1whft85uok",
-      "name": "Executive",
-      "reportsTo": null,
-      "color": "#4A90E2",
-      "managerId": null
-    },
-    {
-      "id": "id-mnf1whfty3unx",
-      "name": "Accounting",
-      "reportsTo": "Nathan Carrizales",
-      "color": "#27ae60",
-      "managerId": null
-    },
-    {
-      "id": "id-mnf1whfts4k33",
-      "name": "Legal",
-      "reportsTo": "Deb Keller",
-      "color": "#1abc9c",
-      "managerId": null
-    },
-    {
-      "id": "id-mnf1whftktipw",
-      "name": "Sales & Marketing",
-      "reportsTo": "Brent Ramey",
-      "color": "#e74c3c",
-      "managerId": "id-mnf1whft9zhnl"
-    },
-    {
-      "id": "id-mnf1whftlxlq2",
-      "name": "Onboarding",
-      "reportsTo": "Ryan Cauffman",
-      "color": "#4a90e2",
-      "managerId": "id-mnf1whftz0u2r"
-    },
-    {
-      "id": "id-mnf1whftnzyaq",
-      "name": "Drug Testing",
-      "reportsTo": "Rob Farnes",
-      "color": "#2c3e50",
-      "managerId": "id-mnf1whfta6pgh"
-    },
-    {
-      "id": "id-mnf1whft9x5oh",
-      "name": "Customer Success",
-      "reportsTo": "Ryan Cauffman",
-      "color": "#4a90e2",
-      "managerId": null
-    },
-    {
-      "id": "id-mnf1whftfv1j8",
-      "name": "Research & Quality Assurance Team",
-      "reportsTo": "Rob Farnes",
-      "color": "#2c3e50",
-      "managerId": "id-mo079oj8qkqq0"
-    },
-    {
-      "id": "id-mnf1whftoyaqk",
-      "name": "Verifications",
-      "reportsTo": "Rob Farnes",
-      "color": "#2C3E50",
-      "managerId": "id-mnf1whftqjfk1"
-    },
-    {
-      "id": "id-mnf25c2k658ou",
-      "name": "Risk Management",
-      "reportsTo": "Ryan Cauffman",
-      "color": "#4a90e2",
-      "managerId": null
-    },
-    {
-      "id": "id-mnf29bbntw6cq",
-      "name": "Systems & Internal Support",
-      "reportsTo": "Ryan Cauffman",
-      "color": "#4a90e2",
-      "managerId": null
-    },
-    {
-      "id": "id-mngg1n4nncwk2",
-      "name": "Specialty Force",
-      "reportsTo": "Deb Keller",
-      "managerId": "id-mnf1whft7zhq8",
-      "color": "#1abc9c"
-    },
-    {
-      "id": "id-mnz690q1qax7v",
-      "name": "Customer Support",
-      "reportsTo": "Rob Farnes",
-      "managerId": "id-mnf1whfte91uq",
-      "color": "#2c3e50"
-    }
-  ],
-  "teams": [
-    {
-      "id": "id-mngbtxsbgioc9",
-      "name": "General",
-      "departmentId": "id-mnf1whft85uok",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbgd3zm",
-      "name": "General",
-      "departmentId": "id-mnf1whfty3unx",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbnw1bg",
-      "name": "General",
-      "departmentId": "id-mnf1whfts4k33",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbqwxh5",
-      "name": "General",
-      "departmentId": "id-mnf1whftktipw",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbdc4t0",
-      "name": "General",
-      "departmentId": "id-mnf1whftlxlq2",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbsatjw",
-      "name": "General",
-      "departmentId": "id-mnf1whftnzyaq",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbfyvyc",
-      "name": "General",
-      "departmentId": "id-mnf1whft9x5oh",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbhfe7w",
-      "name": "General",
-      "departmentId": "id-mnf1whftfv1j8",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsb5rwnv",
-      "name": "Verifications",
-      "departmentId": "id-mnf1whftoyaqk",
-      "leaderId": "id-mnf1whftqjfk1"
-    },
-    {
-      "id": "id-mngbtxsb03omf",
-      "name": "General",
-      "departmentId": "id-mnf25c2k658ou",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngbtxsbap1rq",
-      "name": "General",
-      "departmentId": "id-mnf29bbntw6cq",
-      "leaderId": "id-mnf1whft0gs2w"
-    },
-    {
-      "id": "id-mngbydc4rljet",
-      "name": "General",
-      "departmentId": "id-mnf1whftoyaqk",
-      "leaderId": null
-    },
-    {
-      "id": "id-mngg1n4nc8het",
-      "name": "General",
-      "departmentId": "id-mngg1n4nncwk2",
-      "leaderId": null
-    },
-    {
-      "id": "id-mnggq2z4mwzzc",
-      "name": "Lead Gen",
-      "departmentId": "id-mnf1whftktipw",
-      "leaderId": "id-mnf1whftdodso"
-    },
-    {
-      "id": "id-mnz690q1utbcz",
-      "name": "General",
-      "departmentId": "id-mnz690q1qax7v",
-      "leaderId": null
-    },
-    {
-      "id": "id-mobyjn6ftd5vj",
-      "name": "Development & Technology",
-      "departmentId": "id-mnf29bbntw6cq",
-      "leaderId": "id-mnf1whftmou04"
-    },
-    {
-      "id": "id-mohi1sspcmuzj",
-      "name": "General Marketing",
-      "departmentId": "id-mnf29bbntw6cq",
-      "leaderId": "id-mnf1whft7jog4"
-    }
-  ]
-};
+  // Will be populated from JSON file
+  return { employees: [], departments: [], teams: [] };
 }
 
 // ---- Load / Save ----
@@ -2009,9 +1049,7 @@ function loadData() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) { 
       data = JSON.parse(saved);
-      // Backwards compatibility
       if (!data.teams) data.teams = [];
-      // Add managerId field if missing
       data.departments.forEach(d => {
         if (!('managerId' in d)) d.managerId = null;
       });
@@ -2027,19 +1065,16 @@ function loadData() {
 }
 
 function migrateToTeams() {
-  // For each department, ensure there's a "General" team
   data.departments.forEach(dept => {
     const deptEmps = data.employees.filter(e => e.department === dept.name);
     const deptTeams = data.teams.filter(t => t.departmentId === dept.id);
     
-    // Find or create General team
     let generalTeam = deptTeams.find(t => t.name === 'General');
     if (!generalTeam) {
       generalTeam = { id: uid(), name: 'General', departmentId: dept.id, leaderId: null };
       data.teams.push(generalTeam);
     }
     
-    // Assign employees without teamId to General
     deptEmps.forEach(emp => {
       if (!emp.teamId) emp.teamId = generalTeam.id;
     });
@@ -2047,14 +1082,12 @@ function migrateToTeams() {
 }
 
 function migrateManagers() {
-  // Auto-detect department managers from titles
   data.departments.forEach(dept => {
-    if (dept.managerId) return; // Already assigned
-    if (dept.name === 'Executive') return; // Skip executive
+    if (dept.managerId) return;
+    if (dept.name === 'Executive') return;
     
     const deptEmps = data.employees.filter(e => e.department === dept.name);
     
-    // Look for Director or Manager titles
     const manager = deptEmps.find(emp => {
       const title = emp.title.toLowerCase();
       return (title.includes('director') || title.includes('manager')) &&
@@ -2064,7 +1097,6 @@ function migrateManagers() {
     
     if (manager) {
       dept.managerId = manager.id;
-      // Remove manager from teams (they oversee all teams)
       delete manager.teamId;
     }
   });
@@ -2145,71 +1177,131 @@ function esc(s) {
   return d.innerHTML;
 }
 
-// ---- Render ----
+// ---- Custom Two-Branch Render ----
 function render() {
   const container = document.getElementById('chartContainer');
   const execs = getExecs();
-  const ceo = execs.find(e => !e.reportsTo || e.title.includes('CEO'));
-  const otherExecs = execs.filter(e => e !== ceo).sort((a, b) => a.name.localeCompare(b.name));
+  
+  // Find special people
+  const matt = execs.find(e => e.name === SPECIAL_PEOPLE.MATT_VISSER);
+  const brent = execs.find(e => e.name === SPECIAL_PEOPLE.BRENT_RAMEY);
+  const ryan = execs.find(e => e.name === SPECIAL_PEOPLE.RYAN_CAUFFMAN);
+  const rob = execs.find(e => e.name === SPECIAL_PEOPLE.ROB_FARNES);
+  const nathan = execs.find(e => e.name === SPECIAL_PEOPLE.NATHAN_CARRIZALES);
+  const blake = execs.find(e => e.name === SPECIAL_PEOPLE.BLAKE_VISSER);
+  const deb = execs.find(e => e.name === SPECIAL_PEOPLE.DEB_KELLER);
 
   let html = '';
 
-  // CEO
-  if (ceo) {
-    html += '<div class="ceo-section">' + renderExecCard(ceo) + '</div>';
-  }
+  // ===== OWNERSHIP TIER =====
+  html += '<div class="ownership-tier">';
+  if (matt) html += renderOwnershipCard(matt);
+  if (brent) html += renderOwnershipCard(brent);
+  html += '</div>';
 
-  // Executive columns with their departments
-  html += '<div class="exec-columns">';
+  // ===== BRANCH CONTAINER =====
+  html += '<div class="branch-container">';
   
-  otherExecs.forEach(exec => {
-    const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
-    
-    html += '<div class="exec-column">';
-    
-    // Executive card
-    html += renderExecCard(exec);
-    
-    // Connector line from exec to departments
-    html += '<div class="column-connector"></div>';
-    
-    // Executive label
-    const execTitle = exec.title.replace(/Chief |Officer/g, '').trim();
-    html += `<div class="exec-label">${esc(execTitle)}</div>`;
-    
-    html += '<div class="dept-column">';
-    
-    execDepts.forEach(dept => {
-      html += renderDeptCard(dept);
+  // ----- LEFT BRANCH: Executive Leadership -----
+  html += '<div class="branch">';
+  html += '<div class="branch-label executive">Executive Leadership</div>';
+  
+  const executiveLeaders = [ryan, rob, nathan].filter(Boolean);
+  
+  if (executiveLeaders.length > 0) {
+    html += '<div class="exec-row">';
+    executiveLeaders.forEach(exec => {
+      html += renderExecCard(exec, 'executive-branch');
     });
+    html += '</div>';
     
-    // Show placeholder if executive has no departments
-    if (execDepts.length === 0) {
-      html += `<div style="padding: 24px; text-align: center; color: var(--text-secondary); font-size: 13px; font-style: italic;">`;
-      html += `No departments assigned`;
-      html += `</div>`;
-    }
-    
-    html += '</div></div>';
-  });
+    // Departments under Executive Leadership
+    html += '<div class="dept-columns">';
+    executiveLeaders.forEach(exec => {
+      const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
+      if (execDepts.length > 0) {
+        html += '<div class="dept-column">';
+        execDepts.forEach(dept => {
+          html += renderDeptCard(dept, 'executive');
+        });
+        html += '</div>';
+      }
+    });
+    html += '</div>';
+  }
   
-  // Departments without an assigned executive
+  html += '</div>'; // end Executive Leadership branch
+  
+  // ----- RIGHT BRANCH: Strategic Leadership -----
+  html += '<div class="branch">';
+  html += '<div class="branch-label strategic">Strategic Leadership</div>';
+  
+  const strategicLeaders = [blake, deb].filter(Boolean);
+  
+  if (strategicLeaders.length > 0) {
+    html += '<div class="exec-row">';
+    strategicLeaders.forEach(exec => {
+      html += renderExecCard(exec, 'strategic-branch');
+    });
+    html += '</div>';
+    
+    // Departments under Strategic Leadership
+    html += '<div class="dept-columns">';
+    strategicLeaders.forEach(exec => {
+      const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
+      if (execDepts.length > 0) {
+        html += '<div class="dept-column">';
+        execDepts.forEach(dept => {
+          html += renderDeptCard(dept, 'strategic');
+        });
+        html += '</div>';
+      }
+    });
+    html += '</div>';
+  }
+  
+  html += '</div>'; // end Strategic Leadership branch
+  
+  html += '</div>'; // end branch-container
+  
+  // Show unassigned departments (if any)
   const unassignedDepts = getNonExecDepts().filter(d => !d.reportsTo);
   if (unassignedDepts.length > 0) {
-    html += '<div class="exec-column">';
-    html += '<div class="dept-column">';
+    html += '<div style="margin-top:48px">';
+    html += '<div style="text-align:center;font-weight:700;color:var(--text-secondary);margin-bottom:24px">Unassigned Departments</div>';
+    html += '<div class="dept-columns">';
     unassignedDepts.forEach(dept => {
-      html += renderDeptCard(dept);
+      html += '<div class="dept-column">';
+      html += renderDeptCard(dept, 'unassigned');
+      html += '</div>';
     });
     html += '</div></div>';
   }
-  
-  html += '</div>';
 
   container.innerHTML = html;
 }
 
-function renderDeptCard(dept) {
+function renderOwnershipCard(emp) {
+  const matchClass = isMatch(emp) ? ' search-match' : '';
+  return `<div class="ownership-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+    <div class="emp-avatar">${esc(emp.initials)}</div>
+    <div class="emp-name">${esc(emp.name)}</div>
+    <div class="emp-title">${esc(emp.title)}</div>
+  </div>`;
+}
+
+function renderExecCard(emp, branchClass = '') {
+  const matchClass = isMatch(emp) ? ' search-match' : '';
+  const color = branchClass === 'strategic-branch' ? 'var(--strategic)' : 'var(--exec)';
+  
+  return `<div class="exec-card ${branchClass}${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+    <div class="emp-name">${esc(emp.name)}</div>
+    <div class="emp-title">${esc(emp.title)}</div>
+  </div>`;
+}
+
+function renderDeptCard(dept, branchType = 'executive') {
   const allEmps = getDeptEmployees(dept.name);
   const manager = dept.managerId ? data.employees.find(e => e.id === dept.managerId) : null;
   const teams = getDeptTeams(dept.id);
@@ -2293,16 +1385,6 @@ function renderDeptCard(dept) {
   return html;
 }
 
-function renderExecCard(emp) {
-  const color = getDeptColor(emp.department);
-  const matchClass = isMatch(emp) ? ' search-match' : '';
-  return `<div class="exec-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
-    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
-    <div class="emp-name">${esc(emp.name)}</div>
-    <div class="emp-title">${esc(emp.title)}</div>
-  </div>`;
-}
-
 function renderEmpCard(emp, color, teamLeaderId) {
   const matchClass = isMatch(emp) ? ' search-match' : '';
   const isLeader = emp.id === teamLeaderId;
@@ -2346,7 +1428,6 @@ function onDropDept(e, deptName, deptId) {
   const emp = data.employees.find(em => em.id === dragEmpId);
   if (!emp) return;
   
-  // Find or create General team for this department
   let generalTeam = data.teams.find(t => t.departmentId === deptId && t.name === 'General');
   if (!generalTeam) {
     generalTeam = { id: uid(), name: 'General', departmentId: deptId, leaderId: null };
@@ -2478,7 +1559,6 @@ function openAssignManager(deptId) {
   const sel = document.getElementById('deptManagerSelect');
   sel.innerHTML = '<option value="">None</option>';
   
-  // Show all employees in this department
   const deptEmps = data.employees.filter(e => e.department === dept.name);
   deptEmps.forEach(emp => {
     const opt = document.createElement('option');
@@ -2498,11 +1578,9 @@ function saveDepartmentManager() {
   const dept = data.departments.find(d => d.id === deptId);
   if (!dept) return;
   
-  // Remove old manager from being a department manager (add them back to a team)
   if (dept.managerId && dept.managerId !== managerId) {
     const oldManager = data.employees.find(e => e.id === dept.managerId);
     if (oldManager) {
-      // Add them to General team
       const generalTeam = data.teams.find(t => t.departmentId === deptId && t.name === 'General');
       if (generalTeam) {
         oldManager.teamId = generalTeam.id;
@@ -2512,7 +1590,6 @@ function saveDepartmentManager() {
   
   dept.managerId = managerId;
   
-  // Remove new manager from teams
   if (managerId) {
     const newManager = data.employees.find(e => e.id === managerId);
     if (newManager) {
@@ -2589,7 +1666,6 @@ function saveEmployee() {
 
   const finalInitials = initials || name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 
-  // If no teamId, assign to General team (unless they're Executive or being assigned as dept manager)
   let finalTeamId = teamId;
   if (!finalTeamId && dept !== 'Executive') {
     const deptObj = data.departments.find(d => d.name === dept);
@@ -2646,12 +1722,10 @@ async function deleteEmployee() {
   const ok = await confirm2(`Delete ${emp.name}? This cannot be undone.`);
   if (!ok) return;
   
-  // Remove as team leader if applicable
   data.teams.forEach(t => {
     if (t.leaderId === id) t.leaderId = null;
   });
   
-  // Remove as department manager if applicable
   data.departments.forEach(d => {
     if (d.managerId === id) d.managerId = null;
   });
@@ -2704,7 +1778,6 @@ function saveDepartment() {
       const oldName = dept.name;
       Object.assign(dept, { name, reportsTo, color });
       
-      // Update employees in this department
       if (oldName !== name) {
         data.employees.filter(e => e.department === oldName).forEach(e => {
           e.department = name;
@@ -2720,7 +1793,6 @@ function saveDepartment() {
     const newDept = { id: uid(), name, reportsTo, managerId: null, color };
     data.departments.push(newDept);
     
-    // Create default General team
     data.teams.push({
       id: uid(),
       name: 'General',
@@ -2765,7 +1837,6 @@ function openAddTeam(deptId, deptName) {
   document.getElementById('teamDeptId').value = deptId;
   document.getElementById('teamName').value = '';
   
-  // Populate team leader select with employees from this department (excluding manager)
   const dept = data.departments.find(d => d.id === deptId);
   const sel = document.getElementById('teamLeader');
   sel.innerHTML = '<option value="">No leader</option>';
@@ -2797,7 +1868,6 @@ function openEditTeam(teamId) {
   document.getElementById('teamDeptId').value = team.departmentId;
   document.getElementById('teamName').value = team.name;
   
-  // Populate team leader select (excluding manager)
   const sel = document.getElementById('teamLeader');
   sel.innerHTML = '<option value="">No leader</option>';
   
@@ -2867,7 +1937,6 @@ async function deleteTeam() {
   const ok = await confirm2(msg);
   if (!ok) return;
   
-  // Move employees to General team
   let generalTeam = data.teams.find(t => 
     t.departmentId === team.departmentId && t.name === 'General'
   );
@@ -2928,10 +1997,8 @@ function importJSON(e) {
         throw new Error('Invalid format');
       }
       
-      // Backwards compatibility
       if (!imported.teams) imported.teams = [];
       
-      // Add managerId if missing
       imported.departments.forEach(d => {
         if (!('managerId' in d)) d.managerId = null;
       });
@@ -3017,13 +2084,11 @@ let currentView = 'chart';
 function switchView(view) {
   currentView = view;
   
-  // Update tab buttons
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.remove('active');
   });
   event.target.classList.add('active');
   
-  // Toggle containers
   if (view === 'chart') {
     document.getElementById('chartContainer').style.display = 'block';
     document.getElementById('directoryContainer').style.display = 'none';
@@ -3041,7 +2106,6 @@ let sortDirection = 'asc';
 function renderDirectory() {
   const tbody = document.getElementById('directoryTableBody');
   
-  // Sort employees
   const sorted = [...data.employees].sort((a, b) => {
     let aVal = a[sortColumn] || '';
     let bVal = b[sortColumn] || '';
@@ -3056,7 +2120,6 @@ function renderDirectory() {
     return 0;
   });
   
-  // Build table rows
   let html = '';
   sorted.forEach(emp => {
     const email = emp.email ? `<a href="mailto:${esc(emp.email)}">${esc(emp.email)}</a>` : '—';
@@ -3073,7 +2136,6 @@ function renderDirectory() {
   
   tbody.innerHTML = html;
   
-  // Update sort indicators
   document.querySelectorAll('.sort-indicator').forEach(ind => {
     ind.className = 'sort-indicator';
   });
@@ -3096,7 +2158,28 @@ function sortTable(column) {
 
 // ---- Init ----
 loadData();
-render();
+
+// Auto-import JSON if data is empty
+if (data.employees.length === 0) {
+  fetch('/Users/kellykapowski/Downloads/victig-org-chart-v4.json')
+    .then(r => r.json())
+    .then(imported => {
+      if (!imported.teams) imported.teams = [];
+      imported.departments.forEach(d => {
+        if (!('managerId' in d)) d.managerId = null;
+      });
+      data = imported;
+      migrateToTeams();
+      migrateManagers();
+      saveData();
+      render();
+    })
+    .catch(() => {
+      render();
+    });
+} else {
+  render();
+}
 </script>
 </body>
 </html>
