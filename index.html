@@ -1049,13 +1049,16 @@ function loadData() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) { 
       data = JSON.parse(saved);
-      if (!data.teams) data.teams = [];
-      data.departments.forEach(d => {
-        if (!('managerId' in d)) d.managerId = null;
-      });
-      migrateToTeams();
-      migrateManagers();
-      return;
+      // If localStorage has empty data, fall back to defaults
+      if (data.employees && data.employees.length > 0) {
+        if (!data.teams) data.teams = [];
+        data.departments.forEach(d => {
+          if (!('managerId' in d)) d.managerId = null;
+        });
+        migrateToTeams();
+        migrateManagers();
+        return;
+      }
     }
   } catch(e) {}
   data = getDefaultData();
