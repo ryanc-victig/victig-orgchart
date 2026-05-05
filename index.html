@@ -145,22 +145,33 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .exec-row {
   display: flex;
   justify-content: center;
-  gap: 24px;
+  gap: 48px;
   flex-wrap: wrap;
-  margin-bottom: 32px;
   position: relative;
 }
 
-/* Connector from exec row to departments */
-.exec-row::before {
-  content: '';
-  position: absolute;
-  bottom: -16px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Individual exec with their departments below */
+.exec-with-depts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Connector line from exec to their departments */
+.exec-connector {
   width: 2px;
-  height: 16px;
+  height: 32px;
   background: #cbd5e1;
+  margin: 0;
+}
+
+/* Container for exec's departments */
+.exec-depts {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
 }
 
 /* ---- DEPT COLUMNS BELOW EXECS ---- */
@@ -2218,21 +2229,20 @@ function render() {
   if (executiveLeaders.length > 0) {
     html += '<div class="exec-row">';
     executiveLeaders.forEach(exec => {
+      html += '<div class="exec-with-depts">';
       html += renderExecCard(exec, 'executive-branch');
-    });
-    html += '</div>';
-    
-    // Departments under Executive Leadership
-    html += '<div class="dept-columns">';
-    executiveLeaders.forEach(exec => {
+      
+      // Connecting line
       const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
       if (execDepts.length > 0) {
-        html += '<div class="dept-column">';
+        html += '<div class="exec-connector"></div>';
+        html += '<div class="exec-depts">';
         execDepts.forEach(dept => {
           html += renderDeptCard(dept, 'executive');
         });
         html += '</div>';
       }
+      html += '</div>'; // end exec-with-depts
     });
     html += '</div>';
   }
@@ -2248,21 +2258,20 @@ function render() {
   if (strategicLeaders.length > 0) {
     html += '<div class="exec-row">';
     strategicLeaders.forEach(exec => {
+      html += '<div class="exec-with-depts">';
       html += renderExecCard(exec, 'strategic-branch');
-    });
-    html += '</div>';
-    
-    // Departments under Strategic Leadership
-    html += '<div class="dept-columns">';
-    strategicLeaders.forEach(exec => {
+      
+      // Connecting line
       const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
       if (execDepts.length > 0) {
-        html += '<div class="dept-column">';
+        html += '<div class="exec-connector"></div>';
+        html += '<div class="exec-depts">';
         execDepts.forEach(dept => {
           html += renderDeptCard(dept, 'strategic');
         });
         html += '</div>';
       }
+      html += '</div>'; // end exec-with-depts
     });
     html += '</div>';
   }
