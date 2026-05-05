@@ -3,34 +3,850 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VICTIG Org Chart - Live</title>
-
-<!-- Copy all the CSS from the original -->
+<title>VICTIG Org Chart</title>
 <style>
-/* Will copy full styles from original in next step */
-</style>
+:root {
+  --bg: #f0f2f5;
+  --card-bg: #fff;
+  --text: #1a1a2e;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,.1);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,.12);
+  --radius: 10px;
+  --exec: #4A90E2;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
+/* ---- Header / Toolbar ---- */
+.toolbar {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: 12px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  box-shadow: var(--shadow);
+}
+.toolbar h1 { font-size: 20px; font-weight: 700; color: var(--text); white-space: nowrap; }
+.toolbar h1 span { color: var(--exec); }
+
+/* ---- Tab Buttons ---- */
+.tab-buttons {
+  display: flex;
+  gap: 4px;
+  background: var(--bg);
+  padding: 4px;
+  border-radius: 8px;
+  margin-right: auto;
+  margin-left: 16px;
+}
+.tab-btn {
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  color: var(--text-secondary);
+}
+.tab-btn:hover {
+  background: #e2e8f0;
+  color: var(--text);
+}
+.tab-btn.active {
+  background: var(--exec);
+  color: #fff;
+}
+.toolbar input[type="text"] {
+  padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px;
+  font-size: 14px; width: 240px; outline: none; transition: border .2s;
+}
+.toolbar input[type="text"]:focus { border-color: var(--exec); }
+.btn {
+  padding: 8px 16px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .15s; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary { background: var(--exec); color: #fff; }
+.btn-primary:hover { background: #357ABD; }
+.btn-secondary { background: #f1f5f9; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: #e2e8f0; }
+.btn-danger { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+.btn-danger:hover { background: #fecaca; }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+
+/* ---- Org Chart Container ---- */
+.chart-container {
+  padding: 32px 24px 64px; overflow-x: auto; min-height: calc(100vh - 60px);
+}
+
+/* ---- CEO Section ---- */
+.ceo-section {
+  display: flex; justify-content: center; margin-bottom: 24px; position: relative;
+}
+.ceo-section::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 12px;
+  background: #cbd5e1;
+}
+
+/* ---- Executive Row ---- */
+.exec-row {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: nowrap;
+  margin-bottom: 48px;
+  position: relative;
+  padding: 0 40px;
+}
+.exec-row::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 12px;
+  background: #cbd5e1;
+}
+
+/* ---- Executive Column Container ---- */
+.exec-columns {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* Horizontal line connecting executives */
+.exec-columns::before {
+  content: '';
+  position: absolute;
+  top: 56px; /* Position at middle of exec cards */
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: #cbd5e1;
+  z-index: 0;
+}
+
+.exec-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-width: 320px;
+  z-index: 1; /* Above the horizontal line */
+}
+
+/* Vertical connector from exec to departments */
+.column-connector {
+  width: 2px;
+  height: 30px;
+  background: #cbd5e1;
+  margin: 8px 0;
+  flex-shrink: 0;
+}
+
+.exec-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 12px;
+  background: rgba(0,0,0,0.03);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* ---- Department Column ---- */
+.dept-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+/* ---- Department Card ---- */
+.dept-card {
+  background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
+  width: 320px; overflow: hidden; transition: box-shadow .2s; position: relative;
+}
+.dept-card:hover { box-shadow: var(--shadow-lg); }
+.dept-header {
+  padding: 14px 16px; color: #fff; font-weight: 700; font-size: 14px;
+  display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+}
+.dept-header .dept-count {
+  background: rgba(255,255,255,.25); padding: 2px 8px; border-radius: 10px; font-size: 12px;
+}
+.dept-header .dept-actions { display: flex; gap: 4px; }
+.dept-header .dept-actions button {
+  background: rgba(255,255,255,.2); border: none; color: #fff; width: 24px; height: 24px;
+  border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
+}
+.dept-header .dept-actions button:hover { background: rgba(255,255,255,.4); }
+.dept-reports { 
+  padding: 6px 16px 10px; font-size: 12px; font-weight: 600; color: #fff; opacity: .95;
+  display: flex; align-items: center; gap: 6px;
+}
+.dept-reports::before {
+  content: '↳'; font-size: 16px; opacity: .7;
+}
+
+.dept-body { padding: 8px; max-height: 600px; overflow-y: auto; }
+.dept-body::-webkit-scrollbar { width: 4px; }
+.dept-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+
+/* ---- Department Manager Card ---- */
+.dept-manager-section {
+  margin: 8px 8px 12px;
+  position: relative;
+}
+.dept-manager-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+  border: 2px solid currentColor;
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.dept-manager-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.dept-manager-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.dept-manager-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; color: #fff;
+  flex-shrink: 0;
+}
+.dept-manager-info {
+  flex: 1;
+  min-width: 0;
+}
+.dept-manager-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+.dept-manager-badge {
+  background: currentColor;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.dept-manager-title {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dept-manager-placeholder {
+  background: rgba(0,0,0,.03);
+  border: 2px dashed rgba(0,0,0,.15);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+}
+.dept-manager-placeholder:hover {
+  background: rgba(0,0,0,.06);
+  border-color: rgba(0,0,0,.25);
+}
+.dept-manager-placeholder-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* ---- Team Connector Lines ---- */
+.teams-container {
+  position: relative;
+  padding-left: 20px;
+  margin-top: 16px;
+}
+.teams-container::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 20px;
+  width: 2px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+/* ---- Team Section ---- */
+.team-section {
+  margin-bottom: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0,0,0,.02);
+  position: relative;
+}
+.team-section::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.15;
+}
+.team-header {
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  transition: background .15s;
+  user-select: none;
+}
+.team-header:hover { background: rgba(0,0,0,.05); }
+.team-header .team-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.team-header .team-toggle {
+  font-size: 10px;
+  transition: transform .2s;
+  margin-right: 4px;
+}
+.team-header.collapsed .team-toggle { transform: rotate(-90deg); }
+.team-leader-badge {
+  font-size: 11px;
+  color: inherit;
+  opacity: 0.8;
+}
+.team-header .team-count {
+  background: rgba(0,0,0,.1);
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  margin-right: 8px;
+}
+.team-body {
+  padding: 4px;
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+.team-body.collapsed {
+  max-height: 0;
+  padding: 0;
+}
+
+/* ---- Add Team Button ---- */
+.add-team-btn {
+  margin: 8px 8px 4px 28px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,.04);
+  border: 1px dashed rgba(0,0,0,.15);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all .15s;
+  color: var(--text-secondary);
+}
+.add-team-btn:hover {
+  background: rgba(0,0,0,.08);
+  border-color: rgba(0,0,0,.25);
+}
+
+/* ---- Employee Card ---- */
+.emp-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+  border: 2px solid transparent;
+}
+.emp-card:hover { background: #f8fafc; }
+.emp-card.dragging { opacity: .4; }
+.emp-card.drag-over { border-color: var(--exec); background: #eff6ff; }
+.emp-card.search-match { background: #fef9c3; border-color: #facc15; }
+.emp-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.emp-info {
+  flex: 1;
+  min-width: 0;
+}
+.emp-name { 
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.emp-name .leader-badge { font-size: 12px; }
+.emp-title {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Executive card variant */
+.exec-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 160px;
+  cursor: pointer;
+  transition: all .2s;
+  border: 2px solid transparent;
+}
+.exec-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.exec-card.search-match {
+  background: #fef9c3;
+  border-color: #facc15;
+}
+.exec-card .emp-avatar {
+  margin: 0 auto 8px;
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+.exec-card .emp-name {
+  font-size: 15px;
+  justify-content: center;
+}
+.exec-card .emp-title { font-size: 12px; }
+
+/* ---- Modal ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  width: 440px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(.95);
+  transition: transform .2s;
+}
+.modal-overlay.active .modal { transform: scale(1); }
+.modal-header {
+  padding: 20px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h2 { font-size: 18px; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: #f1f5f9; }
+.modal-body { padding: 20px 24px; }
+.modal-footer {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+}
+.form-group { margin-bottom: 14px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border .2s;
+}
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--exec);
+}
+
+/* ---- Toast ---- */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: #1e293b;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: var(--shadow-lg);
+  animation: toastIn .3s ease, toastOut .3s ease 2.7s forwards;
+  max-width: 360px;
+}
+.toast.success { border-left: 4px solid #22c55e; }
+.toast.error { border-left: 4px solid #ef4444; }
+.toast.info { border-left: 4px solid var(--exec); }
+@keyframes toastIn {
+  from { opacity:0; transform: translateY(12px); }
+  to { opacity:1; transform: translateY(0); }
+}
+@keyframes toastOut {
+  from { opacity:1; }
+  to { opacity:0; transform: translateY(-8px); }
+}
+
+/* ---- Confirm Dialog ---- */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+.confirm-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.confirm-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.confirm-box p {
+  font-size: 15px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* ---- Directory Container ---- */
+.directory-container {
+  padding: 32px 48px 64px;
+  min-height: calc(100vh - 60px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.directory-header {
+  margin-bottom: 24px;
+}
+.directory-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.directory-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.directory-table-wrapper {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.directory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.directory-table thead {
+  background: var(--exec);
+  color: #fff;
+}
+.directory-table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background .15s;
+}
+.directory-table th:hover {
+  background: #357ABD;
+}
+.sort-indicator {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  opacity: 0.5;
+}
+.sort-indicator::after {
+  content: '⬍';
+}
+.sort-indicator.asc::after {
+  content: '▲';
+  opacity: 1;
+}
+.sort-indicator.desc::after {
+  content: '▼';
+  opacity: 1;
+}
+.directory-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+  cursor: pointer;
+}
+.directory-table tbody tr:hover {
+  background: #f8fafc;
+}
+.directory-table tbody tr:last-child {
+  border-bottom: none;
+}
+.directory-table td {
+  padding: 16px 20px;
+  font-size: 14px;
+}
+.directory-table td:first-child {
+  font-weight: 600;
+  color: var(--text);
+}
+.directory-table td:nth-child(2) {
+  color: var(--text-secondary);
+}
+.directory-table td:nth-child(3) {
+  color: var(--exec);
+  font-weight: 600;
+}
+.directory-table td:nth-child(4),
+.directory-table td:nth-child(5) {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.directory-table td a {
+  color: inherit;
+  text-decoration: none;
+}
+.directory-table td a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Print ---- */
+@media print {
+  .toolbar, .toast-container, .modal-overlay, .confirm-overlay,
+  .dept-header .dept-actions, .add-team-btn { display: none !important; }
+  body { background: #fff; }
+  .chart-container { padding: 16px; }
+  .directory-container { padding: 16px; }
+  .dept-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  .exec-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  .team-body {
+    max-height: none !important;
+  }
+  .team-body.collapsed {
+    max-height: none !important;
+    padding: 4px !important;
+  }
+  .teams-container::before { display: none; }
+  .team-section::before { display: none; }
+  .ceo-section::after, .exec-columns::before, .column-connector { display: none; }
+  
+  /* Directory print styles */
+  .directory-table {
+    border: 1px solid #ddd;
+  }
+  .directory-table th {
+    background: #4A90E2 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .directory-table tbody tr:hover {
+    background: transparent !important;
+  }
+}
+@media (max-width: 1200px) {
+  .exec-columns {
+    gap: 24px;
+  }
+  .exec-column {
+    min-width: 280px;
+  }
+  .exec-columns::before {
+    left: 5%;
+    right: 5%;
+  }
+}
+@media (max-width: 768px) {
+  .toolbar { 
+    padding: 10px 12px; 
+    flex-wrap: wrap;
+  }
+  .toolbar h1 { 
+    width: 100%; 
+    margin-bottom: 8px; 
+  }
+  .tab-buttons {
+    margin-left: 0;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  .toolbar input[type="text"] { width: 160px; }
+  .exec-columns {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .exec-columns::before {
+    display: none; /* Hide horizontal line on mobile */
+  }
+  .exec-column {
+    width: 100%;
+    max-width: 400px;
+  }
+  .dept-card { width: 100%; max-width: 340px; }
+  
+  /* Directory mobile styles */
+  .directory-container {
+    padding: 16px 12px;
+  }
+  .directory-header h2 {
+    font-size: 22px;
+  }
+  .directory-table-wrapper {
+    overflow-x: auto;
+  }
+  .directory-table {
+    min-width: 600px;
+  }
+  .directory-table th,
+  .directory-table td {
+    padding: 12px 10px;
+    font-size: 12px;
+  }
+}
+</style>
 </head>
 <body>
 
+<!-- Toolbar -->
 <div class="toolbar">
-  <h1><span>VICTIG</span> Org Chart <span class="live-badge">LIVE</span></h1>
+  <h1><span>VICTIG</span> Org Chart</h1>
+  
+  <!-- Tab Buttons -->
   <div class="tab-buttons">
     <button class="tab-btn active" onclick="switchView('chart')">Chart View</button>
     <button class="tab-btn" onclick="switchView('directory')">Directory</button>
   </div>
+  
   <input type="text" id="searchInput" placeholder="Search name, title, dept..." oninput="handleSearch(this.value)">
-  <button class="btn btn-primary" onclick="location.reload()">↻ Refresh</button>
-  <button class="btn btn-secondary" onclick="window.open('https://docs.google.com/spreadsheets/d/1rVYp2eBuq8v39arij4Hy-mukstagxTgvHfWE-vlHV6E/edit', '_blank')">Edit Sheet</button>
+  <button class="btn btn-primary" onclick="openAddEmployee()">+ Employee</button>
+  <button class="btn btn-primary" onclick="openAddDept()">+ Department</button>
+  <button class="btn btn-secondary" onclick="exportJSON()">Export JSON</button>
+  <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">Import JSON</button>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+  <button class="btn btn-secondary" onclick="window.print()">Export PDF</button>
 </div>
 
-<div class="chart-container" id="chartContainer">
-  <div style="text-align:center;padding:60px 20px;">
-    <div style="width:48px;height:48px;border:4px solid #e2e8f0;border-top-color:#4A90E2;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;"></div>
-    <p style="color:#64748b;">Loading from Google Sheets...</p>
-  </div>
-</div>
+<!-- Chart -->
+<div class="chart-container" id="chartContainer"></div>
 
+<!-- Directory -->
 <div class="directory-container" id="directoryContainer" style="display:none;">
   <div class="directory-header">
     <h2>Employee Directory</h2>
@@ -47,63 +863,1328 @@
           <th onclick="sortTable('phone')">Phone <span class="sort-indicator"></span></th>
         </tr>
       </thead>
-      <tbody id="directoryTableBody"></tbody>
+      <tbody id="directoryTableBody">
+      </tbody>
     </table>
   </div>
 </div>
 
-<div style="position:fixed;bottom:24px;left:24px;background:#fff;padding:12px 20px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);display:flex;align-items:center;gap:10px;font-size:13px;z-index:500;">
-  <div id="syncDot" style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></div>
-  <span id="syncStatus">Loading...</span>
+<!-- Employee Modal -->
+<div class="modal-overlay" id="empModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="empModalTitle">Edit Employee</h2>
+      <button class="modal-close" onclick="closeModal('empModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="empId">
+      <div class="form-group"><label>Name</label><input type="text" id="empName"></div>
+      <div class="form-group"><label>Initials</label><input type="text" id="empInitials" maxlength="3"></div>
+      <div class="form-group"><label>Title</label><input type="text" id="empTitleInput"></div>
+      <div class="form-group"><label>Department</label><select id="empDept" onchange="updateTeamSelect()"></select></div>
+      <div class="form-group"><label>Team</label><select id="empTeam"><option value="">General</option></select></div>
+      <div class="form-group"><label>Reports To</label><select id="empReportsTo"><option value="">None (Top-level)</option></select></div>
+      <div class="form-group"><label>Email</label><input type="email" id="empEmail"></div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="empPhone"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="empDeleteBtn" onclick="deleteEmployee()">Delete</button>
+      <button class="btn btn-secondary" onclick="closeModal('empModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEmployee()">Save</button>
+    </div>
+  </div>
 </div>
 
-<style>
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-.live-badge {
-  display:inline-block;background:#10b981;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;margin-left:8px;vertical-align:middle;
-}
-</style>
+<!-- Department Modal -->
+<div class="modal-overlay" id="deptModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="deptModalTitle">Edit Department</h2>
+      <button class="modal-close" onclick="closeModal('deptModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="deptId">
+      <div class="form-group"><label>Department Name</label><input type="text" id="deptName"></div>
+      <div class="form-group"><label>Reports To (Executive)</label><select id="deptReportsTo"><option value="">None</option></select></div>
+      <div class="form-group"><label>Color</label><input type="color" id="deptColor" value="#4A90E2"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="deptDeleteBtn" onclick="deleteDepartment()">Delete</button>
+      <button class="btn btn-secondary" onclick="closeModal('deptModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDepartment()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Department Manager Modal -->
+<div class="modal-overlay" id="deptManagerModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="deptManagerModalTitle">Assign Department Manager</h2>
+      <button class="modal-close" onclick="closeModal('deptManagerModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="deptManagerDeptId">
+      <div class="form-group">
+        <label>Select Manager/Director</label>
+        <select id="deptManagerSelect">
+          <option value="">None</option>
+        </select>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">
+        Department managers oversee all teams in this department.
+        They are shown at the top of the department card.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deptManagerModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDepartmentManager()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Team Modal -->
+<div class="modal-overlay" id="teamModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="teamModalTitle">Add Team</h2>
+      <button class="modal-close" onclick="closeModal('teamModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="teamId">
+      <input type="hidden" id="teamDeptId">
+      <div class="form-group"><label>Team Name</label><input type="text" id="teamName"></div>
+      <div class="form-group"><label>Team Leader</label><select id="teamLeader"><option value="">No leader</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="teamDeleteBtn" onclick="deleteTeam()" style="display:none">Delete</button>
+      <button class="btn btn-secondary" onclick="closeModal('teamModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTeam()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <p id="confirmMsg"></p>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button class="btn btn-secondary" onclick="confirmResolve(false)">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmResolve(true)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toasts -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
-// Google Sheets Configuration
-const SHEET_ID = '1rVYp2eBuq8v39arij4Hy-mukstagxTgvHfWE-vlHV6E';
-// Make the sheet "Anyone with the link can view" and use this API key approach
-// OR make it fully public
+// ---- State ----
+const STORAGE_KEY = 'victig-org-chart';
+const COLLAPSE_KEY = 'victig-team-collapse';
+let confirmResolveCallback = null;
+let searchQuery = '';
 
-let data = { employees: [], departments: [], teams: [] };
+function uid() {
+  return 'id-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
 
-// Load from Google Sheets using public API
-async function loadData() {
-  const syncDot = document.getElementById('syncDot');
-  const syncStatus = document.getElementById('syncStatus');
-  
+function getDefaultData() {
+  const depts = [
+    { id: uid(), name: 'Executive', reportsTo: null, managerId: null, color: '#4A90E2' },
+    { id: uid(), name: 'Accounting', reportsTo: 'Ryan Cauffman', managerId: null, color: '#27AE60' },
+    { id: uid(), name: 'Legal', reportsTo: 'Ryan Cauffman', managerId: null, color: '#8E44AD' },
+    { id: uid(), name: 'Marketing', reportsTo: 'Ryan Cauffman', managerId: null, color: '#E67E22' },
+    { id: uid(), name: 'Sales', reportsTo: 'Brent Ramey', managerId: null, color: '#E74C3C' },
+    { id: uid(), name: 'Onboarding', reportsTo: 'Deb Keller', managerId: null, color: '#1ABC9C' },
+    { id: uid(), name: 'Drug Testing', reportsTo: 'Deb Keller', managerId: null, color: '#3498DB' },
+    { id: uid(), name: 'Customer Success', reportsTo: 'Rob Farnes', managerId: null, color: '#F39C12' },
+    { id: uid(), name: 'Support', reportsTo: 'Rob Farnes', managerId: null, color: '#9B59B6' },
+    { id: uid(), name: 'Verifications', reportsTo: 'Rob Farnes', managerId: null, color: '#2C3E50' },
+  ];
+
+  const emps = [
+    // Executive
+    { initials:'MV', name:'Matt Visser', title:'Chief Executive Officer', department:'Executive', reportsTo:null },
+    { initials:'RC', name:'Ryan Cauffman', title:'Chief Revenue Officer', department:'Executive', reportsTo:'Matt Visser' },
+    { initials:'BR', name:'Brent Ramey', title:'Chief Sales Officer', department:'Executive', reportsTo:'Matt Visser' },
+    { initials:'DK', name:'Deb Keller', title:'President', department:'Executive', reportsTo:'Matt Visser' },
+    { initials:'RF', name:'Rob Farnes', title:'Chief Operating Officer', department:'Executive', reportsTo:'Matt Visser' },
+    // Accounting
+    { initials:'KW', name:'Kathleen Weber', title:'Controller', department:'Accounting' },
+    { initials:'NC', name:'Nathan Carrizales', title:'Junior Controller', department:'Accounting' },
+    { initials:'TT', name:'Tristen Talbert', title:'Special Projects', department:'Accounting' },
+    { initials:'VB', name:'Valynne Bowers', title:'Contract - Accounting', department:'Accounting' },
+    // Legal
+    { initials:'DH', name:'Derek Hinton', title:'Legal Resource', department:'Legal' },
+    // Marketing
+    { initials:'DW', name:'Derek Wood', title:'Director of Marketing', department:'Marketing' },
+    { initials:'DR', name:'Dustin Roethel', title:'Marketing', department:'Marketing' },
+    { initials:'MR', name:'Max Ramey', title:'Assistant to the Director of Marketing', department:'Marketing' },
+    { initials:'BV', name:'Brooke Visser', title:'Contract - Marketing', department:'Marketing' },
+    { initials:'JE', name:'Josh Elie', title:'Data Wrangler', department:'Marketing' },
+    // Sales
+    { initials:'BV', name:'Blake Visser', title:'Director of Sales', department:'Sales' },
+    { initials:'RW', name:'Richard White', title:'Contract - Sales', department:'Sales' },
+    { initials:'MV', name:'Morgan Verhoef', title:'Sales Development Rep.', department:'Sales' },
+    { initials:'JD', name:'Josh Diederich', title:'Sales Development Rep.', department:'Sales' },
+    { initials:'ST', name:'Stephan Treanor', title:'Senior Business Development Rep.', department:'Sales' },
+    // Onboarding
+    { initials:'JP', name:'Jake Pfau', title:'Onboarding Director', department:'Onboarding' },
+    { initials:'KR', name:'Karri Ramey', title:'Specialty Searches', department:'Onboarding' },
+    { initials:'TF', name:'Tiffany Fitzgerald', title:'Specialty Searches', department:'Onboarding' },
+    { initials:'SS', name:'Sam Salvador', title:'Specialty Searches', department:'Onboarding' },
+    { initials:'ER', name:'Ericka Rodriguez', title:'Specialty Searches', department:'Onboarding' },
+    { initials:'CR', name:'Conii Ramey', title:'Specialty Searches', department:'Onboarding' },
+    // Drug Testing
+    { initials:'RB', name:'Rhio Barrera', title:'DT & OCC Coordinator', department:'Drug Testing' },
+    { initials:'JC', name:'Janette Captain', title:'Drug Testing', department:'Drug Testing' },
+    { initials:'CF', name:'Chris Floto', title:'Drug Testing', department:'Drug Testing' },
+    // Customer Success
+    { initials:'KB', name:'Kim Bass', title:'Customer Success Manager', department:'Customer Success' },
+    { initials:'OL', name:'Ophelia Lachen', title:'Customer Success Manager', department:'Customer Success' },
+    { initials:'RM', name:'Rob McDermott', title:'Customer Success Manager', department:'Customer Success' },
+    { initials:'MS', name:'Mackensie Schwab', title:'Verifier', department:'Customer Success' },
+    { initials:'JV', name:'Jums Ventura', title:'Operations Support', department:'Customer Success' },
+    { initials:'LL', name:'Lawrence Lubang', title:'Operations Support', department:'Customer Success' },
+    // Support
+    { initials:'KF', name:'Kate Florez', title:'Operations Manager', department:'Support' },
+    { initials:'IH', name:'Ian Hamill', title:'Operations Lead', department:'Support' },
+    { initials:'JP', name:'Jan Pineda', title:'Operations Support', department:'Support' },
+    { initials:'MS', name:'Mackensie Schwab', title:'Operations Support', department:'Support' },
+    { initials:'BT', name:'Bridget Tower', title:'Quality Assurance Manager (Digital)', department:'Support' },
+    { initials:'AH', name:'Alison Hamill', title:'Customer Support', department:'Support' },
+    { initials:'TO', name:"Tannah O'Banion", title:'Communications', department:'Support' },
+    { initials:'KT', name:'Kayla Thompson', title:'Customer Support', department:'Support' },
+    { initials:'RC', name:'Renato Cabrera', title:'Customer Support', department:'Support' },
+    // Verifications
+    { initials:'TG', name:'Trish Gustin', title:'Director of Verifications', department:'Verifications' },
+    { initials:'AM', name:'Annah Madsen', title:'Systems and Records Administrator', department:'Verifications' },
+    { initials:'MC', name:'Myssy Clayson', title:'Assistant Manager', department:'Verifications' },
+    { initials:'MB', name:'Marilee Bray', title:'Education Verifications', department:'Verifications' },
+    { initials:'CS', name:'Christina Solheim', title:'Verifier', department:'Verifications' },
+    { initials:'AG', name:'Avery Gustin', title:'Verifier', department:'Verifications' },
+    { initials:'MC', name:'Marcie Crawford', title:'Verifier', department:'Verifications' },
+    { initials:'KP', name:'Kayliene Pearson', title:'Verifier', department:'Verifications' },
+    { initials:'DR', name:'Davis Romney', title:'Verifier', department:'Verifications' },
+    { initials:'LD', name:'Linnea Davis', title:'Verifier', department:'Verifications' },
+    { initials:'RC', name:'Rebekah Carter', title:'Verifier', department:'Verifications' },
+    { initials:'GR', name:'Gillian Ragan', title:'Verifier', department:'Verifications' },
+    { initials:'BW', name:'Britney White', title:'Verifier', department:'Verifications' },
+    { initials:'KT', name:'Kaitlin Thune', title:'Verifier', department:'Verifications' },
+    { initials:'AT', name:'Ana Thurber', title:'Verifier', department:'Verifications' },
+    { initials:'FH', name:'Fiona Humphreys', title:'Verifier', department:'Verifications' },
+    { initials:'PC', name:'Paul Clayson', title:'Verifier', department:'Verifications' },
+    { initials:'RB', name:'Rochelle Buyse', title:'Verifier', department:'Verifications' },
+    { initials:'MP', name:'Melanie Pulley', title:'Verifier', department:'Verifications' },
+    { initials:'CG', name:'Carmen Guevara', title:'Verifier', department:'Verifications' },
+    { initials:'RM', name:'Rebeca Mason', title:'Verifier', department:'Verifications' },
+    { initials:'JC', name:'Jessica Carlson', title:'Verifier', department:'Verifications' },
+    { initials:'JN', name:'Jackie Nuttall', title:'Verifier', department:'Verifications' },
+    { initials:'DB', name:'Darcie Bailey', title:'Verifier', department:'Verifications' },
+    { initials:'SA', name:'Shawnee Allred', title:'Verifier', department:'Verifications' },
+    { initials:'MF', name:'Maura Foster', title:'Verifier', department:'Verifications' },
+  ].map(e => ({ id: uid(), email: '', phone: '', reportsTo: e.reportsTo || null, ...e }));
+
+  return { employees: emps, departments: depts, teams: [] };
+}
+
+// ---- Load / Save ----
+let data;
+
+function loadData() {
   try {
-    syncStatus.textContent = 'Loading...';
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) { 
+      data = JSON.parse(saved);
+      // Backwards compatibility
+      if (!data.teams) data.teams = [];
+      // Add managerId field if missing
+      data.departments.forEach(d => {
+        if (!('managerId' in d)) d.managerId = null;
+      });
+      migrateToTeams();
+      migrateManagers();
+      return;
+    }
+  } catch(e) {}
+  data = getDefaultData();
+  migrateToTeams();
+  migrateManagers();
+  saveData();
+}
+
+function migrateToTeams() {
+  // For each department, ensure there's a "General" team
+  data.departments.forEach(dept => {
+    const deptEmps = data.employees.filter(e => e.department === dept.name);
+    const deptTeams = data.teams.filter(t => t.departmentId === dept.id);
     
-    // For now, load the JSON file you exported
-    // We'll switch to Sheets API in production
-    const response = await fetch('/Users/kellykapowski/Downloads/victig-org-chart.json');
-    data = await response.json();
+    // Find or create General team
+    let generalTeam = deptTeams.find(t => t.name === 'General');
+    if (!generalTeam) {
+      generalTeam = { id: uid(), name: 'General', departmentId: dept.id, leaderId: null };
+      data.teams.push(generalTeam);
+    }
     
-    syncDot.style.background = '#10b981';
-    syncStatus.textContent = `Loaded • ${data.employees.length} employees`;
+    // Assign employees without teamId to General
+    deptEmps.forEach(emp => {
+      if (!emp.teamId) emp.teamId = generalTeam.id;
+    });
+  });
+}
+
+function migrateManagers() {
+  // Auto-detect department managers from titles
+  data.departments.forEach(dept => {
+    if (dept.managerId) return; // Already assigned
+    if (dept.name === 'Executive') return; // Skip executive
     
-    console.log('Data loaded:', data);
+    const deptEmps = data.employees.filter(e => e.department === dept.name);
     
-    // Render would go here
-    document.getElementById('chartContainer').innerHTML = '<div style="padding:40px;text-align:center;"><h2>Chart rendering coming next...</h2></div>';
+    // Look for Director or Manager titles
+    const manager = deptEmps.find(emp => {
+      const title = emp.title.toLowerCase();
+      return (title.includes('director') || title.includes('manager')) &&
+             !title.includes('assistant') &&
+             !title.includes('junior');
+    });
     
-  } catch (error) {
-    console.error('Error:', error);
-    syncDot.style.background = '#ef4444';
-    syncStatus.textContent = 'Error loading';
+    if (manager) {
+      dept.managerId = manager.id;
+      // Remove manager from teams (they oversee all teams)
+      delete manager.teamId;
+    }
+  });
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+// ---- Team Collapse State ----
+function loadCollapseState() {
+  try {
+    const saved = localStorage.getItem(COLLAPSE_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch(e) {
+    return {};
   }
 }
 
-loadData();
-</script>
+function saveCollapseState(state) {
+  try {
+    localStorage.setItem(COLLAPSE_KEY, JSON.stringify(state));
+  } catch(e) {}
+}
 
+let collapseState = loadCollapseState();
+
+// ---- Helpers ----
+function getDeptColor(deptName) {
+  const dept = data.departments.find(d => d.name === deptName);
+  return dept ? dept.color : '#94a3b8';
+}
+
+function getExecs() {
+  return data.employees.filter(e => e.department === 'Executive');
+}
+
+function getDeptEmployees(deptName) {
+  return data.employees.filter(e => 
+    e.department === deptName && e.department !== 'Executive'
+  );
+}
+
+function getTeamEmployees(teamId) {
+  return data.employees.filter(e => e.teamId === teamId);
+}
+
+function getDeptTeams(deptId) {
+  return data.teams.filter(t => t.departmentId === deptId);
+}
+
+function getNonExecDepts() {
+  return data.departments.filter(d => d.name !== 'Executive');
+}
+
+function isMatch(emp) {
+  if (!searchQuery) return false;
+  const q = searchQuery.toLowerCase();
+  return emp.name.toLowerCase().includes(q) ||
+         emp.title.toLowerCase().includes(q) ||
+         emp.department.toLowerCase().includes(q);
+}
+
+function lightenColor(hex, percent) {
+  const num = parseInt(hex.replace('#',''), 16);
+  const amt = Math.round(2.55 * percent);
+  const R = Math.min(255, (num >> 16) + amt);
+  const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
+  const B = Math.min(255, (num & 0x0000FF) + amt);
+  return '#' + (0x1000000 + R*0x10000 + G*0x100 + B).toString(16).slice(1);
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ---- Render ----
+function render() {
+  const container = document.getElementById('chartContainer');
+  const execs = getExecs();
+  const ceo = execs.find(e => !e.reportsTo || e.title.includes('CEO'));
+  const otherExecs = execs.filter(e => e !== ceo).sort((a, b) => a.name.localeCompare(b.name));
+
+  let html = '';
+
+  // CEO
+  if (ceo) {
+    html += '<div class="ceo-section">' + renderExecCard(ceo) + '</div>';
+  }
+
+  // Executive columns with their departments
+  html += '<div class="exec-columns">';
+  
+  otherExecs.forEach(exec => {
+    const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
+    
+    html += '<div class="exec-column">';
+    
+    // Executive card
+    html += renderExecCard(exec);
+    
+    // Connector line from exec to departments
+    html += '<div class="column-connector"></div>';
+    
+    // Executive label
+    const execTitle = exec.title.replace(/Chief |Officer/g, '').trim();
+    html += `<div class="exec-label">${esc(execTitle)}</div>`;
+    
+    html += '<div class="dept-column">';
+    
+    execDepts.forEach(dept => {
+      html += renderDeptCard(dept);
+    });
+    
+    // Show placeholder if executive has no departments
+    if (execDepts.length === 0) {
+      html += `<div style="padding: 24px; text-align: center; color: var(--text-secondary); font-size: 13px; font-style: italic;">`;
+      html += `No departments assigned`;
+      html += `</div>`;
+    }
+    
+    html += '</div></div>';
+  });
+  
+  // Departments without an assigned executive
+  const unassignedDepts = getNonExecDepts().filter(d => !d.reportsTo);
+  if (unassignedDepts.length > 0) {
+    html += '<div class="exec-column">';
+    html += '<div class="dept-column">';
+    unassignedDepts.forEach(dept => {
+      html += renderDeptCard(dept);
+    });
+    html += '</div></div>';
+  }
+  
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+function renderDeptCard(dept) {
+  const allEmps = getDeptEmployees(dept.name);
+  const manager = dept.managerId ? data.employees.find(e => e.id === dept.managerId) : null;
+  const teams = getDeptTeams(dept.id);
+  const color = dept.color;
+  
+  let html = `<div class="dept-card" data-dept="${esc(dept.name)}" data-dept-id="${dept.id}" style="color:${color}">`;
+  html += `<div class="dept-header" style="background:${color}" onclick="openEditDept('${dept.id}')">`;
+  html += `<span>${esc(dept.name)} <span class="dept-count">${allEmps.length}</span></span>`;
+  html += `<span class="dept-actions">`;
+  html += `<button onclick="event.stopPropagation();openAddEmployeeToDept('${esc(dept.name)}','${dept.id}')" title="Add employee">+</button>`;
+  html += `</span></div>`;
+  
+  html += `<div class="dept-body" ondragover="onDragOver(event)" ondrop="onDropDept(event,'${esc(dept.name)}','${dept.id}')">`;
+  
+  // Department Manager Section
+  html += `<div class="dept-manager-section" style="color:${color}">`;
+  if (manager) {
+    const matchClass = isMatch(manager) ? ' search-match' : '';
+    html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openEditEmployee('${manager.id}')">`;
+    html += `<div class="dept-manager-header">`;
+    html += `<div class="dept-manager-avatar" style="background:${color}">${esc(manager.initials)}</div>`;
+    html += `<div class="dept-manager-info">`;
+    html += `<div class="dept-manager-name">`;
+    html += `${esc(manager.name)}`;
+    html += `<span class="dept-manager-badge" style="background:${color}">`;
+    html += manager.title.toLowerCase().includes('director') ? 'Director' : 'Manager';
+    html += `</span></div>`;
+    html += `<div class="dept-manager-title">${esc(manager.title)}</div>`;
+    html += `</div></div>`;
+    html += `<div style="text-align:center;margin-top:8px;">`;
+    html += `<button class="btn btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:11px;padding:4px 8px;">Change Manager</button>`;
+    html += `</div></div>`;
+  } else {
+    html += `<div class="dept-manager-placeholder" onclick="openAssignManager('${dept.id}')">`;
+    html += `<div class="dept-manager-placeholder-text">+ Assign Department Manager</div>`;
+    html += `</div>`;
+  }
+  html += `</div>`;
+  
+  // Teams Container
+  if (teams.length > 0) {
+    html += `<div class="teams-container" style="color:${color}">`;
+    
+    teams.forEach(team => {
+      const teamEmps = getTeamEmployees(team.id);
+      const isCollapsed = collapseState[team.id] || false;
+      const teamColor = lightenColor(color, 35);
+      const leader = team.leaderId ? data.employees.find(e => e.id === team.leaderId) : null;
+      
+      html += `<div class="team-section" data-team-id="${team.id}">`;
+      html += `<div class="team-header ${isCollapsed ? 'collapsed' : ''}" style="color:${color};background:${teamColor}" 
+                onclick="toggleTeam('${team.id}')" oncontextmenu="openEditTeam('${team.id}');return false;">`;
+      html += `<div class="team-name">`;
+      html += `<span class="team-toggle">▼</span>`;
+      html += `<span>${esc(team.name)}</span>`;
+      if (leader) {
+        html += `<span class="team-leader-badge">— Leader: ${esc(leader.name)}</span>`;
+      }
+      html += `<span class="team-count">${teamEmps.length}</span>`;
+      html += `</div>`;
+      html += `<button class="btn btn-sm" style="padding:2px 6px;font-size:10px;" onclick="event.stopPropagation();openEditTeam('${team.id}')">Edit</button>`;
+      html += `</div>`;
+      html += `<div class="team-body ${isCollapsed ? 'collapsed' : ''}" ondragover="onDragOver(event)" ondrop="onDropTeam(event,'${team.id}','${esc(dept.name)}','${dept.id}')">`;
+      teamEmps.forEach(emp => {
+        html += renderEmpCard(emp, color, team.leaderId);
+      });
+      if (!teamEmps.length) {
+        html += '<div style="padding:12px;text-align:center;color:#94a3b8;font-size:11px">No employees</div>';
+      }
+      html += `</div></div>`;
+    });
+    
+    html += `</div>`;
+  }
+  
+  // Add Team button
+  html += `<div class="add-team-btn" onclick="openAddTeam('${dept.id}','${esc(dept.name)}')">+ Add Team</div>`;
+  
+  html += '</div></div>';
+  
+  return html;
+}
+
+function renderExecCard(emp) {
+  const color = getDeptColor(emp.department);
+  const matchClass = isMatch(emp) ? ' search-match' : '';
+  return `<div class="exec-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+    <div class="emp-name">${esc(emp.name)}</div>
+    <div class="emp-title">${esc(emp.title)}</div>
+  </div>`;
+}
+
+function renderEmpCard(emp, color, teamLeaderId) {
+  const matchClass = isMatch(emp) ? ' search-match' : '';
+  const isLeader = emp.id === teamLeaderId;
+  return `<div class="emp-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true"
+    ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event)">
+    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+    <div class="emp-info">
+      <div class="emp-name">${esc(emp.name)}${isLeader ? ' <span class="leader-badge">⭐</span>' : ''}</div>
+      <div class="emp-title">${esc(emp.title)}</div>
+    </div>
+  </div>`;
+}
+
+// ---- Team Toggle ----
+function toggleTeam(teamId) {
+  collapseState[teamId] = !collapseState[teamId];
+  saveCollapseState(collapseState);
+  render();
+}
+
+// ---- Drag and Drop ----
+let dragEmpId = null;
+
+function onDragStart(e, empId) {
+  dragEmpId = empId;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', empId);
+  e.target.classList.add('dragging');
+}
+
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+
+function onDropDept(e, deptName, deptId) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (!dragEmpId) return;
+  
+  const emp = data.employees.find(em => em.id === dragEmpId);
+  if (!emp) return;
+  
+  // Find or create General team for this department
+  let generalTeam = data.teams.find(t => t.departmentId === deptId && t.name === 'General');
+  if (!generalTeam) {
+    generalTeam = { id: uid(), name: 'General', departmentId: deptId, leaderId: null };
+    data.teams.push(generalTeam);
+  }
+  
+  const changed = emp.department !== deptName || emp.teamId !== generalTeam.id;
+  emp.department = deptName;
+  emp.teamId = generalTeam.id;
+  
+  if (changed) {
+    saveData();
+    render();
+    toast(`Moved ${emp.name} to ${deptName} (General team)`, 'success');
+  }
+  dragEmpId = null;
+}
+
+function onDropTeam(e, teamId, deptName, deptId) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (!dragEmpId) return;
+  
+  const emp = data.employees.find(em => em.id === dragEmpId);
+  if (!emp) return;
+  
+  const changed = emp.teamId !== teamId || emp.department !== deptName;
+  emp.teamId = teamId;
+  emp.department = deptName;
+  
+  if (changed) {
+    saveData();
+    render();
+    const team = data.teams.find(t => t.id === teamId);
+    toast(`Moved ${emp.name} to ${team.name}`, 'success');
+  }
+  dragEmpId = null;
+}
+
+function onDropCard(e) {
+  e.stopPropagation();
+}
+
+document.addEventListener('dragend', () => {
+  dragEmpId = null;
+  document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+});
+
+// ---- Modals ----
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function populateDeptSelect(selectId, selectedVal) {
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = '';
+  data.departments.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d.name;
+    opt.textContent = d.name;
+    opt.dataset.deptId = d.id;
+    if (d.name === selectedVal) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function updateTeamSelect() {
+  const deptSelect = document.getElementById('empDept');
+  const teamSelect = document.getElementById('empTeam');
+  const selectedOpt = deptSelect.options[deptSelect.selectedIndex];
+  const deptId = selectedOpt ? selectedOpt.dataset.deptId : null;
+  
+  teamSelect.innerHTML = '';
+  
+  if (deptId) {
+    const teams = getDeptTeams(deptId);
+    teams.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t.id;
+      opt.textContent = t.name;
+      teamSelect.appendChild(opt);
+    });
+  }
+  
+  if (teamSelect.options.length === 0) {
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = 'General';
+    teamSelect.appendChild(opt);
+  }
+}
+
+function populateReportsToSelect(selectedVal) {
+  const sel = document.getElementById('empReportsTo');
+  sel.innerHTML = '<option value="">None (Top-level)</option>';
+  data.employees.forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.name;
+    opt.textContent = `${e.name} - ${e.title}`;
+    if (e.name === selectedVal) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function populateDeptReportsTo(selectedVal) {
+  const sel = document.getElementById('deptReportsTo');
+  sel.innerHTML = '<option value="">None</option>';
+  getExecs().forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.name;
+    opt.textContent = `${e.name} - ${e.title}`;
+    if (e.name === selectedVal) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+// ---- Department Manager ----
+function openAssignManager(deptId) {
+  const dept = data.departments.find(d => d.id === deptId);
+  if (!dept) return;
+  
+  document.getElementById('deptManagerModalTitle').textContent = `Assign Manager for ${dept.name}`;
+  document.getElementById('deptManagerDeptId').value = deptId;
+  
+  const sel = document.getElementById('deptManagerSelect');
+  sel.innerHTML = '<option value="">None</option>';
+  
+  // Show all employees in this department
+  const deptEmps = data.employees.filter(e => e.department === dept.name);
+  deptEmps.forEach(emp => {
+    const opt = document.createElement('option');
+    opt.value = emp.id;
+    opt.textContent = `${emp.name} - ${emp.title}`;
+    if (emp.id === dept.managerId) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  
+  openModal('deptManagerModal');
+}
+
+function saveDepartmentManager() {
+  const deptId = document.getElementById('deptManagerDeptId').value;
+  const managerId = document.getElementById('deptManagerSelect').value || null;
+  
+  const dept = data.departments.find(d => d.id === deptId);
+  if (!dept) return;
+  
+  // Remove old manager from being a department manager (add them back to a team)
+  if (dept.managerId && dept.managerId !== managerId) {
+    const oldManager = data.employees.find(e => e.id === dept.managerId);
+    if (oldManager) {
+      // Add them to General team
+      const generalTeam = data.teams.find(t => t.departmentId === deptId && t.name === 'General');
+      if (generalTeam) {
+        oldManager.teamId = generalTeam.id;
+      }
+    }
+  }
+  
+  dept.managerId = managerId;
+  
+  // Remove new manager from teams
+  if (managerId) {
+    const newManager = data.employees.find(e => e.id === managerId);
+    if (newManager) {
+      delete newManager.teamId;
+    }
+  }
+  
+  saveData();
+  render();
+  closeModal('deptManagerModal');
+  toast('Department manager updated', 'success');
+}
+
+// ---- Employee CRUD ----
+function openEditEmployee(id) {
+  const emp = data.employees.find(e => e.id === id);
+  if (!emp) return;
+  
+  document.getElementById('empModalTitle').textContent = 'Edit Employee';
+  document.getElementById('empId').value = emp.id;
+  document.getElementById('empName').value = emp.name;
+  document.getElementById('empInitials').value = emp.initials;
+  document.getElementById('empTitleInput').value = emp.title;
+  document.getElementById('empEmail').value = emp.email || '';
+  document.getElementById('empPhone').value = emp.phone || '';
+  populateDeptSelect('empDept', emp.department);
+  updateTeamSelect();
+  document.getElementById('empTeam').value = emp.teamId || '';
+  populateReportsToSelect(emp.reportsTo);
+  document.getElementById('empDeleteBtn').style.display = '';
+  openModal('empModal');
+}
+
+function openAddEmployee() {
+  document.getElementById('empModalTitle').textContent = 'Add Employee';
+  document.getElementById('empId').value = '';
+  document.getElementById('empName').value = '';
+  document.getElementById('empInitials').value = '';
+  document.getElementById('empTitleInput').value = '';
+  document.getElementById('empEmail').value = '';
+  document.getElementById('empPhone').value = '';
+  populateDeptSelect('empDept', '');
+  updateTeamSelect();
+  populateReportsToSelect('');
+  document.getElementById('empDeleteBtn').style.display = 'none';
+  openModal('empModal');
+}
+
+function openAddEmployeeToDept(deptName, deptId) {
+  openAddEmployee();
+  document.getElementById('empDept').value = deptName;
+  updateTeamSelect();
+}
+
+function saveEmployee() {
+  const id = document.getElementById('empId').value;
+  const name = document.getElementById('empName').value.trim();
+  const initials = document.getElementById('empInitials').value.trim().toUpperCase();
+  const title = document.getElementById('empTitleInput').value.trim();
+  const dept = document.getElementById('empDept').value;
+  const teamId = document.getElementById('empTeam').value || null;
+  const reportsTo = document.getElementById('empReportsTo').value || null;
+  const email = document.getElementById('empEmail').value.trim();
+  const phone = document.getElementById('empPhone').value.trim();
+
+  if (!name) {
+    toast('Name is required', 'error');
+    return;
+  }
+  if (!title) {
+    toast('Title is required', 'error');
+    return;
+  }
+
+  const finalInitials = initials || name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+
+  // If no teamId, assign to General team (unless they're Executive or being assigned as dept manager)
+  let finalTeamId = teamId;
+  if (!finalTeamId && dept !== 'Executive') {
+    const deptObj = data.departments.find(d => d.name === dept);
+    if (deptObj && deptObj.managerId !== id) {
+      let generalTeam = data.teams.find(t => t.departmentId === deptObj.id && t.name === 'General');
+      if (!generalTeam) {
+        generalTeam = { id: uid(), name: 'General', departmentId: deptObj.id, leaderId: null };
+        data.teams.push(generalTeam);
+      }
+      finalTeamId = generalTeam.id;
+    }
+  }
+
+  if (id) {
+    const emp = data.employees.find(e => e.id === id);
+    if (emp) {
+      Object.assign(emp, {
+        name,
+        initials: finalInitials,
+        title,
+        department: dept,
+        teamId: finalTeamId,
+        reportsTo,
+        email,
+        phone
+      });
+    }
+    toast(`Updated ${name}`, 'success');
+  } else {
+    data.employees.push({
+      id: uid(),
+      name,
+      initials: finalInitials,
+      title,
+      department: dept,
+      teamId: finalTeamId,
+      reportsTo,
+      email,
+      phone
+    });
+    toast(`Added ${name}`, 'success');
+  }
+  
+  saveData();
+  render();
+  closeModal('empModal');
+}
+
+async function deleteEmployee() {
+  const id = document.getElementById('empId').value;
+  const emp = data.employees.find(e => e.id === id);
+  if (!emp) return;
+  
+  const ok = await confirm2(`Delete ${emp.name}? This cannot be undone.`);
+  if (!ok) return;
+  
+  // Remove as team leader if applicable
+  data.teams.forEach(t => {
+    if (t.leaderId === id) t.leaderId = null;
+  });
+  
+  // Remove as department manager if applicable
+  data.departments.forEach(d => {
+    if (d.managerId === id) d.managerId = null;
+  });
+  
+  data.employees = data.employees.filter(e => e.id !== id);
+  saveData();
+  render();
+  closeModal('empModal');
+  toast(`Deleted ${emp.name}`, 'info');
+}
+
+// ---- Department CRUD ----
+function openEditDept(id) {
+  const dept = data.departments.find(d => d.id === id);
+  if (!dept) return;
+  
+  document.getElementById('deptModalTitle').textContent = 'Edit Department';
+  document.getElementById('deptId').value = dept.id;
+  document.getElementById('deptName').value = dept.name;
+  document.getElementById('deptColor').value = dept.color;
+  populateDeptReportsTo(dept.reportsTo);
+  document.getElementById('deptDeleteBtn').style.display = '';
+  openModal('deptModal');
+}
+
+function openAddDept() {
+  document.getElementById('deptModalTitle').textContent = 'Add Department';
+  document.getElementById('deptId').value = '';
+  document.getElementById('deptName').value = '';
+  document.getElementById('deptColor').value = '#4A90E2';
+  populateDeptReportsTo('');
+  document.getElementById('deptDeleteBtn').style.display = 'none';
+  openModal('deptModal');
+}
+
+function saveDepartment() {
+  const id = document.getElementById('deptId').value;
+  const name = document.getElementById('deptName').value.trim();
+  const reportsTo = document.getElementById('deptReportsTo').value || null;
+  const color = document.getElementById('deptColor').value;
+
+  if (!name) {
+    toast('Department name is required', 'error');
+    return;
+  }
+
+  if (id) {
+    const dept = data.departments.find(d => d.id === id);
+    if (dept) {
+      const oldName = dept.name;
+      Object.assign(dept, { name, reportsTo, color });
+      
+      // Update employees in this department
+      if (oldName !== name) {
+        data.employees.filter(e => e.department === oldName).forEach(e => {
+          e.department = name;
+        });
+      }
+    }
+    toast(`Updated ${name}`, 'success');
+  } else {
+    if (data.departments.find(d => d.name === name)) {
+      toast('Department already exists', 'error');
+      return;
+    }
+    const newDept = { id: uid(), name, reportsTo, managerId: null, color };
+    data.departments.push(newDept);
+    
+    // Create default General team
+    data.teams.push({
+      id: uid(),
+      name: 'General',
+      departmentId: newDept.id,
+      leaderId: null
+    });
+    toast(`Created ${name}`, 'success');
+  }
+  
+  saveData();
+  render();
+  closeModal('deptModal');
+}
+
+async function deleteDepartment() {
+  const id = document.getElementById('deptId').value;
+  const dept = data.departments.find(d => d.id === id);
+  if (!dept) return;
+  
+  const emps = getDeptEmployees(dept.name);
+  const msg = emps.length
+    ? `Delete "${dept.name}" and its ${emps.length} employee(s)? This cannot be undone.`
+    : `Delete "${dept.name}"? This cannot be undone.`;
+  
+  const ok = await confirm2(msg);
+  if (!ok) return;
+  
+  data.employees = data.employees.filter(e => e.department !== dept.name);
+  data.teams = data.teams.filter(t => t.departmentId !== id);
+  data.departments = data.departments.filter(d => d.id !== id);
+  
+  saveData();
+  render();
+  closeModal('deptModal');
+  toast(`Deleted ${dept.name}`, 'info');
+}
+
+// ---- Team CRUD ----
+function openAddTeam(deptId, deptName) {
+  document.getElementById('teamModalTitle').textContent = 'Add Team';
+  document.getElementById('teamId').value = '';
+  document.getElementById('teamDeptId').value = deptId;
+  document.getElementById('teamName').value = '';
+  
+  // Populate team leader select with employees from this department (excluding manager)
+  const dept = data.departments.find(d => d.id === deptId);
+  const sel = document.getElementById('teamLeader');
+  sel.innerHTML = '<option value="">No leader</option>';
+  
+  const deptEmps = data.employees.filter(e => 
+    e.department === deptName && e.id !== dept.managerId
+  );
+  
+  deptEmps.forEach(emp => {
+    const opt = document.createElement('option');
+    opt.value = emp.id;
+    opt.textContent = `${emp.name} - ${emp.title}`;
+    sel.appendChild(opt);
+  });
+  
+  document.getElementById('teamDeleteBtn').style.display = 'none';
+  openModal('teamModal');
+}
+
+function openEditTeam(teamId) {
+  const team = data.teams.find(t => t.id === teamId);
+  if (!team) return;
+  
+  const dept = data.departments.find(d => d.id === team.departmentId);
+  if (!dept) return;
+  
+  document.getElementById('teamModalTitle').textContent = 'Edit Team';
+  document.getElementById('teamId').value = team.id;
+  document.getElementById('teamDeptId').value = team.departmentId;
+  document.getElementById('teamName').value = team.name;
+  
+  // Populate team leader select (excluding manager)
+  const sel = document.getElementById('teamLeader');
+  sel.innerHTML = '<option value="">No leader</option>';
+  
+  const deptEmps = data.employees.filter(e => 
+    e.department === dept.name && e.id !== dept.managerId
+  );
+  
+  deptEmps.forEach(emp => {
+    const opt = document.createElement('option');
+    opt.value = emp.id;
+    opt.textContent = `${emp.name} - ${emp.title}`;
+    if (emp.id === team.leaderId) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  
+  document.getElementById('teamDeleteBtn').style.display = '';
+  openModal('teamModal');
+}
+
+function saveTeam() {
+  const id = document.getElementById('teamId').value;
+  const name = document.getElementById('teamName').value.trim();
+  const deptId = document.getElementById('teamDeptId').value;
+  const leaderId = document.getElementById('teamLeader').value || null;
+
+  if (!name) {
+    toast('Team name is required', 'error');
+    return;
+  }
+
+  if (id) {
+    const team = data.teams.find(t => t.id === id);
+    if (team) {
+      Object.assign(team, { name, leaderId });
+    }
+    toast(`Updated ${name}`, 'success');
+  } else {
+    data.teams.push({
+      id: uid(),
+      name,
+      departmentId: deptId,
+      leaderId
+    });
+    toast(`Created ${name}`, 'success');
+  }
+  
+  saveData();
+  render();
+  closeModal('teamModal');
+}
+
+async function deleteTeam() {
+  const id = document.getElementById('teamId').value;
+  const team = data.teams.find(t => t.id === id);
+  if (!team) return;
+  
+  if (team.name === 'General') {
+    toast('Cannot delete the General team', 'error');
+    return;
+  }
+  
+  const teamEmps = getTeamEmployees(team.id);
+  const msg = teamEmps.length
+    ? `Delete "${team.name}"? ${teamEmps.length} employee(s) will be moved to the General team.`
+    : `Delete "${team.name}"?`;
+  
+  const ok = await confirm2(msg);
+  if (!ok) return;
+  
+  // Move employees to General team
+  let generalTeam = data.teams.find(t => 
+    t.departmentId === team.departmentId && t.name === 'General'
+  );
+  
+  if (!generalTeam) {
+    generalTeam = {
+      id: uid(),
+      name: 'General',
+      departmentId: team.departmentId,
+      leaderId: null
+    };
+    data.teams.push(generalTeam);
+  }
+  
+  teamEmps.forEach(emp => {
+    emp.teamId = generalTeam.id;
+  });
+  
+  data.teams = data.teams.filter(t => t.id !== id);
+  saveData();
+  render();
+  closeModal('teamModal');
+  toast(`Deleted ${team.name}`, 'info');
+}
+
+// ---- Search ----
+function handleSearch(q) {
+  searchQuery = q;
+  render();
+  if (q) {
+    const count = data.employees.filter(isMatch).length;
+    if (count === 0) toast('No results found', 'info');
+  }
+}
+
+// ---- Import / Export ----
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: 'application/json'
+  });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'victig-org-chart.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Exported JSON', 'success');
+}
+
+function importJSON(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const imported = JSON.parse(ev.target.result);
+      if (!imported.employees || !imported.departments) {
+        throw new Error('Invalid format');
+      }
+      
+      // Backwards compatibility
+      if (!imported.teams) imported.teams = [];
+      
+      // Add managerId if missing
+      imported.departments.forEach(d => {
+        if (!('managerId' in d)) d.managerId = null;
+      });
+      
+      data = imported;
+      migrateToTeams();
+      migrateManagers();
+      saveData();
+      render();
+      toast(`Imported ${data.employees.length} employees`, 'success');
+    } catch(err) {
+      toast('Invalid JSON file: ' + err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+// ---- Toast ----
+function toast(msg, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => {
+    if (el.parentNode) el.remove();
+  }, 3200);
+}
+
+// ---- Confirm Dialog ----
+function confirm2(msg) {
+  return new Promise(resolve => {
+    document.getElementById('confirmMsg').textContent = msg;
+    document.getElementById('confirmOverlay').classList.add('active');
+    confirmResolveCallback = resolve;
+  });
+}
+
+function confirmResolve(val) {
+  document.getElementById('confirmOverlay').classList.remove('active');
+  if (confirmResolveCallback) {
+    confirmResolveCallback(val);
+    confirmResolveCallback = null;
+  }
+}
+
+// ---- Keyboard shortcuts ----
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => 
+      m.classList.remove('active')
+    );
+    document.getElementById('confirmOverlay').classList.remove('active');
+    if (confirmResolveCallback) {
+      confirmResolveCallback(false);
+      confirmResolveCallback = null;
+    }
+  }
+});
+
+// ---- Auto-generate initials from name ----
+document.getElementById('empName').addEventListener('input', function() {
+  const initials = document.getElementById('empInitials');
+  if (!initials.dataset.manual) {
+    initials.value = this.value
+      .split(' ')
+      .filter(Boolean)
+      .map(w => w[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  }
+});
+
+document.getElementById('empInitials').addEventListener('input', function() {
+  this.dataset.manual = this.value ? '1' : '';
+});
+
+// ---- View Switching ----
+let currentView = 'chart';
+
+function switchView(view) {
+  currentView = view;
+  
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  // Toggle containers
+  if (view === 'chart') {
+    document.getElementById('chartContainer').style.display = 'block';
+    document.getElementById('directoryContainer').style.display = 'none';
+  } else {
+    document.getElementById('chartContainer').style.display = 'none';
+    document.getElementById('directoryContainer').style.display = 'block';
+    renderDirectory();
+  }
+}
+
+// ---- Directory Table ----
+let sortColumn = 'name';
+let sortDirection = 'asc';
+
+function renderDirectory() {
+  const tbody = document.getElementById('directoryTableBody');
+  
+  // Sort employees
+  const sorted = [...data.employees].sort((a, b) => {
+    let aVal = a[sortColumn] || '';
+    let bVal = b[sortColumn] || '';
+    
+    if (typeof aVal === 'string') {
+      aVal = aVal.toLowerCase();
+      bVal = bVal.toLowerCase();
+    }
+    
+    if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+    return 0;
+  });
+  
+  // Build table rows
+  let html = '';
+  sorted.forEach(emp => {
+    const email = emp.email ? `<a href="mailto:${esc(emp.email)}">${esc(emp.email)}</a>` : '—';
+    const phone = emp.phone ? `<a href="tel:${esc(emp.phone)}">${esc(emp.phone)}</a>` : '—';
+    
+    html += `<tr onclick="openEditEmployee('${emp.id}')">`;
+    html += `<td>${esc(emp.name)}</td>`;
+    html += `<td>${esc(emp.title)}</td>`;
+    html += `<td>${esc(emp.department)}</td>`;
+    html += `<td>${email}</td>`;
+    html += `<td>${phone}</td>`;
+    html += `</tr>`;
+  });
+  
+  tbody.innerHTML = html;
+  
+  // Update sort indicators
+  document.querySelectorAll('.sort-indicator').forEach(ind => {
+    ind.className = 'sort-indicator';
+  });
+  
+  const activeHeader = document.querySelector(`th[onclick="sortTable('${sortColumn}')"] .sort-indicator`);
+  if (activeHeader) {
+    activeHeader.classList.add(sortDirection);
+  }
+}
+
+function sortTable(column) {
+  if (sortColumn === column) {
+    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortColumn = column;
+    sortDirection = 'asc';
+  }
+  renderDirectory();
+}
+
+// ---- Init ----
+loadData();
+render();
+</script>
 </body>
 </html>
