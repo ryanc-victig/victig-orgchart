@@ -87,19 +87,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   display: flex;
   justify-content: center;
   gap: 32px;
-  margin-bottom: 48px;
+  margin-bottom: 0;
   position: relative;
 }
-/* Vertical line down from Matt */
+/* Vertical line down from Matt to horizontal connector */
 .ownership-tier::after {
   content: '';
   position: absolute;
-  bottom: -48px;
+  bottom: -64px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 48px;
+  height: 64px;
   background: #cbd5e1;
+  z-index: 1;
 }
 
 /* ---- BRANCH CONTAINER ---- */
@@ -108,31 +109,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   justify-content: center;
   gap: 80px;
   margin-bottom: 48px;
+  margin-top: 64px;
   position: relative;
   padding: 0 40px;
+  padding-top: 32px;
 }
 
-/* Horizontal connector line across all execs */
+/* Horizontal connector line across all execs at top */
 .branch-container::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 15%;
-  right: 15%;
+  left: 12%;
+  right: 12%;
   height: 2px;
-  background: #cbd5e1;
-  z-index: 0;
-}
-
-/* Center vertical connector from Matt to horizontal line */
-.branch-container::after {
-  content: '';
-  position: absolute;
-  top: -48px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 48px;
   background: #cbd5e1;
   z-index: 0;
 }
@@ -143,7 +133,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   flex-direction: column;
   align-items: center;
   min-width: 400px;
-  padding-top: 32px;
 }
 
 .branch-label {
@@ -185,14 +174,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   align-items: center;
   gap: 0;
   position: relative;
-  padding-top: 32px;
 }
 
-/* Vertical line UP from each exec to horizontal connector */
+/* Vertical line DOWN from horizontal connector to each exec */
 .exec-with-depts::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: -32px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
