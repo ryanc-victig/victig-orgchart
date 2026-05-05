@@ -980,7 +980,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <script>
 // ---- State ----
-const STORAGE_KEY = 'victig-org-chart-v2';
+const STORAGE_KEY = 'victig-org-chart';
 const COLLAPSE_KEY = 'victig-team-collapse';
 let confirmResolveCallback = null;
 let searchQuery = '';
@@ -1018,7 +1018,7 @@ function getDefaultData() {
       "id": "id-mnf1whftrxy78",
       "email": "brent@victig.com",
       "phone": "",
-      "reportsTo": null,
+      "reportsTo": "Matt Visser",
       "initials": "BR",
       "name": "Brent Ramey",
       "title": "Owner, Chief Counsel & Special Projects",
@@ -1033,8 +1033,8 @@ function getDefaultData() {
       "initials": "DK",
       "name": "Deb Keller",
       "title": "President",
-      "department": "Strategic Leadership",
-      "teamId": "id-strategic-team"
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
     },
     {
       "id": "id-mnf1whftk7th5",
@@ -1154,8 +1154,8 @@ function getDefaultData() {
       "initials": "BV",
       "name": "Blake Visser",
       "title": "Director of Sales",
-      "department": "Strategic Leadership",
-      "teamId": "id-strategic-team"
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
     },
     {
       "id": "id-mnf1whftfqyl1",
@@ -1893,13 +1893,6 @@ function getDefaultData() {
       "reportsTo": "Rob Farnes",
       "managerId": "id-mnf1whfte91uq",
       "color": "#2c3e50"
-    },
-    {
-      "id": "id-strategic-leadership",
-      "name": "Strategic Leadership",
-      "reportsTo": "Matt Visser",
-      "color": "#7B68EE",
-      "managerId": null
     }
   ],
   "teams": [
@@ -2004,12 +1997,6 @@ function getDefaultData() {
       "name": "General Marketing",
       "departmentId": "id-mnf29bbntw6cq",
       "leaderId": "id-mnf1whft7jog4"
-    },
-    {
-      "id": "id-strategic-team",
-      "name": "General",
-      "departmentId": "id-strategic-leadership",
-      "leaderId": null
     }
   ]
 };
