@@ -2158,28 +2158,7 @@ function sortTable(column) {
 
 // ---- Init ----
 loadData();
-
-// Auto-import JSON if data is empty
-if (data.employees.length === 0) {
-  fetch('/Users/kellykapowski/Downloads/victig-org-chart-v4.json')
-    .then(r => r.json())
-    .then(imported => {
-      if (!imported.teams) imported.teams = [];
-      imported.departments.forEach(d => {
-        if (!('managerId' in d)) d.managerId = null;
-      });
-      data = imported;
-      migrateToTeams();
-      migrateManagers();
-      saveData();
-      render();
-    })
-    .catch(() => {
-      render();
-    });
-} else {
-  render();
-}
+render();
 </script>
 </body>
 </html>
