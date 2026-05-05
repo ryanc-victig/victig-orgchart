@@ -1,363 +1,3193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VICTIG Organization Chart</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VICTIG Org Chart</title>
+<style>
+:root {
+  --bg: #f0f2f5;
+  --card-bg: #fff;
+  --text: #1a1a2e;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,.1);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,.12);
+  --radius: 10px;
+  --exec: #4A90E2;
+  --strategic: #8B5CF6; /* Purple for Strategic Leadership */
+  --ownership-gold: #F59E0B;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
+/* ---- Header / Toolbar ---- */
+.toolbar {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: 12px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  box-shadow: var(--shadow);
+}
+.toolbar h1 { font-size: 20px; font-weight: 700; color: var(--text); white-space: nowrap; }
+.toolbar h1 span { color: var(--exec); }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            padding: 50px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
+/* ---- Tab Buttons ---- */
+.tab-buttons {
+  display: flex;
+  gap: 4px;
+  background: var(--bg);
+  padding: 4px;
+  border-radius: 8px;
+  margin-right: auto;
+  margin-left: 16px;
+}
+.tab-btn {
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  color: var(--text-secondary);
+}
+.tab-btn:hover {
+  background: #e2e8f0;
+  color: var(--text);
+}
+.tab-btn.active {
+  background: var(--exec);
+  color: #fff;
+}
+.toolbar input[type="text"] {
+  padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px;
+  font-size: 14px; width: 240px; outline: none; transition: border .2s;
+}
+.toolbar input[type="text"]:focus { border-color: var(--exec); }
+.btn {
+  padding: 8px 16px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .15s; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary { background: var(--exec); color: #fff; }
+.btn-primary:hover { background: #357ABD; }
+.btn-secondary { background: #f1f5f9; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: #e2e8f0; }
+.btn-danger { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+.btn-danger:hover { background: #fecaca; }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 50px;
-            font-size: 2.5em;
-            font-weight: 700;
-        }
+/* ---- Org Chart Container ---- */
+.chart-container {
+  padding: 32px 24px 64px; overflow-x: auto; min-height: calc(100vh - 60px);
+}
 
-        /* Person Card */
-        .person {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 3px solid;
-        }
+/* ---- OWNERSHIP TIER ---- */
+.ownership-tier {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+  position: relative;
+}
+.ownership-tier::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 16px;
+  background: #cbd5e1;
+}
 
-        .person:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-        }
+/* ---- BRANCH CONTAINER ---- */
+.branch-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-bottom: 48px;
+  position: relative;
+  padding: 0 40px;
+}
 
-        .initials {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: 700;
-            color: white;
-            margin: 0 auto 15px;
-        }
+/* ---- BRANCH (Executive or Strategic) ---- */
+.branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 400px;
+}
 
-        .name {
-            font-size: 1.1em;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
+.branch-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 20px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
 
-        .title {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            line-height: 1.4;
-        }
+.branch-label.executive {
+  background: linear-gradient(135deg, var(--exec), #357ABD);
+  color: #fff;
+}
 
-        /* Colors */
-        .owner {
-            border-color: #f39c12;
-        }
-        .owner .initials {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-        }
+.branch-label.strategic {
+  background: linear-gradient(135deg, var(--strategic), #6D28D9);
+  color: #fff;
+}
 
-        .executive {
-            border-color: #3498db;
-        }
-        .executive .initials {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-        }
+/* ---- EXECUTIVE ROW ---- */
+.exec-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  position: relative;
+}
 
-        .strategic {
-            border-color: #9b59b6;
-        }
-        .strategic .initials {
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-        }
+/* Connector from exec row to departments */
+.exec-row::before {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 16px;
+  background: #cbd5e1;
+}
 
-        .department {
-            border-color: #95a5a6;
-        }
-        .department .initials {
-            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-        }
+/* ---- DEPT COLUMNS BELOW EXECS ---- */
+.dept-columns {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
 
-        /* Layout */
-        .ownership {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
+.dept-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
 
-        .ownership .person {
-            width: 280px;
-        }
+/* ---- Department Card ---- */
+.dept-card {
+  background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
+  width: 320px; overflow: hidden; transition: box-shadow .2s; position: relative;
+}
+.dept-card:hover { box-shadow: var(--shadow-lg); }
+.dept-header {
+  padding: 14px 16px; color: #fff; font-weight: 700; font-size: 14px;
+  display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+}
+.dept-header .dept-count {
+  background: rgba(255,255,255,.25); padding: 2px 8px; border-radius: 10px; font-size: 12px;
+}
+.dept-header .dept-actions { display: flex; gap: 4px; }
+.dept-header .dept-actions button {
+  background: rgba(255,255,255,.2); border: none; color: #fff; width: 24px; height: 24px;
+  border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
+}
+.dept-header .dept-actions button:hover { background: rgba(255,255,255,.4); }
 
-        .connector {
-            text-align: center;
-            margin: 20px 0;
-            color: #95a5a6;
-            font-size: 2em;
-        }
+.dept-body { padding: 8px; max-height: 600px; overflow-y: auto; }
+.dept-body::-webkit-scrollbar { width: 4px; }
+.dept-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
 
-        .reports-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 40px;
-        }
+/* ---- Department Manager Card ---- */
+.dept-manager-section {
+  margin: 8px 8px 12px;
+  position: relative;
+}
+.dept-manager-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+  border: 2px solid currentColor;
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.dept-manager-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.dept-manager-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.dept-manager-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; color: #fff;
+  flex-shrink: 0;
+}
+.dept-manager-info {
+  flex: 1;
+  min-width: 0;
+}
+.dept-manager-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+.dept-manager-badge {
+  background: currentColor;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.dept-manager-title {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dept-manager-placeholder {
+  background: rgba(0,0,0,.03);
+  border: 2px dashed rgba(0,0,0,.15);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+}
+.dept-manager-placeholder:hover {
+  background: rgba(0,0,0,.06);
+  border-color: rgba(0,0,0,.25);
+}
+.dept-manager-placeholder-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
 
-        .group-title {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid;
-        }
+/* ---- Team Connector Lines ---- */
+.teams-container {
+  position: relative;
+  padding-left: 20px;
+  margin-top: 16px;
+}
+.teams-container::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 20px;
+  width: 2px;
+  background: currentColor;
+  opacity: 0.15;
+}
 
-        .group-title.executive-group {
-            border-bottom-color: #3498db;
-        }
+/* ---- Team Section ---- */
+.team-section {
+  margin-bottom: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0,0,0,.02);
+  position: relative;
+}
+.team-section::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.15;
+}
+.team-header {
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  transition: background .15s;
+  user-select: none;
+}
+.team-header:hover { background: rgba(0,0,0,.05); }
+.team-header .team-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.team-header .team-toggle {
+  font-size: 10px;
+  transition: transform .2s;
+  margin-right: 4px;
+}
+.team-header.collapsed .team-toggle { transform: rotate(-90deg); }
+.team-leader-badge {
+  font-size: 11px;
+  color: inherit;
+  opacity: 0.8;
+}
+.team-header .team-count {
+  background: rgba(0,0,0,.1);
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  margin-right: 8px;
+}
+.team-body {
+  padding: 4px;
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+.team-body.collapsed {
+  max-height: 0;
+  padding: 0;
+}
 
-        .group-title.strategic-group {
-            border-bottom-color: #9b59b6;
-        }
+/* ---- Add Team Button ---- */
+.add-team-btn {
+  margin: 8px 8px 4px 28px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,.04);
+  border: 1px dashed rgba(0,0,0,.15);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all .15s;
+  color: var(--text-secondary);
+}
+.add-team-btn:hover {
+  background: rgba(0,0,0,.08);
+  border-color: rgba(0,0,0,.25);
+}
 
-        .executives, .strategic-leaders {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
+/* ---- Employee Card ---- */
+.emp-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+  border: 2px solid transparent;
+}
+.emp-card:hover { background: #f8fafc; }
+.emp-card.dragging { opacity: .4; }
+.emp-card.drag-over { border-color: var(--exec); background: #eff6ff; }
+.emp-card.search-match { background: #fef9c3; border-color: #facc15; }
+.emp-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.emp-info {
+  flex: 1;
+  min-width: 0;
+}
+.emp-name { 
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.emp-name .leader-badge { font-size: 12px; }
+.emp-title {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-        .executive-card {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+/* Ownership & Executive card variants */
+.ownership-card {
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+  padding: 20px 24px;
+  text-align: center;
+  min-width: 180px;
+  cursor: pointer;
+  transition: all .2s;
+  border: 3px solid var(--ownership-gold);
+  position: relative;
+}
+.ownership-card::before {
+  content: '★';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: var(--ownership-gold);
+  opacity: 0.6;
+}
+.ownership-card:hover {
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.4);
+  transform: translateY(-3px);
+}
+.ownership-card .emp-avatar {
+  margin: 0 auto 10px;
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+  background: var(--ownership-gold);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.ownership-card .emp-name {
+  font-size: 16px;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--text);
+}
+.ownership-card .emp-title { 
+  font-size: 12px;
+  color: #92400E;
+  font-weight: 600;
+  margin-top: 4px;
+}
 
-        .executive-card .person {
-            width: 100%;
-        }
+.exec-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 160px;
+  cursor: pointer;
+  transition: all .2s;
+  border: 2px solid transparent;
+}
+.exec-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.exec-card.search-match {
+  background: #fef9c3;
+  border-color: #facc15;
+}
+.exec-card .emp-avatar {
+  margin: 0 auto 8px;
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+.exec-card .emp-name {
+  font-size: 15px;
+  justify-content: center;
+}
+.exec-card .emp-title { font-size: 12px; }
 
-        .departments {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-left: 20px;
-            padding-left: 20px;
-            border-left: 3px solid #ecf0f1;
-        }
+/* Branch-specific executive card styling */
+.exec-card.executive-branch {
+  border-color: var(--exec);
+}
+.exec-card.strategic-branch {
+  border-color: var(--strategic);
+}
 
-        .departments .person {
-            padding: 15px;
-        }
+/* ---- Modal ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  width: 440px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(.95);
+  transition: transform .2s;
+}
+.modal-overlay.active .modal { transform: scale(1); }
+.modal-header {
+  padding: 20px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h2 { font-size: 18px; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: #f1f5f9; }
+.modal-body { padding: 20px 24px; }
+.modal-footer {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+}
+.form-group { margin-bottom: 14px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border .2s;
+}
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--exec);
+}
 
-        .departments .initials {
-            width: 50px;
-            height: 50px;
-            font-size: 1.2em;
-        }
+/* ---- Toast ---- */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: #1e293b;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: var(--shadow-lg);
+  animation: toastIn .3s ease, toastOut .3s ease 2.7s forwards;
+  max-width: 360px;
+}
+.toast.success { border-left: 4px solid #22c55e; }
+.toast.error { border-left: 4px solid #ef4444; }
+.toast.info { border-left: 4px solid var(--exec); }
+@keyframes toastIn {
+  from { opacity:0; transform: translateY(12px); }
+  to { opacity:1; transform: translateY(0); }
+}
+@keyframes toastOut {
+  from { opacity:1; }
+  to { opacity:0; transform: translateY(-8px); }
+}
 
-        .departments .name {
-            font-size: 0.95em;
-        }
+/* ---- Confirm Dialog ---- */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+.confirm-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.confirm-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.confirm-box p {
+  font-size: 15px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
 
-        .departments .title {
-            font-size: 0.85em;
-        }
+/* ---- Directory Container ---- */
+.directory-container {
+  padding: 32px 48px 64px;
+  min-height: calc(100vh - 60px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.directory-header {
+  margin-bottom: 24px;
+}
+.directory-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.directory-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.directory-table-wrapper {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.directory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.directory-table thead {
+  background: var(--exec);
+  color: #fff;
+}
+.directory-table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background .15s;
+}
+.directory-table th:hover {
+  background: #357ABD;
+}
+.sort-indicator {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  opacity: 0.5;
+}
+.sort-indicator::after {
+  content: '⬍';
+}
+.sort-indicator.asc::after {
+  content: '▲';
+  opacity: 1;
+}
+.sort-indicator.desc::after {
+  content: '▼';
+  opacity: 1;
+}
+.directory-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+  cursor: pointer;
+}
+.directory-table tbody tr:hover {
+  background: #f8fafc;
+}
+.directory-table tbody tr:last-child {
+  border-bottom: none;
+}
+.directory-table td {
+  padding: 16px 20px;
+  font-size: 14px;
+}
+.directory-table td:first-child {
+  font-weight: 600;
+  color: var(--text);
+}
+.directory-table td:nth-child(2) {
+  color: var(--text-secondary);
+}
+.directory-table td:nth-child(3) {
+  color: var(--exec);
+  font-weight: 600;
+}
+.directory-table td:nth-child(4),
+.directory-table td:nth-child(5) {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.directory-table td a {
+  color: inherit;
+  text-decoration: none;
+}
+.directory-table td a:hover {
+  text-decoration: underline;
+}
 
-        @media (max-width: 1024px) {
-            .reports-section {
-                grid-template-columns: 1fr;
-            }
-            .ownership {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+/* ---- Print ---- */
+@media print {
+  .toolbar, .toast-container, .modal-overlay, .confirm-overlay,
+  .dept-header .dept-actions, .add-team-btn { display: none !important; }
+  body { background: #fff; }
+  .chart-container { padding: 16px; }
+  .directory-container { padding: 16px; }
+  .dept-card, .exec-card, .ownership-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  .team-body {
+    max-height: none !important;
+  }
+  .team-body.collapsed {
+    max-height: none !important;
+    padding: 4px !important;
+  }
+  .teams-container::before { display: none; }
+  .team-section::before { display: none; }
+  .ownership-tier::after, .exec-row::before { display: none; }
+  
+  .directory-table {
+    border: 1px solid #ddd;
+  }
+  .directory-table th {
+    background: #4A90E2 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .directory-table tbody tr:hover {
+    background: transparent !important;
+  }
+}
+@media (max-width: 1200px) {
+  .branch-container {
+    gap: 40px;
+  }
+  .branch {
+    min-width: 320px;
+  }
+}
+@media (max-width: 768px) {
+  .toolbar { 
+    padding: 10px 12px; 
+    flex-wrap: wrap;
+  }
+  .toolbar h1 { 
+    width: 100%; 
+    margin-bottom: 8px; 
+  }
+  .tab-buttons {
+    margin-left: 0;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  .toolbar input[type="text"] { width: 160px; }
+  .branch-container {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .branch {
+    width: 100%;
+    max-width: 400px;
+  }
+  .dept-card { width: 100%; max-width: 340px; }
+  
+  .directory-container {
+    padding: 16px 12px;
+  }
+  .directory-header h2 {
+    font-size: 22px;
+  }
+  .directory-table-wrapper {
+    overflow-x: auto;
+  }
+  .directory-table {
+    min-width: 600px;
+  }
+  .directory-table th,
+  .directory-table td {
+    padding: 12px 10px;
+    font-size: 12px;
+  }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>VICTIG Organization Chart</h1>
-        
-        <!-- OWNERSHIP -->
-        <div class="ownership">
-            <div class="person owner">
-                <div class="initials">MV</div>
-                <div class="name">Matt Visser</div>
-                <div class="title">CEO & Owner</div>
-            </div>
-            
-            <div class="person owner">
-                <div class="initials">BR</div>
-                <div class="name">Brent Ramey</div>
-                <div class="title">Owner, Chief Counsel</div>
-            </div>
-        </div>
-        
-        <div class="connector">↓</div>
-        
-        <!-- DIRECT REPORTS -->
-        <div class="reports-section">
-            <!-- LEFT GROUP: EXECUTIVE TEAM -->
-            <div>
-                <div class="group-title executive-group">Executive Team</div>
-                <div class="executives">
-                    
-                    <!-- Ryan Cauffman - CRO -->
-                    <div class="executive-card">
-                        <div class="person executive">
-                            <div class="initials">RC</div>
-                            <div class="name">Ryan Cauffman</div>
-                            <div class="title">Chief Revenue Officer</div>
-                        </div>
-                        <div class="departments">
-                            <div class="person department">
-                                <div class="initials">JP</div>
-                                <div class="name">Jake Pfau</div>
-                                <div class="title">Onboarding Director</div>
-                            </div>
-                            <div class="person department">
-                                <div class="initials">CS</div>
-                                <div class="name">Customer Success</div>
-                                <div class="title">Kim Bass, Rob McDermott</div>
-                            </div>
-                            <div class="person department">
-                                <div class="initials">OL</div>
-                                <div class="name">Ophelia Lachen</div>
-                                <div class="title">Risk Management</div>
-                            </div>
-                            <div class="person department">
-                                <div class="initials">SI</div>
-                                <div class="name">Systems & Internal</div>
-                                <div class="title">Josh Elle, Tristen Talbert</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Rob Farnes - COO -->
-                    <div class="executive-card">
-                        <div class="person executive">
-                            <div class="initials">RF</div>
-                            <div class="name">Rob Farnes</div>
-                            <div class="title">Chief Operating Officer</div>
-                        </div>
-                        <div class="departments">
-                            <div class="person department">
-                                <div class="initials">DT</div>
-                                <div class="name">Drug Testing</div>
-                                <div class="title">Rhio Barrera (Coord.)</div>
-                            </div>
-                            <div class="person department">
-                                <div class="initials">QA</div>
-                                <div class="name">Research & QA</div>
-                                <div class="title">Kate Florez (Manager)</div>
-                            </div>
-                            <div class="person department">
-                                <div class="initials">TG</div>
-                                <div class="name">Trish Gustin</div>
-                                <div class="title">Verifications Director</div>
-                            </div>
-                            <div class="person department">
-                                <div class="initials">AH</div>
-                                <div class="name">Alison Hamill</div>
-                                <div class="title">Customer Support Mgr</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Nathan Carrizales - CFO -->
-                    <div class="executive-card">
-                        <div class="person executive">
-                            <div class="initials">NC</div>
-                            <div class="name">Nathan Carrizales</div>
-                            <div class="title">Chief Financial Officer</div>
-                        </div>
-                        <div class="departments">
-                            <div class="person department">
-                                <div class="initials">MQ</div>
-                                <div class="name">Marcee Qualls</div>
-                                <div class="title">Clerk of Accounting</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <!-- RIGHT GROUP: STRATEGIC LEADERS -->
-            <div>
-                <div class="group-title strategic-group">Strategic Leaders</div>
-                <div class="strategic-leaders">
-                    
-                    <!-- Blake Visser -->
-                    <div class="executive-card">
-                        <div class="person strategic">
-                            <div class="initials">BV</div>
-                            <div class="name">Blake Visser</div>
-                            <div class="title">Director of Sales</div>
-                        </div>
-                        <div class="departments">
-                            <div class="person department">
-                                <div class="initials">SM</div>
-                                <div class="name">Sales & Marketing</div>
-                                <div class="title">Derek Wood, Stephan Treanor, Morgan Verhoef, Josh Diederich</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Deb Keller -->
-                    <div class="executive-card">
-                        <div class="person strategic">
-                            <div class="initials">DK</div>
-                            <div class="name">Deb Keller</div>
-                            <div class="title">President</div>
-                        </div>
-                        <div class="departments">
-                            <div class="person department">
-                                <div class="initials">TH</div>
-                                <div class="name">Todd Higey</div>
-                                <div class="title">Legal Counsel</div>
-                            </div>
-                            <div class="person department">
-                                <div class="initials">KR</div>
-                                <div class="name">Karri Ramey</div>
-                                <div class="title">Specialty Force Lead</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <h1><span>VICTIG</span> Org Chart</h1>
+  
+  <!-- Tab Buttons -->
+  <div class="tab-buttons">
+    <button class="tab-btn active" onclick="switchView('chart')">Chart View</button>
+    <button class="tab-btn" onclick="switchView('directory')">Directory</button>
+  </div>
+  
+  <input type="text" id="searchInput" placeholder="Search name, title, dept..." oninput="handleSearch(this.value)">
+  <button class="btn btn-primary" onclick="openAddEmployee()">+ Employee</button>
+  <button class="btn btn-primary" onclick="openAddDept()">+ Department</button>
+  <button class="btn btn-secondary" onclick="exportJSON()">Export JSON</button>
+  <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">Import JSON</button>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+  <button class="btn btn-secondary" onclick="window.print()">Export PDF</button>
+</div>
+
+<!-- Chart -->
+<div class="chart-container" id="chartContainer"></div>
+
+<!-- Directory -->
+<div class="directory-container" id="directoryContainer" style="display:none;">
+  <div class="directory-header">
+    <h2>Employee Directory</h2>
+    <p class="directory-subtitle">Click column headers to sort</p>
+  </div>
+  <div class="directory-table-wrapper">
+    <table class="directory-table" id="directoryTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable('name')">Name <span class="sort-indicator"></span></th>
+          <th onclick="sortTable('title')">Title <span class="sort-indicator"></span></th>
+          <th onclick="sortTable('department')">Department <span class="sort-indicator"></span></th>
+          <th onclick="sortTable('email')">Email <span class="sort-indicator"></span></th>
+          <th onclick="sortTable('phone')">Phone <span class="sort-indicator"></span></th>
+        </tr>
+      </thead>
+      <tbody id="directoryTableBody">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Employee Modal -->
+<div class="modal-overlay" id="empModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="empModalTitle">Edit Employee</h2>
+      <button class="modal-close" onclick="closeModal('empModal')">&times;</button>
     </div>
+    <div class="modal-body">
+      <input type="hidden" id="empId">
+      <div class="form-group"><label>Name</label><input type="text" id="empName"></div>
+      <div class="form-group"><label>Initials</label><input type="text" id="empInitials" maxlength="3"></div>
+      <div class="form-group"><label>Title</label><input type="text" id="empTitleInput"></div>
+      <div class="form-group"><label>Department</label><select id="empDept" onchange="updateTeamSelect()"></select></div>
+      <div class="form-group"><label>Team</label><select id="empTeam"><option value="">General</option></select></div>
+      <div class="form-group"><label>Reports To</label><select id="empReportsTo"><option value="">None (Top-level)</option></select></div>
+      <div class="form-group"><label>Email</label><input type="email" id="empEmail"></div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="empPhone"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="empDeleteBtn" onclick="deleteEmployee()">Delete</button>
+      <button class="btn btn-secondary" onclick="closeModal('empModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEmployee()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Department Modal -->
+<div class="modal-overlay" id="deptModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="deptModalTitle">Edit Department</h2>
+      <button class="modal-close" onclick="closeModal('deptModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="deptId">
+      <div class="form-group"><label>Department Name</label><input type="text" id="deptName"></div>
+      <div class="form-group"><label>Reports To (Executive)</label><select id="deptReportsTo"><option value="">None</option></select></div>
+      <div class="form-group"><label>Color</label><input type="color" id="deptColor" value="#4A90E2"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="deptDeleteBtn" onclick="deleteDepartment()">Delete</button>
+      <button class="btn btn-secondary" onclick="closeModal('deptModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDepartment()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Department Manager Modal -->
+<div class="modal-overlay" id="deptManagerModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="deptManagerModalTitle">Assign Department Manager</h2>
+      <button class="modal-close" onclick="closeModal('deptManagerModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="deptManagerDeptId">
+      <div class="form-group">
+        <label>Select Manager/Director</label>
+        <select id="deptManagerSelect">
+          <option value="">None</option>
+        </select>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">
+        Department managers oversee all teams in this department.
+        They are shown at the top of the department card.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deptManagerModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDepartmentManager()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Team Modal -->
+<div class="modal-overlay" id="teamModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="teamModalTitle">Add Team</h2>
+      <button class="modal-close" onclick="closeModal('teamModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="teamId">
+      <input type="hidden" id="teamDeptId">
+      <div class="form-group"><label>Team Name</label><input type="text" id="teamName"></div>
+      <div class="form-group"><label>Team Leader</label><select id="teamLeader"><option value="">No leader</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="teamDeleteBtn" onclick="deleteTeam()" style="display:none">Delete</button>
+      <button class="btn btn-secondary" onclick="closeModal('teamModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTeam()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <p id="confirmMsg"></p>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button class="btn btn-secondary" onclick="confirmResolve(false)">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmResolve(true)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toasts -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ---- State ----
+const STORAGE_KEY = 'victig-org-chart-v6';  // Force fresh load with fixed Blake data
+const COLLAPSE_KEY = 'victig-team-collapse';
+let confirmResolveCallback = null;
+let searchQuery = '';
+
+// Define special people for the org structure
+const SPECIAL_PEOPLE = {
+  MATT_VISSER: 'Matt Visser',
+  BRENT_RAMEY: 'Brent Ramey',
+  RYAN_CAUFFMAN: 'Ryan Cauffman',
+  ROB_FARNES: 'Rob Farnes',
+  NATHAN_CARRIZALES: 'Nathan Carrizales',
+  BLAKE_VISSER: 'Blake Visser',
+  DEB_KELLER: 'Deb Keller'
+};
+
+function uid() {
+  return 'id-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+function getDefaultData() {
+  return {
+  "employees": [
+    {
+      "id": "id-mnf1whftp88q6",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MV",
+      "name": "Matt Visser",
+      "title": "Chief Executive Officer & Owner",
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
+    },
+    {
+      "id": "id-mnf1whfthtjlg",
+      "email": "ryanc@victig.com",
+      "phone": "307-272-9136",
+      "reportsTo": "Matt Visser",
+      "initials": "RC",
+      "name": "Ryan Cauffman",
+      "title": "Chief Revenue Officer",
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
+    },
+    {
+      "id": "id-mnf1whftrxy78",
+      "email": "brent@victig.com",
+      "phone": "",
+      "reportsTo": "Matt Visser",
+      "initials": "BR",
+      "name": "Brent Ramey",
+      "title": "Owner, Chief Counsel & Special Projects",
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
+    },
+    {
+      "id": "id-mnf1whft8qras",
+      "email": "dkeller@victig.com",
+      "phone": "",
+      "reportsTo": "Matt Visser",
+      "initials": "DK",
+      "name": "Deb Keller",
+      "title": "President",
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
+    },
+    {
+      "id": "id-mnf1whftk7th5",
+      "email": "",
+      "phone": "",
+      "reportsTo": "Matt Visser",
+      "initials": "RF",
+      "name": "Rob Farnes",
+      "title": "Chief Operating Officer",
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
+    },
+    {
+      "id": "id-mnf1whftpgxvw",
+      "email": "nathan@victig.com",
+      "phone": "307-921-4557",
+      "reportsTo": "Matt Visser",
+      "initials": "NC",
+      "name": "Nathan Carrizales",
+      "title": "Chief Financial Officer",
+      "department": "Executive",
+      "teamId": "id-mngbtxsbgioc9"
+    },
+    {
+      "id": "id-mnf1whftmou04",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "TT",
+      "name": "Tristen Talbert",
+      "title": "Director of Development & Emerging Technology",
+      "department": "Systems & Internal Support",
+      "teamId": "id-mobyjn6ftd5vj"
+    },
+    {
+      "id": "id-mnf1whftm1are",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "VB",
+      "name": "Valynne Bowers",
+      "title": "Contract - Accounting",
+      "department": "Systems & Internal Support",
+      "teamId": "id-mngbtxsbap1rq"
+    },
+    {
+      "id": "id-mnf1whft7gyba",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "DH",
+      "name": "Derek Hinton",
+      "title": "Legal Resource",
+      "department": "Legal",
+      "teamId": "id-mngbtxsbnw1bg"
+    },
+    {
+      "id": "id-mnf1whftdodso",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "DW",
+      "name": "Derek Wood",
+      "title": "Director of Marketing",
+      "department": "Sales & Marketing",
+      "teamId": "id-mnggq2z4mwzzc"
+    },
+    {
+      "id": "id-mnf1whft7jog4",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "DR",
+      "name": "Dustin Roethel",
+      "title": "Systems Admin / Marketing",
+      "department": "Systems & Internal Support",
+      "teamId": "id-mohi1sspcmuzj"
+    },
+    {
+      "id": "id-mnf1whftxs5hr",
+      "email": "max@victig.com",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MR",
+      "name": "Max Ramey",
+      "title": "Assistant to the Director of Marketing",
+      "department": "Sales & Marketing",
+      "teamId": "id-mnggq2z4mwzzc"
+    },
+    {
+      "id": "id-mnf1whft31xif",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "BV",
+      "name": "Brooke Visser",
+      "title": "Contract - Marketing",
+      "department": "Sales & Marketing",
+      "teamId": "id-mnggq2z4mwzzc"
+    },
+    {
+      "id": "id-mnf1whft0gs2w",
+      "email": "jelle@victig.com",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JE",
+      "name": "Josh Elle",
+      "title": "VP of Systems &",
+      "department": "Systems & Internal Support",
+      "teamId": "id-mngbtxsbap1rq"
+    },
+    {
+      "id": "id-mnf1whft9zhnl",
+      "email": "blakev@victig.com",
+      "phone": "",
+      "reportsTo": "Matt Visser",
+      "initials": "BV",
+      "name": "Blake Visser",
+      "title": "Director of Sales",
+      "department": "Executive"
+    },
+    {
+      "id": "id-mnf1whftfqyl1",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "RW",
+      "name": "Richard White",
+      "title": "Contract - Sales",
+      "department": "Sales & Marketing",
+      "teamId": "id-mngbtxsbqwxh5"
+    },
+    {
+      "id": "id-mnf1whfterce1",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MV",
+      "name": "Morgan Verhoef",
+      "title": "Sales Development Rep.",
+      "department": "Sales & Marketing",
+      "teamId": "id-mngbtxsbqwxh5"
+    },
+    {
+      "id": "id-mnf1whfti7goz",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JD",
+      "name": "Josh Diederich",
+      "title": "Sales Development Rep.",
+      "department": "Sales & Marketing",
+      "teamId": "id-mngbtxsbqwxh5"
+    },
+    {
+      "id": "id-mnf1whftnw91c",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "ST",
+      "name": "Stephan Treanor",
+      "title": "Senior Business Development Rep.",
+      "department": "Sales & Marketing",
+      "teamId": "id-mngbtxsbqwxh5"
+    },
+    {
+      "id": "id-mnf1whftz0u2r",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JP",
+      "name": "Jake Pfau",
+      "title": "Onboarding Director",
+      "department": "Onboarding"
+    },
+    {
+      "id": "id-mnf1whft7zhq8",
+      "email": "",
+      "phone": "",
+      "reportsTo": "Deb Keller",
+      "initials": "KR",
+      "name": "Karri Ramey",
+      "title": "Specialty Searches",
+      "department": "Specialty Force"
+    },
+    {
+      "id": "id-mnf1whftpb1e3",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "TF",
+      "name": "Tiffany Fitzgerald",
+      "title": "Specialty Searches",
+      "department": "Specialty Force",
+      "teamId": "id-mngg1n4nc8het"
+    },
+    {
+      "id": "id-mnf1whft9dpxm",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "SS",
+      "name": "Sam Salvador",
+      "title": "Specialty Searches",
+      "department": "Specialty Force",
+      "teamId": "id-mngg1n4nc8het"
+    },
+    {
+      "id": "id-mnf1whftn7c9u",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "ER",
+      "name": "Ericka Rodriguez",
+      "title": "Specialty Searches",
+      "department": "Drug Testing",
+      "teamId": "id-mngbtxsbsatjw"
+    },
+    {
+      "id": "id-mnf1whfto2lad",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "CR",
+      "name": "Conli Ramey",
+      "title": "Specialty Searches",
+      "department": "Specialty Force",
+      "teamId": "id-mngg1n4nc8het"
+    },
+    {
+      "id": "id-mnf1whfta6pgh",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "RB",
+      "name": "Rhio Barrera",
+      "title": "DT & OCC Coordinator",
+      "department": "Drug Testing"
+    },
+    {
+      "id": "id-mnf1whftg1rk2",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JC",
+      "name": "Janette Captain",
+      "title": "Drug Testing",
+      "department": "Drug Testing",
+      "teamId": "id-mngbtxsbsatjw"
+    },
+    {
+      "id": "id-mnf1whftfkhfp",
+      "email": "cfloto@victig.com",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "CF",
+      "name": "Chris Floto",
+      "title": "Drug Testing",
+      "department": "Drug Testing",
+      "teamId": "id-mngbtxsbsatjw"
+    },
+    {
+      "id": "id-mnf1whft07bd3",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "KB",
+      "name": "Kim Bass",
+      "title": "Customer Success Manager",
+      "department": "Customer Success",
+      "teamId": "id-mngbtxsbfyvyc"
+    },
+    {
+      "id": "id-mnf1whftnt941",
+      "email": "",
+      "phone": "",
+      "reportsTo": "Ryan Cauffman",
+      "initials": "OL",
+      "name": "Ophelia Lachen",
+      "title": "Director of Risk Management",
+      "department": "Risk Management",
+      "teamId": "id-mngbtxsb03omf"
+    },
+    {
+      "id": "id-mnf1whftyqkj9",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "RM",
+      "name": "Rob McDermott",
+      "title": "Customer Success Manager",
+      "department": "Customer Success",
+      "teamId": "id-mngbtxsbfyvyc"
+    },
+    {
+      "id": "id-mnf1whftwuhww",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JV",
+      "name": "Jums Ventura",
+      "title": "Operations Support",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w"
+    },
+    {
+      "id": "id-mnf1whftvc2f3",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "LL",
+      "name": "Lawrence Lubang",
+      "title": "Operations Support",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w"
+    },
+    {
+      "id": "id-mnf1whft8e7x9",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "IH",
+      "name": "Ian Hamill",
+      "title": "Team Lead",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w"
+    },
+    {
+      "id": "id-mnf1whft8anxu",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JP",
+      "name": "Jan Pineda",
+      "title": "Operations Support",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w"
+    },
+    {
+      "id": "id-mnf1whfttzh7m",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MS",
+      "name": "Mackensie Schwab",
+      "title": "Operations Support",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w"
+    },
+    {
+      "id": "id-mnf1whft7asbu",
+      "email": "btower@victig.com",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "BT",
+      "name": "Bridget Tower",
+      "title": "Customer Support, Speciality Clients",
+      "department": "Customer Support",
+      "teamId": "id-mnz690q1utbcz"
+    },
+    {
+      "id": "id-mnf1whfte91uq",
+      "email": "alimcd@victig.com",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "AH",
+      "name": "Alison Hamill",
+      "title": "Customer Support Manager, Compliance & Disputes Lead",
+      "department": "Customer Support"
+    },
+    {
+      "id": "id-mnf1whftjvjso",
+      "email": "",
+      "phone": "",
+      "reportsTo": "Alison Hamill",
+      "initials": "TO",
+      "name": "Tannah O'Banion",
+      "title": "Customer Support, Communications",
+      "department": "Customer Support",
+      "teamId": "id-mnz690q1utbcz"
+    },
+    {
+      "id": "id-mnf1whftuohhi",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "KT",
+      "name": "Kayla Thompson",
+      "title": "Customer Support, Disputes",
+      "department": "Customer Support",
+      "teamId": "id-mnz690q1utbcz"
+    },
+    {
+      "id": "id-mnf1whftcs6u3",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "RC",
+      "name": "Renato Cabrera",
+      "title": "Customer Support, Internationals",
+      "department": "Customer Support",
+      "teamId": "id-mnz690q1utbcz"
+    },
+    {
+      "id": "id-mnf1whftqjfk1",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "TG",
+      "name": "Trish Gustin",
+      "title": "Director of Verifications",
+      "department": "Verifications",
+      "teamId": "id-mngbydc4rljet"
+    },
+    {
+      "id": "id-mnf1whft2d0qq",
+      "email": "alane@victig.com",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "AM",
+      "name": "Annah Madsen",
+      "title": "Systems and Records Administrator",
+      "department": "Customer Success",
+      "teamId": "id-mngbtxsbfyvyc"
+    },
+    {
+      "id": "id-mnf1whftmevmy",
+      "email": "",
+      "phone": "",
+      "reportsTo": "Trish Gustin",
+      "initials": "MC",
+      "name": "Myssy Clayson",
+      "title": "Assistant Manager",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whft54t3r",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MB",
+      "name": "Marilee Bray",
+      "title": "Education Verifications",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftp9w30",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "CS",
+      "name": "Christina Solheim",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftghxa5",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "AG",
+      "name": "Avery Gustin",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftumibj",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MC",
+      "name": "Marcie Crawford",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftahnxp",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "KP",
+      "name": "Kayliene Pearson",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whft9o4qo",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "DR",
+      "name": "Davis Romney",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftqvl9a",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "LD",
+      "name": "Linnea Davis",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftuvnly",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "RC",
+      "name": "Rebekah Carter",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftsptow",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "GR",
+      "name": "Gillian Ragan",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftjawfo",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "BW",
+      "name": "Britney White",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whfthbdz2",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "KT",
+      "name": "Kaitlin Thune",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftla045",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "AT",
+      "name": "Ana Thurber",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftw99i2",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "FH",
+      "name": "Fiona Humphreys",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftsx4ix",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "PC",
+      "name": "Paul Clayson",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whft7z6bm",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "RB",
+      "name": "Rochelle Buyse",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftxudog",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MP",
+      "name": "Melanie Pulley",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whfttbtty",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "CG",
+      "name": "Carmen Guevara",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whfttft4z",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "RM",
+      "name": "Rebeca Mason",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftu4z4h",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JC",
+      "name": "Jessica Carlson",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whft3s9z6",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "JN",
+      "name": "Jackie Nuttall",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whfth2o47",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "DB",
+      "name": "Darcie Bailey",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whft29oxo",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "SA",
+      "name": "Shawnee Allred",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf1whftph2ho",
+      "email": "",
+      "phone": "",
+      "reportsTo": null,
+      "initials": "MF",
+      "name": "Maura Foster",
+      "title": "Verifier",
+      "department": "Verifications",
+      "teamId": "id-mngbtxsb5rwnv"
+    },
+    {
+      "id": "id-mnf20eei7x9rw",
+      "name": "Marcee Qualls",
+      "initials": "MQ",
+      "title": "Clerk of Accounting",
+      "department": "Accounting",
+      "reportsTo": "Nathan Carrizales",
+      "email": "",
+      "phone": "",
+      "teamId": "id-mngbtxsbgd3zm"
+    },
+    {
+      "id": "id-mnf23xvtks3uc",
+      "name": "Easton Maylett",
+      "initials": "EM",
+      "title": "Assistant",
+      "department": "Systems & Internal Support",
+      "reportsTo": null,
+      "email": "",
+      "phone": "",
+      "teamId": "id-mngbtxsbap1rq"
+    },
+    {
+      "id": "id-mngg9mb4lp4t6",
+      "name": "Todd Higey",
+      "initials": "TH",
+      "title": "Legal Counsel",
+      "department": "Legal",
+      "reportsTo": null,
+      "email": "",
+      "phone": "",
+      "teamId": "id-mngbtxsbnw1bg"
+    },
+    {
+      "id": "id-mo077au5bhgxz",
+      "name": "Dessire Magana",
+      "initials": "DM",
+      "title": "Customer Support",
+      "department": "Customer Support",
+      "teamId": "id-mnz690q1utbcz",
+      "reportsTo": null,
+      "email": "",
+      "phone": ""
+    },
+    {
+      "id": "id-mo079oj8qkqq0",
+      "name": "Kate Florez",
+      "initials": "KF",
+      "title": "Research & Quality Assurance Manager",
+      "department": "Research & Quality Assurance Team",
+      "reportsTo": null,
+      "email": "kflorez@victig.com",
+      "phone": "(866) 886-5644"
+    },
+    {
+      "id": "id-mo07do93hcn01",
+      "name": "Jana Munar",
+      "initials": "JM",
+      "title": "Research Support",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w",
+      "reportsTo": null,
+      "email": "",
+      "phone": ""
+    },
+    {
+      "id": "id-mo07e665akw11",
+      "name": "Sarah Freeman",
+      "initials": "SF",
+      "title": "Research Support",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w",
+      "reportsTo": null,
+      "email": "",
+      "phone": ""
+    }
+  ],
+  "departments": [
+    {
+      "id": "id-mnf1whft85uok",
+      "name": "Executive",
+      "reportsTo": null,
+      "color": "#4A90E2",
+      "managerId": null
+    },
+    {
+      "id": "id-mnf1whfty3unx",
+      "name": "Accounting",
+      "reportsTo": "Nathan Carrizales",
+      "color": "#27ae60",
+      "managerId": null
+    },
+    {
+      "id": "id-mnf1whfts4k33",
+      "name": "Legal",
+      "reportsTo": "Deb Keller",
+      "color": "#1abc9c",
+      "managerId": null
+    },
+    {
+      "id": "id-mnf1whftktipw",
+      "name": "Sales & Marketing",
+      "reportsTo": "Blake Visser",
+      "color": "#e74c3c",
+      "managerId": "id-mnf1whft9zhnl"
+    },
+    {
+      "id": "id-mnf1whftlxlq2",
+      "name": "Onboarding",
+      "reportsTo": "Ryan Cauffman",
+      "color": "#4a90e2",
+      "managerId": "id-mnf1whftz0u2r"
+    },
+    {
+      "id": "id-mnf1whftnzyaq",
+      "name": "Drug Testing",
+      "reportsTo": "Rob Farnes",
+      "color": "#2c3e50",
+      "managerId": "id-mnf1whfta6pgh"
+    },
+    {
+      "id": "id-mnf1whft9x5oh",
+      "name": "Customer Success",
+      "reportsTo": "Ryan Cauffman",
+      "color": "#4a90e2",
+      "managerId": null
+    },
+    {
+      "id": "id-mnf1whftfv1j8",
+      "name": "Research & Quality Assurance Team",
+      "reportsTo": "Rob Farnes",
+      "color": "#2c3e50",
+      "managerId": "id-mo079oj8qkqq0"
+    },
+    {
+      "id": "id-mnf1whftoyaqk",
+      "name": "Verifications",
+      "reportsTo": "Rob Farnes",
+      "color": "#2C3E50",
+      "managerId": "id-mnf1whftqjfk1"
+    },
+    {
+      "id": "id-mnf25c2k658ou",
+      "name": "Risk Management",
+      "reportsTo": "Ryan Cauffman",
+      "color": "#4a90e2",
+      "managerId": null
+    },
+    {
+      "id": "id-mnf29bbntw6cq",
+      "name": "Systems & Internal Support",
+      "reportsTo": "Ryan Cauffman",
+      "color": "#4a90e2",
+      "managerId": null
+    },
+    {
+      "id": "id-mngg1n4nncwk2",
+      "name": "Specialty Force",
+      "reportsTo": "Deb Keller",
+      "managerId": "id-mnf1whft7zhq8",
+      "color": "#1abc9c"
+    },
+    {
+      "id": "id-mnz690q1qax7v",
+      "name": "Customer Support",
+      "reportsTo": "Rob Farnes",
+      "managerId": "id-mnf1whfte91uq",
+      "color": "#2c3e50"
+    }
+  ],
+  "teams": [
+    {
+      "id": "id-mngbtxsbgioc9",
+      "name": "General",
+      "departmentId": "id-mnf1whft85uok",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbgd3zm",
+      "name": "General",
+      "departmentId": "id-mnf1whfty3unx",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbnw1bg",
+      "name": "General",
+      "departmentId": "id-mnf1whfts4k33",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbqwxh5",
+      "name": "General",
+      "departmentId": "id-mnf1whftktipw",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbdc4t0",
+      "name": "General",
+      "departmentId": "id-mnf1whftlxlq2",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbsatjw",
+      "name": "General",
+      "departmentId": "id-mnf1whftnzyaq",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbfyvyc",
+      "name": "General",
+      "departmentId": "id-mnf1whft9x5oh",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbhfe7w",
+      "name": "General",
+      "departmentId": "id-mnf1whftfv1j8",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsb5rwnv",
+      "name": "Verifications",
+      "departmentId": "id-mnf1whftoyaqk",
+      "leaderId": "id-mnf1whftqjfk1"
+    },
+    {
+      "id": "id-mngbtxsb03omf",
+      "name": "General",
+      "departmentId": "id-mnf25c2k658ou",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngbtxsbap1rq",
+      "name": "General",
+      "departmentId": "id-mnf29bbntw6cq",
+      "leaderId": "id-mnf1whft0gs2w"
+    },
+    {
+      "id": "id-mngbydc4rljet",
+      "name": "General",
+      "departmentId": "id-mnf1whftoyaqk",
+      "leaderId": null
+    },
+    {
+      "id": "id-mngg1n4nc8het",
+      "name": "General",
+      "departmentId": "id-mngg1n4nncwk2",
+      "leaderId": null
+    },
+    {
+      "id": "id-mnggq2z4mwzzc",
+      "name": "Lead Gen",
+      "departmentId": "id-mnf1whftktipw",
+      "leaderId": "id-mnf1whftdodso"
+    },
+    {
+      "id": "id-mnz690q1utbcz",
+      "name": "General",
+      "departmentId": "id-mnz690q1qax7v",
+      "leaderId": null
+    },
+    {
+      "id": "id-mobyjn6ftd5vj",
+      "name": "Development & Technology",
+      "departmentId": "id-mnf29bbntw6cq",
+      "leaderId": "id-mnf1whftmou04"
+    },
+    {
+      "id": "id-mohi1sspcmuzj",
+      "name": "General Marketing",
+      "departmentId": "id-mnf29bbntw6cq",
+      "leaderId": "id-mnf1whft7jog4"
+    }
+  ]
+};
+};
+}
+
+// ---- Load / Save ----
+let data;
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) { 
+      data = JSON.parse(saved);
+      if (!data.teams) data.teams = [];
+      data.departments.forEach(d => {
+        if (!('managerId' in d)) d.managerId = null;
+      });
+      migrateToTeams();
+      migrateManagers();
+      return;
+    }
+  } catch(e) {}
+  data = getDefaultData();
+  migrateToTeams();
+  migrateManagers();
+  saveData();
+}
+
+function migrateToTeams() {
+  data.departments.forEach(dept => {
+    const deptEmps = data.employees.filter(e => e.department === dept.name);
+    const deptTeams = data.teams.filter(t => t.departmentId === dept.id);
+    
+    let generalTeam = deptTeams.find(t => t.name === 'General');
+    if (!generalTeam) {
+      generalTeam = { id: uid(), name: 'General', departmentId: dept.id, leaderId: null };
+      data.teams.push(generalTeam);
+    }
+    
+    deptEmps.forEach(emp => {
+      if (!emp.teamId) emp.teamId = generalTeam.id;
+    });
+  });
+}
+
+function migrateManagers() {
+  data.departments.forEach(dept => {
+    if (dept.managerId) return;
+    if (dept.name === 'Executive') return;
+    
+    const deptEmps = data.employees.filter(e => e.department === dept.name);
+    
+    const manager = deptEmps.find(emp => {
+      const title = emp.title.toLowerCase();
+      return (title.includes('director') || title.includes('manager')) &&
+             !title.includes('assistant') &&
+             !title.includes('junior');
+    });
+    
+    if (manager) {
+      dept.managerId = manager.id;
+      delete manager.teamId;
+    }
+  });
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+// ---- Team Collapse State ----
+function loadCollapseState() {
+  try {
+    const saved = localStorage.getItem(COLLAPSE_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch(e) {
+    return {};
+  }
+}
+
+function saveCollapseState(state) {
+  try {
+    localStorage.setItem(COLLAPSE_KEY, JSON.stringify(state));
+  } catch(e) {}
+}
+
+let collapseState = loadCollapseState();
+
+// ---- Helpers ----
+function getDeptColor(deptName) {
+  const dept = data.departments.find(d => d.name === deptName);
+  return dept ? dept.color : '#94a3b8';
+}
+
+function getExecs() {
+  return data.employees.filter(e => e.department === 'Executive');
+}
+
+function getDeptEmployees(deptName) {
+  return data.employees.filter(e => 
+    e.department === deptName && e.department !== 'Executive'
+  );
+}
+
+function getTeamEmployees(teamId) {
+  return data.employees.filter(e => e.teamId === teamId);
+}
+
+function getDeptTeams(deptId) {
+  return data.teams.filter(t => t.departmentId === deptId);
+}
+
+function getNonExecDepts() {
+  return data.departments.filter(d => d.name !== 'Executive');
+}
+
+function isMatch(emp) {
+  if (!searchQuery) return false;
+  const q = searchQuery.toLowerCase();
+  return emp.name.toLowerCase().includes(q) ||
+         emp.title.toLowerCase().includes(q) ||
+         emp.department.toLowerCase().includes(q);
+}
+
+function lightenColor(hex, percent) {
+  const num = parseInt(hex.replace('#',''), 16);
+  const amt = Math.round(2.55 * percent);
+  const R = Math.min(255, (num >> 16) + amt);
+  const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
+  const B = Math.min(255, (num & 0x0000FF) + amt);
+  return '#' + (0x1000000 + R*0x10000 + G*0x100 + B).toString(16).slice(1);
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ---- Custom Two-Branch Render ----
+function render() {
+  const container = document.getElementById('chartContainer');
+  const execs = getExecs();
+  
+  // Find special people
+  const matt = execs.find(e => e.name === SPECIAL_PEOPLE.MATT_VISSER);
+  const brent = execs.find(e => e.name === SPECIAL_PEOPLE.BRENT_RAMEY);
+  const ryan = execs.find(e => e.name === SPECIAL_PEOPLE.RYAN_CAUFFMAN);
+  const rob = execs.find(e => e.name === SPECIAL_PEOPLE.ROB_FARNES);
+  const nathan = execs.find(e => e.name === SPECIAL_PEOPLE.NATHAN_CARRIZALES);
+  const blake = execs.find(e => e.name === SPECIAL_PEOPLE.BLAKE_VISSER);
+  const deb = execs.find(e => e.name === SPECIAL_PEOPLE.DEB_KELLER);
+
+  let html = '';
+
+  // ===== OWNERSHIP TIER =====
+  html += '<div class="ownership-tier">';
+  if (matt) html += renderOwnershipCard(matt);
+  if (brent) html += renderOwnershipCard(brent);
+  html += '</div>';
+
+  // ===== BRANCH CONTAINER =====
+  html += '<div class="branch-container">';
+  
+  // ----- LEFT BRANCH: Executive Leadership -----
+  html += '<div class="branch">';
+  html += '<div class="branch-label executive">Executive Leadership</div>';
+  
+  const executiveLeaders = [ryan, rob, nathan].filter(Boolean);
+  
+  if (executiveLeaders.length > 0) {
+    html += '<div class="exec-row">';
+    executiveLeaders.forEach(exec => {
+      html += renderExecCard(exec, 'executive-branch');
+    });
+    html += '</div>';
+    
+    // Departments under Executive Leadership
+    html += '<div class="dept-columns">';
+    executiveLeaders.forEach(exec => {
+      const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
+      if (execDepts.length > 0) {
+        html += '<div class="dept-column">';
+        execDepts.forEach(dept => {
+          html += renderDeptCard(dept, 'executive');
+        });
+        html += '</div>';
+      }
+    });
+    html += '</div>';
+  }
+  
+  html += '</div>'; // end Executive Leadership branch
+  
+  // ----- RIGHT BRANCH: Strategic Leadership -----
+  html += '<div class="branch">';
+  html += '<div class="branch-label strategic">Strategic Leadership</div>';
+  
+  const strategicLeaders = [blake, deb].filter(Boolean);
+  
+  if (strategicLeaders.length > 0) {
+    html += '<div class="exec-row">';
+    strategicLeaders.forEach(exec => {
+      html += renderExecCard(exec, 'strategic-branch');
+    });
+    html += '</div>';
+    
+    // Departments under Strategic Leadership
+    html += '<div class="dept-columns">';
+    strategicLeaders.forEach(exec => {
+      const execDepts = getNonExecDepts().filter(d => d.reportsTo === exec.name);
+      if (execDepts.length > 0) {
+        html += '<div class="dept-column">';
+        execDepts.forEach(dept => {
+          html += renderDeptCard(dept, 'strategic');
+        });
+        html += '</div>';
+      }
+    });
+    html += '</div>';
+  }
+  
+  html += '</div>'; // end Strategic Leadership branch
+  
+  html += '</div>'; // end branch-container
+  
+  // Show unassigned departments (if any)
+  const unassignedDepts = getNonExecDepts().filter(d => !d.reportsTo);
+  if (unassignedDepts.length > 0) {
+    html += '<div style="margin-top:48px">';
+    html += '<div style="text-align:center;font-weight:700;color:var(--text-secondary);margin-bottom:24px">Unassigned Departments</div>';
+    html += '<div class="dept-columns">';
+    unassignedDepts.forEach(dept => {
+      html += '<div class="dept-column">';
+      html += renderDeptCard(dept, 'unassigned');
+      html += '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  container.innerHTML = html;
+}
+
+function renderOwnershipCard(emp) {
+  const matchClass = isMatch(emp) ? ' search-match' : '';
+  return `<div class="ownership-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+    <div class="emp-avatar">${esc(emp.initials)}</div>
+    <div class="emp-name">${esc(emp.name)}</div>
+    <div class="emp-title">${esc(emp.title)}</div>
+  </div>`;
+}
+
+function renderExecCard(emp, branchClass = '') {
+  const matchClass = isMatch(emp) ? ' search-match' : '';
+  const color = branchClass === 'strategic-branch' ? 'var(--strategic)' : 'var(--exec)';
+  
+  return `<div class="exec-card ${branchClass}${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+    <div class="emp-name">${esc(emp.name)}</div>
+    <div class="emp-title">${esc(emp.title)}</div>
+  </div>`;
+}
+
+function renderDeptCard(dept, branchType = 'executive') {
+  const allEmps = getDeptEmployees(dept.name);
+  const manager = dept.managerId ? data.employees.find(e => e.id === dept.managerId) : null;
+  const teams = getDeptTeams(dept.id);
+  const color = dept.color;
+  
+  let html = `<div class="dept-card" data-dept="${esc(dept.name)}" data-dept-id="${dept.id}" style="color:${color}">`;
+  html += `<div class="dept-header" style="background:${color}" onclick="openEditDept('${dept.id}')">`;
+  html += `<span>${esc(dept.name)} <span class="dept-count">${allEmps.length}</span></span>`;
+  html += `<span class="dept-actions">`;
+  html += `<button onclick="event.stopPropagation();openAddEmployeeToDept('${esc(dept.name)}','${dept.id}')" title="Add employee">+</button>`;
+  html += `</span></div>`;
+  
+  html += `<div class="dept-body" ondragover="onDragOver(event)" ondrop="onDropDept(event,'${esc(dept.name)}','${dept.id}')">`;
+  
+  // Department Manager Section
+  html += `<div class="dept-manager-section" style="color:${color}">`;
+  if (manager) {
+    const matchClass = isMatch(manager) ? ' search-match' : '';
+    html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openEditEmployee('${manager.id}')">`;
+    html += `<div class="dept-manager-header">`;
+    html += `<div class="dept-manager-avatar" style="background:${color}">${esc(manager.initials)}</div>`;
+    html += `<div class="dept-manager-info">`;
+    html += `<div class="dept-manager-name">`;
+    html += `${esc(manager.name)}`;
+    html += `<span class="dept-manager-badge" style="background:${color}">`;
+    html += manager.title.toLowerCase().includes('director') ? 'Director' : 'Manager';
+    html += `</span></div>`;
+    html += `<div class="dept-manager-title">${esc(manager.title)}</div>`;
+    html += `</div></div>`;
+    html += `<div style="text-align:center;margin-top:8px;">`;
+    html += `<button class="btn btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:11px;padding:4px 8px;">Change Manager</button>`;
+    html += `</div></div>`;
+  } else {
+    html += `<div class="dept-manager-placeholder" onclick="openAssignManager('${dept.id}')">`;
+    html += `<div class="dept-manager-placeholder-text">+ Assign Department Manager</div>`;
+    html += `</div>`;
+  }
+  html += `</div>`;
+  
+  // Teams Container
+  if (teams.length > 0) {
+    html += `<div class="teams-container" style="color:${color}">`;
+    
+    teams.forEach(team => {
+      const teamEmps = getTeamEmployees(team.id);
+      const isCollapsed = collapseState[team.id] || false;
+      const teamColor = lightenColor(color, 35);
+      const leader = team.leaderId ? data.employees.find(e => e.id === team.leaderId) : null;
+      
+      html += `<div class="team-section" data-team-id="${team.id}">`;
+      html += `<div class="team-header ${isCollapsed ? 'collapsed' : ''}" style="color:${color};background:${teamColor}" 
+                onclick="toggleTeam('${team.id}')" oncontextmenu="openEditTeam('${team.id}');return false;">`;
+      html += `<div class="team-name">`;
+      html += `<span class="team-toggle">▼</span>`;
+      html += `<span>${esc(team.name)}</span>`;
+      if (leader) {
+        html += `<span class="team-leader-badge">— Leader: ${esc(leader.name)}</span>`;
+      }
+      html += `<span class="team-count">${teamEmps.length}</span>`;
+      html += `</div>`;
+      html += `<button class="btn btn-sm" style="padding:2px 6px;font-size:10px;" onclick="event.stopPropagation();openEditTeam('${team.id}')">Edit</button>`;
+      html += `</div>`;
+      html += `<div class="team-body ${isCollapsed ? 'collapsed' : ''}" ondragover="onDragOver(event)" ondrop="onDropTeam(event,'${team.id}','${esc(dept.name)}','${dept.id}')">`;
+      teamEmps.forEach(emp => {
+        html += renderEmpCard(emp, color, team.leaderId);
+      });
+      if (!teamEmps.length) {
+        html += '<div style="padding:12px;text-align:center;color:#94a3b8;font-size:11px">No employees</div>';
+      }
+      html += `</div></div>`;
+    });
+    
+    html += `</div>`;
+  }
+  
+  // Add Team button
+  html += `<div class="add-team-btn" onclick="openAddTeam('${dept.id}','${esc(dept.name)}')">+ Add Team</div>`;
+  
+  html += '</div></div>';
+  
+  return html;
+}
+
+function renderEmpCard(emp, color, teamLeaderId) {
+  const matchClass = isMatch(emp) ? ' search-match' : '';
+  const isLeader = emp.id === teamLeaderId;
+  return `<div class="emp-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true"
+    ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event)">
+    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+    <div class="emp-info">
+      <div class="emp-name">${esc(emp.name)}${isLeader ? ' <span class="leader-badge">⭐</span>' : ''}</div>
+      <div class="emp-title">${esc(emp.title)}</div>
+    </div>
+  </div>`;
+}
+
+// ---- Team Toggle ----
+function toggleTeam(teamId) {
+  collapseState[teamId] = !collapseState[teamId];
+  saveCollapseState(collapseState);
+  render();
+}
+
+// ---- Drag and Drop ----
+let dragEmpId = null;
+
+function onDragStart(e, empId) {
+  dragEmpId = empId;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', empId);
+  e.target.classList.add('dragging');
+}
+
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+
+function onDropDept(e, deptName, deptId) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (!dragEmpId) return;
+  
+  const emp = data.employees.find(em => em.id === dragEmpId);
+  if (!emp) return;
+  
+  let generalTeam = data.teams.find(t => t.departmentId === deptId && t.name === 'General');
+  if (!generalTeam) {
+    generalTeam = { id: uid(), name: 'General', departmentId: deptId, leaderId: null };
+    data.teams.push(generalTeam);
+  }
+  
+  const changed = emp.department !== deptName || emp.teamId !== generalTeam.id;
+  emp.department = deptName;
+  emp.teamId = generalTeam.id;
+  
+  if (changed) {
+    saveData();
+    render();
+    toast(`Moved ${emp.name} to ${deptName} (General team)`, 'success');
+  }
+  dragEmpId = null;
+}
+
+function onDropTeam(e, teamId, deptName, deptId) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (!dragEmpId) return;
+  
+  const emp = data.employees.find(em => em.id === dragEmpId);
+  if (!emp) return;
+  
+  const changed = emp.teamId !== teamId || emp.department !== deptName;
+  emp.teamId = teamId;
+  emp.department = deptName;
+  
+  if (changed) {
+    saveData();
+    render();
+    const team = data.teams.find(t => t.id === teamId);
+    toast(`Moved ${emp.name} to ${team.name}`, 'success');
+  }
+  dragEmpId = null;
+}
+
+function onDropCard(e) {
+  e.stopPropagation();
+}
+
+document.addEventListener('dragend', () => {
+  dragEmpId = null;
+  document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+});
+
+// ---- Modals ----
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function populateDeptSelect(selectId, selectedVal) {
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = '';
+  data.departments.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d.name;
+    opt.textContent = d.name;
+    opt.dataset.deptId = d.id;
+    if (d.name === selectedVal) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function updateTeamSelect() {
+  const deptSelect = document.getElementById('empDept');
+  const teamSelect = document.getElementById('empTeam');
+  const selectedOpt = deptSelect.options[deptSelect.selectedIndex];
+  const deptId = selectedOpt ? selectedOpt.dataset.deptId : null;
+  
+  teamSelect.innerHTML = '';
+  
+  if (deptId) {
+    const teams = getDeptTeams(deptId);
+    teams.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t.id;
+      opt.textContent = t.name;
+      teamSelect.appendChild(opt);
+    });
+  }
+  
+  if (teamSelect.options.length === 0) {
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = 'General';
+    teamSelect.appendChild(opt);
+  }
+}
+
+function populateReportsToSelect(selectedVal) {
+  const sel = document.getElementById('empReportsTo');
+  sel.innerHTML = '<option value="">None (Top-level)</option>';
+  data.employees.forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.name;
+    opt.textContent = `${e.name} - ${e.title}`;
+    if (e.name === selectedVal) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function populateDeptReportsTo(selectedVal) {
+  const sel = document.getElementById('deptReportsTo');
+  sel.innerHTML = '<option value="">None</option>';
+  getExecs().forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.name;
+    opt.textContent = `${e.name} - ${e.title}`;
+    if (e.name === selectedVal) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+// ---- Department Manager ----
+function openAssignManager(deptId) {
+  const dept = data.departments.find(d => d.id === deptId);
+  if (!dept) return;
+  
+  document.getElementById('deptManagerModalTitle').textContent = `Assign Manager for ${dept.name}`;
+  document.getElementById('deptManagerDeptId').value = deptId;
+  
+  const sel = document.getElementById('deptManagerSelect');
+  sel.innerHTML = '<option value="">None</option>';
+  
+  const deptEmps = data.employees.filter(e => e.department === dept.name);
+  deptEmps.forEach(emp => {
+    const opt = document.createElement('option');
+    opt.value = emp.id;
+    opt.textContent = `${emp.name} - ${emp.title}`;
+    if (emp.id === dept.managerId) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  
+  openModal('deptManagerModal');
+}
+
+function saveDepartmentManager() {
+  const deptId = document.getElementById('deptManagerDeptId').value;
+  const managerId = document.getElementById('deptManagerSelect').value || null;
+  
+  const dept = data.departments.find(d => d.id === deptId);
+  if (!dept) return;
+  
+  if (dept.managerId && dept.managerId !== managerId) {
+    const oldManager = data.employees.find(e => e.id === dept.managerId);
+    if (oldManager) {
+      const generalTeam = data.teams.find(t => t.departmentId === deptId && t.name === 'General');
+      if (generalTeam) {
+        oldManager.teamId = generalTeam.id;
+      }
+    }
+  }
+  
+  dept.managerId = managerId;
+  
+  if (managerId) {
+    const newManager = data.employees.find(e => e.id === managerId);
+    if (newManager) {
+      delete newManager.teamId;
+    }
+  }
+  
+  saveData();
+  render();
+  closeModal('deptManagerModal');
+  toast('Department manager updated', 'success');
+}
+
+// ---- Employee CRUD ----
+function openEditEmployee(id) {
+  const emp = data.employees.find(e => e.id === id);
+  if (!emp) return;
+  
+  document.getElementById('empModalTitle').textContent = 'Edit Employee';
+  document.getElementById('empId').value = emp.id;
+  document.getElementById('empName').value = emp.name;
+  document.getElementById('empInitials').value = emp.initials;
+  document.getElementById('empTitleInput').value = emp.title;
+  document.getElementById('empEmail').value = emp.email || '';
+  document.getElementById('empPhone').value = emp.phone || '';
+  populateDeptSelect('empDept', emp.department);
+  updateTeamSelect();
+  document.getElementById('empTeam').value = emp.teamId || '';
+  populateReportsToSelect(emp.reportsTo);
+  document.getElementById('empDeleteBtn').style.display = '';
+  openModal('empModal');
+}
+
+function openAddEmployee() {
+  document.getElementById('empModalTitle').textContent = 'Add Employee';
+  document.getElementById('empId').value = '';
+  document.getElementById('empName').value = '';
+  document.getElementById('empInitials').value = '';
+  document.getElementById('empTitleInput').value = '';
+  document.getElementById('empEmail').value = '';
+  document.getElementById('empPhone').value = '';
+  populateDeptSelect('empDept', '');
+  updateTeamSelect();
+  populateReportsToSelect('');
+  document.getElementById('empDeleteBtn').style.display = 'none';
+  openModal('empModal');
+}
+
+function openAddEmployeeToDept(deptName, deptId) {
+  openAddEmployee();
+  document.getElementById('empDept').value = deptName;
+  updateTeamSelect();
+}
+
+function saveEmployee() {
+  const id = document.getElementById('empId').value;
+  const name = document.getElementById('empName').value.trim();
+  const initials = document.getElementById('empInitials').value.trim().toUpperCase();
+  const title = document.getElementById('empTitleInput').value.trim();
+  const dept = document.getElementById('empDept').value;
+  const teamId = document.getElementById('empTeam').value || null;
+  const reportsTo = document.getElementById('empReportsTo').value || null;
+  const email = document.getElementById('empEmail').value.trim();
+  const phone = document.getElementById('empPhone').value.trim();
+
+  if (!name) {
+    toast('Name is required', 'error');
+    return;
+  }
+  if (!title) {
+    toast('Title is required', 'error');
+    return;
+  }
+
+  const finalInitials = initials || name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+
+  let finalTeamId = teamId;
+  if (!finalTeamId && dept !== 'Executive') {
+    const deptObj = data.departments.find(d => d.name === dept);
+    if (deptObj && deptObj.managerId !== id) {
+      let generalTeam = data.teams.find(t => t.departmentId === deptObj.id && t.name === 'General');
+      if (!generalTeam) {
+        generalTeam = { id: uid(), name: 'General', departmentId: deptObj.id, leaderId: null };
+        data.teams.push(generalTeam);
+      }
+      finalTeamId = generalTeam.id;
+    }
+  }
+
+  if (id) {
+    const emp = data.employees.find(e => e.id === id);
+    if (emp) {
+      Object.assign(emp, {
+        name,
+        initials: finalInitials,
+        title,
+        department: dept,
+        teamId: finalTeamId,
+        reportsTo,
+        email,
+        phone
+      });
+    }
+    toast(`Updated ${name}`, 'success');
+  } else {
+    data.employees.push({
+      id: uid(),
+      name,
+      initials: finalInitials,
+      title,
+      department: dept,
+      teamId: finalTeamId,
+      reportsTo,
+      email,
+      phone
+    });
+    toast(`Added ${name}`, 'success');
+  }
+  
+  saveData();
+  render();
+  closeModal('empModal');
+}
+
+async function deleteEmployee() {
+  const id = document.getElementById('empId').value;
+  const emp = data.employees.find(e => e.id === id);
+  if (!emp) return;
+  
+  const ok = await confirm2(`Delete ${emp.name}? This cannot be undone.`);
+  if (!ok) return;
+  
+  data.teams.forEach(t => {
+    if (t.leaderId === id) t.leaderId = null;
+  });
+  
+  data.departments.forEach(d => {
+    if (d.managerId === id) d.managerId = null;
+  });
+  
+  data.employees = data.employees.filter(e => e.id !== id);
+  saveData();
+  render();
+  closeModal('empModal');
+  toast(`Deleted ${emp.name}`, 'info');
+}
+
+// ---- Department CRUD ----
+function openEditDept(id) {
+  const dept = data.departments.find(d => d.id === id);
+  if (!dept) return;
+  
+  document.getElementById('deptModalTitle').textContent = 'Edit Department';
+  document.getElementById('deptId').value = dept.id;
+  document.getElementById('deptName').value = dept.name;
+  document.getElementById('deptColor').value = dept.color;
+  populateDeptReportsTo(dept.reportsTo);
+  document.getElementById('deptDeleteBtn').style.display = '';
+  openModal('deptModal');
+}
+
+function openAddDept() {
+  document.getElementById('deptModalTitle').textContent = 'Add Department';
+  document.getElementById('deptId').value = '';
+  document.getElementById('deptName').value = '';
+  document.getElementById('deptColor').value = '#4A90E2';
+  populateDeptReportsTo('');
+  document.getElementById('deptDeleteBtn').style.display = 'none';
+  openModal('deptModal');
+}
+
+function saveDepartment() {
+  const id = document.getElementById('deptId').value;
+  const name = document.getElementById('deptName').value.trim();
+  const reportsTo = document.getElementById('deptReportsTo').value || null;
+  const color = document.getElementById('deptColor').value;
+
+  if (!name) {
+    toast('Department name is required', 'error');
+    return;
+  }
+
+  if (id) {
+    const dept = data.departments.find(d => d.id === id);
+    if (dept) {
+      const oldName = dept.name;
+      Object.assign(dept, { name, reportsTo, color });
+      
+      if (oldName !== name) {
+        data.employees.filter(e => e.department === oldName).forEach(e => {
+          e.department = name;
+        });
+      }
+    }
+    toast(`Updated ${name}`, 'success');
+  } else {
+    if (data.departments.find(d => d.name === name)) {
+      toast('Department already exists', 'error');
+      return;
+    }
+    const newDept = { id: uid(), name, reportsTo, managerId: null, color };
+    data.departments.push(newDept);
+    
+    data.teams.push({
+      id: uid(),
+      name: 'General',
+      departmentId: newDept.id,
+      leaderId: null
+    });
+    toast(`Created ${name}`, 'success');
+  }
+  
+  saveData();
+  render();
+  closeModal('deptModal');
+}
+
+async function deleteDepartment() {
+  const id = document.getElementById('deptId').value;
+  const dept = data.departments.find(d => d.id === id);
+  if (!dept) return;
+  
+  const emps = getDeptEmployees(dept.name);
+  const msg = emps.length
+    ? `Delete "${dept.name}" and its ${emps.length} employee(s)? This cannot be undone.`
+    : `Delete "${dept.name}"? This cannot be undone.`;
+  
+  const ok = await confirm2(msg);
+  if (!ok) return;
+  
+  data.employees = data.employees.filter(e => e.department !== dept.name);
+  data.teams = data.teams.filter(t => t.departmentId !== id);
+  data.departments = data.departments.filter(d => d.id !== id);
+  
+  saveData();
+  render();
+  closeModal('deptModal');
+  toast(`Deleted ${dept.name}`, 'info');
+}
+
+// ---- Team CRUD ----
+function openAddTeam(deptId, deptName) {
+  document.getElementById('teamModalTitle').textContent = 'Add Team';
+  document.getElementById('teamId').value = '';
+  document.getElementById('teamDeptId').value = deptId;
+  document.getElementById('teamName').value = '';
+  
+  const dept = data.departments.find(d => d.id === deptId);
+  const sel = document.getElementById('teamLeader');
+  sel.innerHTML = '<option value="">No leader</option>';
+  
+  const deptEmps = data.employees.filter(e => 
+    e.department === deptName && e.id !== dept.managerId
+  );
+  
+  deptEmps.forEach(emp => {
+    const opt = document.createElement('option');
+    opt.value = emp.id;
+    opt.textContent = `${emp.name} - ${emp.title}`;
+    sel.appendChild(opt);
+  });
+  
+  document.getElementById('teamDeleteBtn').style.display = 'none';
+  openModal('teamModal');
+}
+
+function openEditTeam(teamId) {
+  const team = data.teams.find(t => t.id === teamId);
+  if (!team) return;
+  
+  const dept = data.departments.find(d => d.id === team.departmentId);
+  if (!dept) return;
+  
+  document.getElementById('teamModalTitle').textContent = 'Edit Team';
+  document.getElementById('teamId').value = team.id;
+  document.getElementById('teamDeptId').value = team.departmentId;
+  document.getElementById('teamName').value = team.name;
+  
+  const sel = document.getElementById('teamLeader');
+  sel.innerHTML = '<option value="">No leader</option>';
+  
+  const deptEmps = data.employees.filter(e => 
+    e.department === dept.name && e.id !== dept.managerId
+  );
+  
+  deptEmps.forEach(emp => {
+    const opt = document.createElement('option');
+    opt.value = emp.id;
+    opt.textContent = `${emp.name} - ${emp.title}`;
+    if (emp.id === team.leaderId) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  
+  document.getElementById('teamDeleteBtn').style.display = '';
+  openModal('teamModal');
+}
+
+function saveTeam() {
+  const id = document.getElementById('teamId').value;
+  const name = document.getElementById('teamName').value.trim();
+  const deptId = document.getElementById('teamDeptId').value;
+  const leaderId = document.getElementById('teamLeader').value || null;
+
+  if (!name) {
+    toast('Team name is required', 'error');
+    return;
+  }
+
+  if (id) {
+    const team = data.teams.find(t => t.id === id);
+    if (team) {
+      Object.assign(team, { name, leaderId });
+    }
+    toast(`Updated ${name}`, 'success');
+  } else {
+    data.teams.push({
+      id: uid(),
+      name,
+      departmentId: deptId,
+      leaderId
+    });
+    toast(`Created ${name}`, 'success');
+  }
+  
+  saveData();
+  render();
+  closeModal('teamModal');
+}
+
+async function deleteTeam() {
+  const id = document.getElementById('teamId').value;
+  const team = data.teams.find(t => t.id === id);
+  if (!team) return;
+  
+  if (team.name === 'General') {
+    toast('Cannot delete the General team', 'error');
+    return;
+  }
+  
+  const teamEmps = getTeamEmployees(team.id);
+  const msg = teamEmps.length
+    ? `Delete "${team.name}"? ${teamEmps.length} employee(s) will be moved to the General team.`
+    : `Delete "${team.name}"?`;
+  
+  const ok = await confirm2(msg);
+  if (!ok) return;
+  
+  let generalTeam = data.teams.find(t => 
+    t.departmentId === team.departmentId && t.name === 'General'
+  );
+  
+  if (!generalTeam) {
+    generalTeam = {
+      id: uid(),
+      name: 'General',
+      departmentId: team.departmentId,
+      leaderId: null
+    };
+    data.teams.push(generalTeam);
+  }
+  
+  teamEmps.forEach(emp => {
+    emp.teamId = generalTeam.id;
+  });
+  
+  data.teams = data.teams.filter(t => t.id !== id);
+  saveData();
+  render();
+  closeModal('teamModal');
+  toast(`Deleted ${team.name}`, 'info');
+}
+
+// ---- Search ----
+function handleSearch(q) {
+  searchQuery = q;
+  render();
+  if (q) {
+    const count = data.employees.filter(isMatch).length;
+    if (count === 0) toast('No results found', 'info');
+  }
+}
+
+// ---- Import / Export ----
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: 'application/json'
+  });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'victig-org-chart.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Exported JSON', 'success');
+}
+
+function importJSON(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const imported = JSON.parse(ev.target.result);
+      if (!imported.employees || !imported.departments) {
+        throw new Error('Invalid format');
+      }
+      
+      if (!imported.teams) imported.teams = [];
+      
+      imported.departments.forEach(d => {
+        if (!('managerId' in d)) d.managerId = null;
+      });
+      
+      data = imported;
+      migrateToTeams();
+      migrateManagers();
+      saveData();
+      render();
+      toast(`Imported ${data.employees.length} employees`, 'success');
+    } catch(err) {
+      toast('Invalid JSON file: ' + err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+// ---- Toast ----
+function toast(msg, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => {
+    if (el.parentNode) el.remove();
+  }, 3200);
+}
+
+// ---- Confirm Dialog ----
+function confirm2(msg) {
+  return new Promise(resolve => {
+    document.getElementById('confirmMsg').textContent = msg;
+    document.getElementById('confirmOverlay').classList.add('active');
+    confirmResolveCallback = resolve;
+  });
+}
+
+function confirmResolve(val) {
+  document.getElementById('confirmOverlay').classList.remove('active');
+  if (confirmResolveCallback) {
+    confirmResolveCallback(val);
+    confirmResolveCallback = null;
+  }
+}
+
+// ---- Keyboard shortcuts ----
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => 
+      m.classList.remove('active')
+    );
+    document.getElementById('confirmOverlay').classList.remove('active');
+    if (confirmResolveCallback) {
+      confirmResolveCallback(false);
+      confirmResolveCallback = null;
+    }
+  }
+});
+
+// ---- Auto-generate initials from name ----
+document.getElementById('empName').addEventListener('input', function() {
+  const initials = document.getElementById('empInitials');
+  if (!initials.dataset.manual) {
+    initials.value = this.value
+      .split(' ')
+      .filter(Boolean)
+      .map(w => w[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  }
+});
+
+document.getElementById('empInitials').addEventListener('input', function() {
+  this.dataset.manual = this.value ? '1' : '';
+});
+
+// ---- View Switching ----
+let currentView = 'chart';
+
+function switchView(view) {
+  currentView = view;
+  
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  if (view === 'chart') {
+    document.getElementById('chartContainer').style.display = 'block';
+    document.getElementById('directoryContainer').style.display = 'none';
+  } else {
+    document.getElementById('chartContainer').style.display = 'none';
+    document.getElementById('directoryContainer').style.display = 'block';
+    renderDirectory();
+  }
+}
+
+// ---- Directory Table ----
+let sortColumn = 'name';
+let sortDirection = 'asc';
+
+function renderDirectory() {
+  const tbody = document.getElementById('directoryTableBody');
+  
+  const sorted = [...data.employees].sort((a, b) => {
+    let aVal = a[sortColumn] || '';
+    let bVal = b[sortColumn] || '';
+    
+    if (typeof aVal === 'string') {
+      aVal = aVal.toLowerCase();
+      bVal = bVal.toLowerCase();
+    }
+    
+    if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+    return 0;
+  });
+  
+  let html = '';
+  sorted.forEach(emp => {
+    const email = emp.email ? `<a href="mailto:${esc(emp.email)}">${esc(emp.email)}</a>` : '—';
+    const phone = emp.phone ? `<a href="tel:${esc(emp.phone)}">${esc(emp.phone)}</a>` : '—';
+    
+    html += `<tr onclick="openEditEmployee('${emp.id}')">`;
+    html += `<td>${esc(emp.name)}</td>`;
+    html += `<td>${esc(emp.title)}</td>`;
+    html += `<td>${esc(emp.department)}</td>`;
+    html += `<td>${email}</td>`;
+    html += `<td>${phone}</td>`;
+    html += `</tr>`;
+  });
+  
+  tbody.innerHTML = html;
+  
+  document.querySelectorAll('.sort-indicator').forEach(ind => {
+    ind.className = 'sort-indicator';
+  });
+  
+  const activeHeader = document.querySelector(`th[onclick="sortTable('${sortColumn}')"] .sort-indicator`);
+  if (activeHeader) {
+    activeHeader.classList.add(sortDirection);
+  }
+}
+
+function sortTable(column) {
+  if (sortColumn === column) {
+    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortColumn = column;
+    sortDirection = 'asc';
+  }
+  renderDirectory();
+}
+
+// ---- Init ----
+loadData();
+
+// Auto-import JSON if data is empty
+if (data.employees.length === 0) {
+  fetch('/Users/kellykapowski/Downloads/victig-org-chart-v4.json')
+    .then(r => r.json())
+    .then(imported => {
+      if (!imported.teams) imported.teams = [];
+      imported.departments.forEach(d => {
+        if (!('managerId' in d)) d.managerId = null;
+      });
+      data = imported;
+      migrateToTeams();
+      migrateManagers();
+      saveData();
+      render();
+    })
+    .catch(() => {
+      render();
+    });
+} else {
+  render();
+}
+</script>
 </body>
 </html>
