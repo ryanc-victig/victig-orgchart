@@ -895,7 +895,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <!-- Toolbar -->
 <div class="toolbar">
-  <h1><span>VICTIG</span> Org Chart</h1>
+  <h1><span>VICTIG</span> Org Chart <span style="font-size:12px;background:#22c55e;color:white;padding:2px 8px;border-radius:4px;margin-left:8px;">📊 Live</span></h1>
   
   <!-- Tab Buttons -->
   <div class="tab-buttons">
@@ -904,6 +904,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   </div>
   
   <input type="text" id="searchInput" placeholder="Search name, title, dept..." oninput="handleSearch(this.value)">
+  <button class="btn btn-primary" onclick="syncFromSheets()">🔄 Sync Sheets</button>
+  <button class="btn btn-secondary" onclick="window.open('https://docs.google.com/spreadsheets/d/1rVYp2eBuq8v39arij4Hy-mukstagxTgvHfWE-vlHV6E/edit', '_blank')">Edit Sheet</button>
   <button class="btn btn-primary" onclick="openAddEmployee()">+ Employee</button>
   <button class="btn btn-primary" onclick="openAddDept()">+ Department</button>
   <button class="btn btn-secondary" onclick="exportJSON()">Export JSON</button>
@@ -2084,7 +2086,65 @@ function getDefaultData() {
 // ---- Load / Save ----
 let data;
 
-function loadData() {
+// Google Sheets Configuration
+const SHEET_ID = '1rVYp2eBuq8v39arij4Hy-mukstagxTgvHfWE-vlHV6E';
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+async function loadFromSheets() {
+  try {
+    const response = await fetch(SHEET_URL);
+    const text = await response.text();
+    // Google Sheets returns JSONP, need to extract JSON
+    const json = JSON.parse(text.substr(47).slice(0, -2));
+    const rows = json.table.rows;
+    
+    // Skip header row, load employees
+    const employees = rows.slice(1).map(row => {
+      const vals = row.c;
+      return {
+        id: vals[0]?.v || uid(),
+        initials: vals[1]?.v || '',
+        name: vals[2]?.v || '',
+        title: vals[3]?.v || '',
+        department: vals[4]?.v || '',
+        reportsTo: vals[5]?.v || null,
+        email: vals[6]?.v || '',
+        phone: vals[7]?.v || '',
+        teamId: vals[8]?.v || null
+      };
+    }).filter(e => e.name);
+    
+    // Load from data-fixed.json structure for departments/teams
+    const dataResponse = await fetch('./data-fixed.json');
+    const baseData = await dataResponse.json();
+    
+    return {
+      employees: employees,
+      departments: baseData.departments,
+      teams: baseData.teams
+    };
+  } catch(e) {
+    console.error('Failed to load from Sheets:', e);
+    return null;
+  }
+}
+
+async function loadData() {
+  // Try loading from Google Sheets first
+  const sheetsData = await loadFromSheets();
+  if (sheetsData) {
+    data = sheetsData;
+    if (!data.teams) data.teams = [];
+    data.departments.forEach(d => {
+      if (!('managerId' in d)) d.managerId = null;
+    });
+    migrateToTeams();
+    migrateManagers();
+    saveData(); // Cache in localStorage
+    return;
+  }
+  
+  // Fallback to localStorage
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) { 
@@ -2098,10 +2158,30 @@ function loadData() {
       return;
     }
   } catch(e) {}
+  
+  // Final fallback to default data
   data = getDefaultData();
   migrateToTeams();
   migrateManagers();
   saveData();
+}
+
+async function syncFromSheets() {
+  const sheetsData = await loadFromSheets();
+  if (sheetsData) {
+    data = sheetsData;
+    if (!data.teams) data.teams = [];
+    data.departments.forEach(d => {
+      if (!('managerId' in d)) d.managerId = null;
+    });
+    migrateToTeams();
+    migrateManagers();
+    saveData();
+    render();
+    showToast('✅ Synced with Google Sheets!', 'success');
+  } else {
+    showToast('❌ Failed to sync with Google Sheets', 'error');
+  }
 }
 
 function migrateToTeams() {
@@ -3195,29 +3275,10 @@ function sortTable(column) {
 }
 
 // ---- Init ----
-loadData();
-
-// Auto-import JSON if data is empty
-if (data.employees.length === 0) {
-  fetch('/Users/kellykapowski/Downloads/victig-org-chart-v4.json')
-    .then(r => r.json())
-    .then(imported => {
-      if (!imported.teams) imported.teams = [];
-      imported.departments.forEach(d => {
-        if (!('managerId' in d)) d.managerId = null;
-      });
-      data = imported;
-      migrateToTeams();
-      migrateManagers();
-      saveData();
-      render();
-    })
-    .catch(() => {
-      render();
-    });
-} else {
+(async function init() {
+  await loadData();
   render();
-}
+})();
 </script>
 </body>
 </html>
