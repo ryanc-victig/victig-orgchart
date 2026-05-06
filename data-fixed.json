@@ -2,8 +2,6 @@
   "employees": [
     {
       "id": "id-mnf1whftp88q6",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "MV",
       "name": "Matt Visser",
@@ -13,8 +11,6 @@
     },
     {
       "id": "id-mnf1whfthtjlg",
-      "email": "ryanc@victig.com",
-      "phone": "307-272-9136",
       "reportsTo": "Matt Visser",
       "initials": "RC",
       "name": "Ryan Cauffman",
@@ -24,8 +20,6 @@
     },
     {
       "id": "id-mnf1whftrxy78",
-      "email": "brent@victig.com",
-      "phone": "",
       "reportsTo": "Matt Visser",
       "initials": "BR",
       "name": "Brent Ramey",
@@ -35,8 +29,6 @@
     },
     {
       "id": "id-mnf1whft8qras",
-      "email": "dkeller@victig.com",
-      "phone": "",
       "reportsTo": "Matt Visser",
       "initials": "DK",
       "name": "Deb Keller",
@@ -46,8 +38,6 @@
     },
     {
       "id": "id-mnf1whftk7th5",
-      "email": "",
-      "phone": "",
       "reportsTo": "Matt Visser",
       "initials": "RF",
       "name": "Rob Farnes",
@@ -57,8 +47,6 @@
     },
     {
       "id": "id-mnf1whftpgxvw",
-      "email": "nathan@victig.com",
-      "phone": "307-921-4557",
       "reportsTo": "Matt Visser",
       "initials": "NC",
       "name": "Nathan Carrizales",
@@ -68,8 +56,6 @@
     },
     {
       "id": "id-mnf1whftmou04",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "TT",
       "name": "Tristen Talbert",
@@ -79,8 +65,6 @@
     },
     {
       "id": "id-mnf1whftm1are",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "VB",
       "name": "Valynne Bowers",
@@ -90,8 +74,6 @@
     },
     {
       "id": "id-mnf1whft7gyba",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "DH",
       "name": "Derek Hinton",
@@ -101,8 +83,6 @@
     },
     {
       "id": "id-mnf1whftdodso",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "DW",
       "name": "Derek Wood",
@@ -112,8 +92,6 @@
     },
     {
       "id": "id-mnf1whft7jog4",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "DR",
       "name": "Dustin Roethel",
@@ -123,8 +101,6 @@
     },
     {
       "id": "id-mnf1whftxs5hr",
-      "email": "max@victig.com",
-      "phone": "",
       "reportsTo": null,
       "initials": "MR",
       "name": "Max Ramey",
@@ -134,8 +110,6 @@
     },
     {
       "id": "id-mnf1whft31xif",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "BV",
       "name": "Brooke Visser",
@@ -145,8 +119,6 @@
     },
     {
       "id": "id-mnf1whft0gs2w",
-      "email": "jelle@victig.com",
-      "phone": "",
       "reportsTo": null,
       "initials": "JE",
       "name": "Josh Elle",
@@ -156,8 +128,6 @@
     },
     {
       "id": "id-mnf1whft9zhnl",
-      "email": "blakev@victig.com",
-      "phone": "",
       "reportsTo": "Matt Visser",
       "initials": "BV",
       "name": "Blake Visser",
@@ -167,8 +137,6 @@
     },
     {
       "id": "id-mnf1whftfqyl1",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "RW",
       "name": "Richard White",
@@ -178,8 +146,6 @@
     },
     {
       "id": "id-mnf1whfterce1",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "MV",
       "name": "Morgan Verhoef",
@@ -189,8 +155,6 @@
     },
     {
       "id": "id-mnf1whfti7goz",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "JD",
       "name": "Josh Diederich",
@@ -200,8 +164,6 @@
     },
     {
       "id": "id-mnf1whftnw91c",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "ST",
       "name": "Stephan Treanor",
@@ -211,8 +173,6 @@
     },
     {
       "id": "id-mnf1whftz0u2r",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "JP",
       "name": "Jake Pfau",
@@ -221,8 +181,6 @@
     },
     {
       "id": "id-mnf1whft7zhq8",
-      "email": "",
-      "phone": "",
       "reportsTo": "Deb Keller",
       "initials": "KR",
       "name": "Karri Ramey",
@@ -231,8 +189,6 @@
     },
     {
       "id": "id-mnf1whftpb1e3",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "TF",
       "name": "Tiffany Fitzgerald",
@@ -242,8 +198,6 @@
     },
     {
       "id": "id-mnf1whft9dpxm",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "SS",
       "name": "Sam Salvador",
@@ -253,8 +207,6 @@
     },
     {
       "id": "id-mnf1whftn7c9u",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "ER",
       "name": "Ericka Rodriguez",
@@ -264,8 +216,6 @@
     },
     {
       "id": "id-mnf1whfto2lad",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "CR",
       "name": "Conli Ramey",
@@ -275,8 +225,6 @@
     },
     {
       "id": "id-mnf1whfta6pgh",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "RB",
       "name": "Rhio Barrera",
@@ -285,8 +233,6 @@
     },
     {
       "id": "id-mnf1whftg1rk2",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "JC",
       "name": "Janette Captain",
@@ -296,8 +242,6 @@
     },
     {
       "id": "id-mnf1whftfkhfp",
-      "email": "cfloto@victig.com",
-      "phone": "",
       "reportsTo": null,
       "initials": "CF",
       "name": "Chris Floto",
@@ -307,8 +251,6 @@
     },
     {
       "id": "id-mnf1whft07bd3",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "KB",
       "name": "Kim Bass",
@@ -318,8 +260,6 @@
     },
     {
       "id": "id-mnf1whftnt941",
-      "email": "",
-      "phone": "",
       "reportsTo": "Ryan Cauffman",
       "initials": "OL",
       "name": "Ophelia Lachen",
@@ -329,8 +269,6 @@
     },
     {
       "id": "id-mnf1whftyqkj9",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "RM",
       "name": "Rob McDermott",
@@ -340,8 +278,6 @@
     },
     {
       "id": "id-mnf1whftwuhww",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "JV",
       "name": "Jums Ventura",
@@ -351,8 +287,6 @@
     },
     {
       "id": "id-mnf1whftvc2f3",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "LL",
       "name": "Lawrence Lubang",
@@ -362,8 +296,6 @@
     },
     {
       "id": "id-mnf1whft8e7x9",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "IH",
       "name": "Ian Hamill",
@@ -373,8 +305,6 @@
     },
     {
       "id": "id-mnf1whft8anxu",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "JP",
       "name": "Jan Pineda",
@@ -384,8 +314,6 @@
     },
     {
       "id": "id-mnf1whfttzh7m",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "MS",
       "name": "Mackensie Schwab",
@@ -395,8 +323,6 @@
     },
     {
       "id": "id-mnf1whft7asbu",
-      "email": "btower@victig.com",
-      "phone": "",
       "reportsTo": null,
       "initials": "BT",
       "name": "Bridget Tower",
@@ -406,8 +332,6 @@
     },
     {
       "id": "id-mnf1whfte91uq",
-      "email": "alimcd@victig.com",
-      "phone": "",
       "reportsTo": null,
       "initials": "AH",
       "name": "Alison Hamill",
@@ -416,8 +340,6 @@
     },
     {
       "id": "id-mnf1whftjvjso",
-      "email": "",
-      "phone": "",
       "reportsTo": "Alison Hamill",
       "initials": "TO",
       "name": "Tannah O'Banion",
@@ -427,8 +349,6 @@
     },
     {
       "id": "id-mnf1whftuohhi",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "KT",
       "name": "Kayla Thompson",
@@ -438,8 +358,6 @@
     },
     {
       "id": "id-mnf1whftcs6u3",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "RC",
       "name": "Renato Cabrera",
@@ -449,8 +367,6 @@
     },
     {
       "id": "id-mnf1whftqjfk1",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "TG",
       "name": "Trish Gustin",
@@ -460,8 +376,6 @@
     },
     {
       "id": "id-mnf1whft2d0qq",
-      "email": "alane@victig.com",
-      "phone": "",
       "reportsTo": null,
       "initials": "AM",
       "name": "Annah Madsen",
@@ -471,8 +385,6 @@
     },
     {
       "id": "id-mnf1whftmevmy",
-      "email": "",
-      "phone": "",
       "reportsTo": "Trish Gustin",
       "initials": "MC",
       "name": "Myssy Clayson",
@@ -482,8 +394,6 @@
     },
     {
       "id": "id-mnf1whft54t3r",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "MB",
       "name": "Marilee Bray",
@@ -493,8 +403,6 @@
     },
     {
       "id": "id-mnf1whftp9w30",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "CS",
       "name": "Christina Solheim",
@@ -504,8 +412,6 @@
     },
     {
       "id": "id-mnf1whftghxa5",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "AG",
       "name": "Avery Gustin",
@@ -515,8 +421,6 @@
     },
     {
       "id": "id-mnf1whftumibj",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "MC",
       "name": "Marcie Crawford",
@@ -526,8 +430,6 @@
     },
     {
       "id": "id-mnf1whftahnxp",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "KP",
       "name": "Kayliene Pearson",
@@ -537,8 +439,6 @@
     },
     {
       "id": "id-mnf1whft9o4qo",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "DR",
       "name": "Davis Romney",
@@ -548,8 +448,6 @@
     },
     {
       "id": "id-mnf1whftqvl9a",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "LD",
       "name": "Linnea Davis",
@@ -559,8 +457,6 @@
     },
     {
       "id": "id-mnf1whftuvnly",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "RC",
       "name": "Rebekah Carter",
@@ -570,8 +466,6 @@
     },
     {
       "id": "id-mnf1whftsptow",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "GR",
       "name": "Gillian Ragan",
@@ -581,8 +475,6 @@
     },
     {
       "id": "id-mnf1whftjawfo",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "BW",
       "name": "Britney White",
@@ -592,8 +484,6 @@
     },
     {
       "id": "id-mnf1whfthbdz2",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "KT",
       "name": "Kaitlin Thune",
@@ -603,8 +493,6 @@
     },
     {
       "id": "id-mnf1whftla045",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "AT",
       "name": "Ana Thurber",
@@ -614,8 +502,6 @@
     },
     {
       "id": "id-mnf1whftw99i2",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "FH",
       "name": "Fiona Humphreys",
@@ -625,8 +511,6 @@
     },
     {
       "id": "id-mnf1whftsx4ix",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "PC",
       "name": "Paul Clayson",
@@ -636,8 +520,6 @@
     },
     {
       "id": "id-mnf1whft7z6bm",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "RB",
       "name": "Rochelle Buyse",
@@ -647,8 +529,6 @@
     },
     {
       "id": "id-mnf1whftxudog",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "MP",
       "name": "Melanie Pulley",
@@ -658,8 +538,6 @@
     },
     {
       "id": "id-mnf1whfttbtty",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "CG",
       "name": "Carmen Guevara",
@@ -669,8 +547,6 @@
     },
     {
       "id": "id-mnf1whfttft4z",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "RM",
       "name": "Rebeca Mason",
@@ -680,8 +556,6 @@
     },
     {
       "id": "id-mnf1whftu4z4h",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "JC",
       "name": "Jessica Carlson",
@@ -691,8 +565,6 @@
     },
     {
       "id": "id-mnf1whft3s9z6",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "JN",
       "name": "Jackie Nuttall",
@@ -702,8 +574,6 @@
     },
     {
       "id": "id-mnf1whfth2o47",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "DB",
       "name": "Darcie Bailey",
@@ -713,8 +583,6 @@
     },
     {
       "id": "id-mnf1whft29oxo",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "SA",
       "name": "Shawnee Allred",
@@ -724,8 +592,6 @@
     },
     {
       "id": "id-mnf1whftph2ho",
-      "email": "",
-      "phone": "",
       "reportsTo": null,
       "initials": "MF",
       "name": "Maura Foster",
@@ -740,8 +606,6 @@
       "title": "Clerk of Accounting",
       "department": "Accounting",
       "reportsTo": "Nathan Carrizales",
-      "email": "",
-      "phone": "",
       "teamId": "id-mngbtxsbgd3zm"
     },
     {
@@ -751,8 +615,6 @@
       "title": "Assistant",
       "department": "Systems & Internal Support",
       "reportsTo": null,
-      "email": "",
-      "phone": "",
       "teamId": "id-mngbtxsbap1rq"
     },
     {
@@ -762,8 +624,6 @@
       "title": "Legal Counsel",
       "department": "Legal",
       "reportsTo": null,
-      "email": "",
-      "phone": "",
       "teamId": "id-mngbtxsbnw1bg"
     },
     {
@@ -773,9 +633,7 @@
       "title": "Customer Support",
       "department": "Customer Support",
       "teamId": "id-mnz690q1utbcz",
-      "reportsTo": null,
-      "email": "",
-      "phone": ""
+      "reportsTo": null
     },
     {
       "id": "id-mo079oj8qkqq0",
@@ -783,9 +641,7 @@
       "initials": "KF",
       "title": "Research & Quality Assurance Manager",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
-      "email": "kflorez@victig.com",
-      "phone": "(866) 886-5644"
+      "reportsTo": null
     },
     {
       "id": "id-mo07do93hcn01",
@@ -794,9 +650,7 @@
       "title": "Research Support",
       "department": "Research & Quality Assurance Team",
       "teamId": "id-mngbtxsbhfe7w",
-      "reportsTo": null,
-      "email": "",
-      "phone": ""
+      "reportsTo": null
     },
     {
       "id": "id-mo07e665akw11",
@@ -805,9 +659,7 @@
       "title": "Research Support",
       "department": "Research & Quality Assurance Team",
       "teamId": "id-mngbtxsbhfe7w",
-      "reportsTo": null,
-      "email": "",
-      "phone": ""
+      "reportsTo": null
     }
   ],
   "departments": [
