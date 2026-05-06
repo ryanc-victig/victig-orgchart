@@ -2223,6 +2223,41 @@ function saveData() {
   } catch(e) {}
 }
 
+async function saveToSheets() {
+  try {
+    const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/victig.com/s/AKfycbz9PTqFo8ApvEQ0JZuzraR8A67kVYfsTNOq_OsmDC9yVXLYCaMRmUxDFW_HnfSqdoZudA/exec';
+    
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const result = await response.json();
+    
+    if (result.success) {
+      toast('✅ Saved to Google Sheets', 'success');
+      return true;
+    } else {
+      throw new Error(result.error || 'Unknown error');
+    }
+  } catch(e) {
+    console.error('Failed to save to Sheets:', e);
+    toast(`⚠️ Could not save to Google Sheets: ${e.message}`, 'error');
+    return false;
+  }
+}
+
+function saveDataAndSync() {
+  saveData(); // Save locally
+  saveToSheets(); // Save to Google Sheets
+}
+
 // ---- Team Collapse State ----
 function loadCollapseState() {
   try {
@@ -2554,7 +2589,7 @@ function onDropDept(e, deptName, deptId) {
   emp.teamId = generalTeam.id;
   
   if (changed) {
-    saveData();
+    saveDataAndSync();
     render();
     toast(`Moved ${emp.name} to ${deptName} (General team)`, 'success');
   }
@@ -2574,7 +2609,7 @@ function onDropTeam(e, teamId, deptName, deptId) {
   emp.department = deptName;
   
   if (changed) {
-    saveData();
+    saveDataAndSync();
     render();
     const team = data.teams.find(t => t.id === teamId);
     toast(`Moved ${emp.name} to ${team.name}`, 'success');
@@ -2712,7 +2747,7 @@ function saveDepartmentManager() {
     }
   }
   
-  saveData();
+  saveDataAndSync();
   render();
   closeModal('deptManagerModal');
   toast('Department manager updated', 'success');
@@ -2824,7 +2859,7 @@ function saveEmployee() {
     toast(`Added ${name}`, 'success');
   }
   
-  saveData();
+  saveDataAndSync();
   render();
   closeModal('empModal');
 }
@@ -2846,7 +2881,7 @@ async function deleteEmployee() {
   });
   
   data.employees = data.employees.filter(e => e.id !== id);
-  saveData();
+  saveDataAndSync();
   render();
   closeModal('empModal');
   toast(`Deleted ${emp.name}`, 'info');
@@ -2917,7 +2952,7 @@ function saveDepartment() {
     toast(`Created ${name}`, 'success');
   }
   
-  saveData();
+  saveDataAndSync();
   render();
   closeModal('deptModal');
 }
@@ -2939,7 +2974,7 @@ async function deleteDepartment() {
   data.teams = data.teams.filter(t => t.departmentId !== id);
   data.departments = data.departments.filter(d => d.id !== id);
   
-  saveData();
+  saveDataAndSync();
   render();
   closeModal('deptModal');
   toast(`Deleted ${dept.name}`, 'info');
@@ -3029,7 +3064,7 @@ function saveTeam() {
     toast(`Created ${name}`, 'success');
   }
   
-  saveData();
+  saveDataAndSync();
   render();
   closeModal('teamModal');
 }
@@ -3071,7 +3106,7 @@ async function deleteTeam() {
   });
   
   data.teams = data.teams.filter(t => t.id !== id);
-  saveData();
+  saveDataAndSync();
   render();
   closeModal('teamModal');
   toast(`Deleted ${team.name}`, 'info');
