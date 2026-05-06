@@ -2086,31 +2086,31 @@ function getDefaultData() {
 // ---- Load / Save ----
 let data;
 
-// Google Sheets Configuration
-const SHEET_ID = '1rVYp2eBuq8v39arij4Hy-mukstagxTgvHfWE-vlHV6E';
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+// Google Apps Script Configuration (secure, org-only access)
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/victig.com/s/AKfycbwyWqjKLsHtlZOhfGeQzfOnyasNAzqWvoPp37t65R-HFoYrWZ-xBQnR9O-0HzsgSJ1T6A/exec';
 
 async function loadFromSheets() {
   try {
-    const response = await fetch(SHEET_URL);
-    const text = await response.text();
-    // Google Sheets returns JSONP, need to extract JSON
-    const json = JSON.parse(text.substr(47).slice(0, -2));
-    const rows = json.table.rows;
+    const response = await fetch(APPS_SCRIPT_URL);
+    const json = await response.json();
     
-    // Skip header row, load employees
-    const employees = rows.slice(1).map(row => {
-      const vals = row.c;
+    if (!json.success) {
+      console.error('Apps Script error:', json.error);
+      return null;
+    }
+    
+    // Map Apps Script data to expected format
+    const employees = json.employees.map(emp => {
       return {
-        id: vals[0]?.v || uid(),
-        initials: vals[1]?.v || '',
-        name: vals[2]?.v || '',
-        title: vals[3]?.v || '',
-        department: vals[4]?.v || '',
-        reportsTo: vals[5]?.v || null,
-        email: vals[6]?.v || '',
-        phone: vals[7]?.v || '',
-        teamId: vals[8]?.v || null
+        id: emp.ID || uid(),
+        initials: emp.Initials || '',
+        name: emp.Name || '',
+        title: emp.Title || '',
+        department: emp.Department || '',
+        reportsTo: emp.ReportsTo || null,
+        email: emp.Email || '',
+        phone: emp.Phone || '',
+        teamId: emp.TeamId || null
       };
     }).filter(e => e.name);
     
@@ -2124,7 +2124,7 @@ async function loadFromSheets() {
       teams: baseData.teams
     };
   } catch(e) {
-    console.error('Failed to load from Sheets:', e);
+    console.error('Failed to load from Apps Script:', e);
     return null;
   }
 }
