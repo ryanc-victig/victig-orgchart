@@ -2093,7 +2093,10 @@ async function loadFromSheets() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     
-    // Make Brent blue instead of orange
+    // Make both Matt and Brent BLUE instead of orange
+    const matt = data.employees.find(e => e.name === 'Matt Visser');
+    if (matt) matt.customColor = '#3498DB';
+    
     const brent = data.employees.find(e => e.name === 'Brent Ramey');
     if (brent) brent.customColor = '#3498DB';
     
@@ -2142,6 +2145,7 @@ async function loadData() {
 }
 
 async function syncFromSheets() {
+  toast('Syncing from Google Sheets...', 'info');
   const sheetsData = await loadFromSheets();
   if (sheetsData) {
     data = sheetsData;
@@ -2153,9 +2157,9 @@ async function syncFromSheets() {
     migrateManagers();
     saveData();
     render();
-    showToast('✅ Synced with Google Sheets!', 'success');
+    toast('✅ Synced with Google Sheets!', 'success');
   } else {
-    showToast('❌ Failed to sync with Google Sheets', 'error');
+    toast('❌ Failed to sync with Google Sheets', 'error');
   }
 }
 
