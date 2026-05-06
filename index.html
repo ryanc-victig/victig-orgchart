@@ -2088,12 +2088,18 @@ let data;
 
 async function loadFromSheets() {
   try {
-    // Load directly from data-fixed.json (simpler, no CORS issues)
-    const dataResponse = await fetch('./data-fixed.json');
-    const baseData = await dataResponse.json();
-    return baseData;
+    const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/victig.com/s/AKfycbwyWqjKLsHtlZOhfGeQzfOnyasNAzqWvoPp37t65R-HFoYrWZ-xBQnR9O-0HzsgSJ1T6A/exec';
+    const response = await fetch(APPS_SCRIPT_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    
+    // Make Brent blue instead of orange
+    const brent = data.employees.find(e => e.name === 'Brent Ramey');
+    if (brent) brent.customColor = '#3498DB';
+    
+    return data;
   } catch(e) {
-    console.error('Failed to load data:', e);
+    console.error('Failed to load from Apps Script:', e);
     return null;
   }
 }
@@ -2370,8 +2376,10 @@ function render() {
 
 function renderOwnershipCard(emp) {
   const matchClass = isMatch(emp) ? ' search-match' : '';
-  return `<div class="ownership-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
-    <div class="emp-avatar">${esc(emp.initials)}</div>
+  const customStyle = emp.customColor ? `style="background: ${emp.customColor}; border-color: ${emp.customColor};"` : '';
+  const customAvatarStyle = emp.customColor ? `style="background: ${emp.customColor};"` : '';
+  return `<div class="ownership-card${matchClass}" ${customStyle} onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+    <div class="emp-avatar" ${customAvatarStyle}>${esc(emp.initials)}</div>
     <div class="emp-name">${esc(emp.name)}</div>
     <div class="emp-title">${esc(emp.title)}</div>
   </div>`;
