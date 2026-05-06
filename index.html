@@ -2089,26 +2089,40 @@ let data;
 async function loadFromSheets() {
   try {
     const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/victig.com/s/AKfycbwyWqjKLsHtlZOhfGeQzfOnyasNAzqWvoPp37t65R-HFoYrWZ-xBQnR9O-0HzsgSJ1T6A/exec';
-    const response = await fetch(APPS_SCRIPT_URL);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    console.log('Fetching from Apps Script...');
+    const response = await fetch(APPS_SCRIPT_URL, {
+      mode: 'cors',
+      credentials: 'include'
+    });
+    console.log('Response status:', response.status);
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     const data = await response.json();
+    console.log('Loaded employees:', data.employees?.length);
     
     // Make both Matt and Brent BLUE instead of orange
     const matt = data.employees.find(e => e.name === 'Matt Visser');
-    if (matt) matt.customColor = '#3498DB';
+    if (matt) {
+      matt.customColor = '#3498DB';
+      console.log('Set Matt to blue');
+    }
     
     const brent = data.employees.find(e => e.name === 'Brent Ramey');
-    if (brent) brent.customColor = '#3498DB';
+    if (brent) {
+      brent.customColor = '#3498DB';
+      console.log('Set Brent to blue');
+    }
     
     return data;
   } catch(e) {
     console.error('Failed to load from Apps Script:', e);
+    toast(`Error loading from Google Sheets: ${e.message}`, 'error');
     return null;
   }
 }
 
 async function loadData() {
-  // Try loading from data file first
+  // ALWAYS try Apps Script first (fresh data from Google Sheets)
+  toast('Loading from Google Sheets...', 'info');
   const sheetsData = await loadFromSheets();
   if (sheetsData) {
     data = sheetsData;
@@ -2118,11 +2132,13 @@ async function loadData() {
     });
     migrateToTeams();
     migrateManagers();
-    saveData(); // Cache in localStorage
+    saveData();
+    toast('✅ Loaded from Google Sheets', 'success');
     return;
   }
   
-  // Fallback to localStorage
+  // Fallback to localStorage if Apps Script fails
+  toast('⚠️ Google Sheets unavailable, loading cached data...', 'info');
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) { 
