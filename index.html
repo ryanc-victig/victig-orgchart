@@ -2091,8 +2091,7 @@ async function loadFromSheets() {
     const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/victig.com/s/AKfycbzVBdJsSo01tZLb7jeHxJOuik2UMleuFCp1J3aHHmtbaQEeTnqNsYJwBheeiWxLWzrIWg/exec';
     console.log('Fetching from Apps Script...');
     const response = await fetch(APPS_SCRIPT_URL, {
-      mode: 'cors',
-      credentials: 'include'
+      redirect: 'follow'
     });
     console.log('Response status:', response.status);
     if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -2115,7 +2114,7 @@ async function loadFromSheets() {
     return data;
   } catch(e) {
     console.error('Failed to load from Apps Script:', e);
-    toast(`Error loading from Google Sheets: ${e.message}`, 'error');
+    toast(`⚠️ Could not load from Google Sheets. Make sure you're logged into a @victig.com account. Using cached data.`, 'error');
     return null;
   }
 }
@@ -2229,11 +2228,7 @@ async function saveToSheets() {
     
     const response = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      redirect: 'follow',
       body: JSON.stringify(data)
     });
     
@@ -2248,7 +2243,7 @@ async function saveToSheets() {
     }
   } catch(e) {
     console.error('Failed to save to Sheets:', e);
-    toast(`⚠️ Could not save to Google Sheets: ${e.message}`, 'error');
+    toast(`⚠️ Could not save to Google Sheets. Changes saved locally only.`, 'error');
     return false;
   }
 }
