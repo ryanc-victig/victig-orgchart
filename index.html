@@ -2086,51 +2086,20 @@ function getDefaultData() {
 // ---- Load / Save ----
 let data;
 
-// Google Apps Script Configuration (secure, org-only access)
-const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/victig.com/s/AKfycbwyWqjKLsHtlZOhfGeQzfOnyasNAzqWvoPp37t65R-HFoYrWZ-xBQnR9O-0HzsgSJ1T6A/exec';
-
 async function loadFromSheets() {
   try {
-    const response = await fetch(APPS_SCRIPT_URL);
-    const json = await response.json();
-    
-    if (!json.success) {
-      console.error('Apps Script error:', json.error);
-      return null;
-    }
-    
-    // Map Apps Script data to expected format
-    const employees = json.employees.map(emp => {
-      return {
-        id: emp.ID || uid(),
-        initials: emp.Initials || '',
-        name: emp.Name || '',
-        title: emp.Title || '',
-        department: emp.Department || '',
-        reportsTo: emp.ReportsTo || null,
-        email: emp.Email || '',
-        phone: emp.Phone || '',
-        teamId: emp.TeamId || null
-      };
-    }).filter(e => e.name);
-    
-    // Load from data-fixed.json structure for departments/teams
+    // Load directly from data-fixed.json (simpler, no CORS issues)
     const dataResponse = await fetch('./data-fixed.json');
     const baseData = await dataResponse.json();
-    
-    return {
-      employees: employees,
-      departments: baseData.departments,
-      teams: baseData.teams
-    };
+    return baseData;
   } catch(e) {
-    console.error('Failed to load from Apps Script:', e);
+    console.error('Failed to load data:', e);
     return null;
   }
 }
 
 async function loadData() {
-  // Try loading from Google Sheets first
+  // Try loading from data file first
   const sheetsData = await loadFromSheets();
   if (sheetsData) {
     data = sheetsData;
