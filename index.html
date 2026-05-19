@@ -2625,22 +2625,12 @@ function onDropCard(e, targetEmpId) {
   // Only allow reordering within same team
   const dragEmp = data.employees[dragIndex];
   const targetEmp = data.employees[targetIndex];
-  if (dragEmp.teamId !== targetEmp.teamId) {
-    toast('Can only reorder within the same team', 'error');
-    return;
-  }
+  if (dragEmp.teamId !== targetEmp.teamId) return;
   
-  // Remove dragged employee from array
+  // Remove and reinsert at new position
   const [removed] = data.employees.splice(dragIndex, 1);
-  
-  // Calculate new insertion index (accounting for the removal)
-  let insertIndex = targetIndex;
-  if (dragIndex < targetIndex) {
-    insertIndex = targetIndex - 1; // Target shifted down after removal
-  }
-  
-  // Insert at new position
-  data.employees.splice(insertIndex, 0, removed);
+  const newTargetIndex = data.employees.findIndex(e => e.id === targetEmpId);
+  data.employees.splice(newTargetIndex, 0, removed);
   
   saveDataAndSync();
   render();
