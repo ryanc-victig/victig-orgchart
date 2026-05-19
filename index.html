@@ -2098,19 +2098,6 @@ async function loadFromSheets() {
     const data = await response.json();
     console.log('Loaded employees:', data.employees?.length);
     
-    // Make both Matt and Brent BLUE instead of orange
-    const matt = data.employees.find(e => e.name === 'Matt Visser');
-    if (matt) {
-      matt.customColor = '#3498DB';
-      console.log('Set Matt to blue');
-    }
-    
-    const brent = data.employees.find(e => e.name === 'Brent Ramey');
-    if (brent) {
-      brent.customColor = '#3498DB';
-      console.log('Set Brent to blue');
-    }
-    
     return data;
   } catch(e) {
     console.error('Failed to load from Apps Script:', e);
@@ -2340,10 +2327,10 @@ function render() {
 
   let html = '';
 
-  // ===== OWNERSHIP TIER =====
+  // ===== OWNERSHIP TIER (BLUE BOXES, NO STARS) =====
   html += '<div class="ownership-tier">';
-  if (matt) html += renderOwnershipCard(matt);
-  if (brent) html += renderOwnershipCard(brent);
+  if (matt) html += renderExecCard(matt, '');
+  if (brent) html += renderExecCard(brent, '');
   html += '</div>';
 
   // ===== BRANCH CONTAINER =====
@@ -2428,13 +2415,8 @@ function render() {
 
 function renderOwnershipCard(emp) {
   const matchClass = isMatch(emp) ? ' search-match' : '';
-  // Matt and Brent are BLUE, not orange
-  const isBlueOwner = (emp.name === 'Matt Visser' || emp.name === 'Brent Ramey');
-  const color = isBlueOwner ? '#3498DB' : (emp.customColor || 'var(--ownership-gold)');
-  const customStyle = `style="background: ${color}; border-color: ${color};"`;
-  const customAvatarStyle = `style="background: ${color};"`;
-  return `<div class="ownership-card${matchClass}" ${customStyle} onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
-    <div class="emp-avatar" ${customAvatarStyle}>${esc(emp.initials)}</div>
+  return `<div class="ownership-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+    <div class="emp-avatar">${esc(emp.initials)}</div>
     <div class="emp-name">${esc(emp.name)}</div>
     <div class="emp-title">${esc(emp.title)}</div>
   </div>`;
