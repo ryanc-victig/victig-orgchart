@@ -2428,8 +2428,11 @@ function render() {
 
 function renderOwnershipCard(emp) {
   const matchClass = isMatch(emp) ? ' search-match' : '';
-  const customStyle = emp.customColor ? `style="background: ${emp.customColor}; border-color: ${emp.customColor};"` : '';
-  const customAvatarStyle = emp.customColor ? `style="background: ${emp.customColor};"` : '';
+  // Matt and Brent are BLUE, not orange
+  const isBlueOwner = (emp.name === 'Matt Visser' || emp.name === 'Brent Ramey');
+  const color = isBlueOwner ? '#3498DB' : (emp.customColor || 'var(--ownership-gold)');
+  const customStyle = `style="background: ${color}; border-color: ${color};"`;
+  const customAvatarStyle = `style="background: ${color};"`;
   return `<div class="ownership-card${matchClass}" ${customStyle} onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
     <div class="emp-avatar" ${customAvatarStyle}>${esc(emp.initials)}</div>
     <div class="emp-name">${esc(emp.name)}</div>
