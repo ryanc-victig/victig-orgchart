@@ -2648,6 +2648,9 @@ function onDropCard(e, targetEmpId) {
     emp.sortOrder = idx * 10;
   });
   
+  console.log('Updated sortOrder for team:', dragEmp.teamId);
+  console.log('New order:', teamEmps.map(e => e.name + ':' + e.sortOrder));
+  
   saveDataAndSync();
   render();
   toast(`Reordered ${removed.name}`, 'success');
