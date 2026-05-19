@@ -2288,7 +2288,9 @@ function getDeptEmployees(deptName) {
 }
 
 function getTeamEmployees(teamId) {
-  return data.employees.filter(e => e.teamId === teamId);
+  return data.employees
+    .filter(e => e.teamId === teamId)
+    .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
 }
 
 function getDeptTeams(deptId) {
@@ -2617,30 +2619,34 @@ function onDropCard(e, targetEmpId) {
   e.stopPropagation();
   if (!dragEmpId || dragEmpId === targetEmpId) return;
   
-  // Reorder employees in array
-  const dragIndex = data.employees.findIndex(e => e.id === dragEmpId);
-  const targetIndex = data.employees.findIndex(e => e.id === targetEmpId);
-  if (dragIndex === -1 || targetIndex === -1) return;
+  const dragEmp = data.employees.find(e => e.id === dragEmpId);
+  const targetEmp = data.employees.find(e => e.id === targetEmpId);
+  
+  if (!dragEmp || !targetEmp) return;
   
   // Only allow reordering within same team
-  const dragEmp = data.employees[dragIndex];
-  const targetEmp = data.employees[targetIndex];
   if (dragEmp.teamId !== targetEmp.teamId) {
     toast('Can only reorder within the same team', 'error');
     return;
   }
   
-  // Remove dragged employee from array
-  const [removed] = data.employees.splice(dragIndex, 1);
+  // Get all employees in this team sorted by current sortOrder
+  const teamEmps = data.employees
+    .filter(e => e.teamId === dragEmp.teamId)
+    .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
   
-  // Calculate new insertion index (accounting for the removal)
-  let insertIndex = targetIndex;
-  if (dragIndex < targetIndex) {
-    insertIndex = targetIndex - 1; // Target shifted down after removal
-  }
+  // Find positions in sorted array
+  const dragIdx = teamEmps.findIndex(e => e.id === dragEmpId);
+  const targetIdx = teamEmps.findIndex(e => e.id === targetEmpId);
   
-  // Insert at new position
-  data.employees.splice(insertIndex, 0, removed);
+  // Remove and reinsert
+  const [removed] = teamEmps.splice(dragIdx, 1);
+  teamEmps.splice(targetIdx, 0, removed);
+  
+  // Reassign sortOrder values (0, 10, 20, 30... for easy insertions later)
+  teamEmps.forEach((emp, idx) => {
+    emp.sortOrder = idx * 10;
+  });
   
   saveDataAndSync();
   render();
