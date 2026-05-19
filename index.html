@@ -2426,7 +2426,11 @@ function renderExecCard(emp, branchClass = '') {
   const matchClass = isMatch(emp) ? ' search-match' : '';
   const color = branchClass === 'strategic-branch' ? 'var(--strategic)' : 'var(--exec)';
   
-  return `<div class="exec-card ${branchClass}${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+  // Matt and Brent get blue borders
+  const isBlueOwner = (emp.name === 'Matt Visser' || emp.name === 'Brent Ramey');
+  const borderStyle = isBlueOwner ? 'style="border: 3px solid #3498DB;"' : '';
+  
+  return `<div class="exec-card ${branchClass}${matchClass}" ${borderStyle} onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
     <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
     <div class="emp-name">${esc(emp.name)}</div>
     <div class="emp-title">${esc(emp.title)}</div>
