@@ -1,0 +1,41 @@
+--- a/index.html
++++ b/index.html
+@@ -2530,7 +2530,7 @@ function renderEmpCard(emp, color, teamLeaderId) {
+   const matchClass = isMatch(emp) ? ' search-match' : '';
+   const isLeader = emp.id === teamLeaderId;
+   return `<div class="emp-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true"
+-    ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event)">
++    ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event,'${emp.id}')">
+     <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+     <div class="emp-info">
+       <div class="emp-name">${esc(emp.name)}${isLeader ? ' <span class="leader-badge">⭐</span>' : ''}</div>
+@@ -2610,8 +2610,27 @@ function onDropTeam(e, teamId, deptName, deptId) {
+   dragEmpId = null;
+ }
+ 
+-function onDropCard(e) {
++function onDropCard(e, targetEmpId) {
++  e.preventDefault();
+   e.stopPropagation();
++  if (!dragEmpId || dragEmpId === targetEmpId) return;
++  
++  // Reorder employees in array
++  const dragIndex = data.employees.findIndex(e => e.id === dragEmpId);
++  const targetIndex = data.employees.findIndex(e => e.id === targetEmpId);
++  if (dragIndex === -1 || targetIndex === -1) return;
++  
++  // Only allow reordering within same team
++  const dragEmp = data.employees[dragIndex];
++  const targetEmp = data.employees[targetIndex];
++  if (dragEmp.teamId !== targetEmp.teamId) return;
++  
++  // Remove and reinsert at new position
++  const [removed] = data.employees.splice(dragIndex, 1);
++  const newTargetIndex = data.employees.findIndex(e => e.id === targetEmpId);
++  data.employees.splice(newTargetIndex, 0, removed);
++  
++  saveDataAndSync();
++  render();
++  toast(`Reordered ${removed.name}`, 'success');
+ }
+ 

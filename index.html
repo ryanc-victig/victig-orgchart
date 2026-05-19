@@ -2288,7 +2288,9 @@ function getDeptEmployees(deptName) {
 }
 
 function getTeamEmployees(teamId) {
-  return data.employees.filter(e => e.teamId === teamId);
+  return data.employees
+    .filter(e => e.teamId === teamId)
+    .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
 }
 
 function getDeptTeams(deptId) {
@@ -2534,7 +2536,7 @@ function renderEmpCard(emp, color, teamLeaderId) {
   const matchClass = isMatch(emp) ? ' search-match' : '';
   const isLeader = emp.id === teamLeaderId;
   return `<div class="emp-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true"
-    ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event)">
+    ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event,'${emp.id}')">
     <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
     <div class="emp-info">
       <div class="emp-name">${esc(emp.name)}${isLeader ? ' <span class="leader-badge">⭐</span>' : ''}</div>
@@ -2592,6 +2594,9 @@ function onDropDept(e, deptName, deptId) {
 }
 
 function onDropTeam(e, teamId, deptName, deptId) {
+  // Ignore if dropped on an employee card (let card handler deal with it)
+  if (e.target.closest('.emp-card')) return;
+  
   e.preventDefault();
   e.stopPropagation();
   if (!dragEmpId) return;
@@ -2612,8 +2617,44 @@ function onDropTeam(e, teamId, deptName, deptId) {
   dragEmpId = null;
 }
 
-function onDropCard(e) {
+function onDropCard(e, targetEmpId) {
+  e.preventDefault();
   e.stopPropagation();
+  
+  if (!dragEmpId || dragEmpId === targetEmpId) return;
+  
+  const dragEmp = data.employees.find(e => e.id === dragEmpId);
+  const targetEmp = data.employees.find(e => e.id === targetEmpId);
+  
+  if (!dragEmp || !targetEmp) return;
+  
+  // Only allow reordering within same team
+  if (dragEmp.teamId !== targetEmp.teamId) {
+    toast('Can only reorder within the same team', 'error');
+    return;
+  }
+  
+  // Get all employees in this team sorted by sortOrder
+  const teamEmps = data.employees
+    .filter(e => e.teamId === dragEmp.teamId)
+    .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+  
+  // Find positions
+  const dragIdx = teamEmps.findIndex(e => e.id === dragEmpId);
+  const targetIdx = teamEmps.findIndex(e => e.id === targetEmpId);
+  
+  // Remove and reinsert
+  const [removed] = teamEmps.splice(dragIdx, 1);
+  teamEmps.splice(targetIdx, 0, removed);
+  
+  // Reassign sortOrder (0, 10, 20, 30...)
+  teamEmps.forEach((emp, idx) => {
+    emp.sortOrder = idx * 10;
+  });
+  
+  saveDataAndSync();
+  render();
+  toast(`Reordered ${removed.name}`, 'success');
 }
 
 document.addEventListener('dragend', () => {

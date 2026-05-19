@@ -61,7 +61,8 @@ function getOrgData() {
       reportsTo: row[5] ? String(row[5]) : null,
       email: String(row[6] || ''),
       phone: String(row[7] || ''),
-      teamId: row[8] ? String(row[8]) : null
+      teamId: row[8] ? String(row[8]) : null,
+      sortOrder: row[9] ? Number(row[9]) : 0
     });
   }
   
@@ -113,7 +114,7 @@ function saveOrgData(data) {
   // Save Employees
   var empSheet = ss.getSheetByName('Employees');
   empSheet.clear();
-  empSheet.appendRow(['ID', 'Initials', 'Name', 'Title', 'Department', 'ReportsTo', 'Email', 'Phone', 'TeamID']);
+  empSheet.appendRow(['ID', 'Initials', 'Name', 'Title', 'Department', 'ReportsTo', 'Email', 'Phone', 'TeamID', 'SortOrder']);
   
   data.employees.forEach(function(emp) {
     empSheet.appendRow([
@@ -125,7 +126,8 @@ function saveOrgData(data) {
       emp.reportsTo || '',
       emp.email || '',
       emp.phone || '',
-      emp.teamId || ''
+      emp.teamId || '',
+      emp.sortOrder || 0
     ]);
   });
   
