@@ -62,7 +62,8 @@ function getOrgData() {
       email: String(row[6] || ''),
       phone: String(row[7] || ''),
       teamId: row[8] ? String(row[8]) : null,
-      sortOrder: row[9] ? Number(row[9]) : 0
+      sortOrder: row[9] ? Number(row[9]) : 0,
+      customColor: row[10] ? String(row[10]) : null
     });
   }
   
@@ -114,7 +115,7 @@ function saveOrgData(data) {
   // Save Employees
   var empSheet = ss.getSheetByName('Employees');
   empSheet.clear();
-  empSheet.appendRow(['ID', 'Initials', 'Name', 'Title', 'Department', 'ReportsTo', 'Email', 'Phone', 'TeamID', 'SortOrder']);
+  empSheet.appendRow(['ID', 'Initials', 'Name', 'Title', 'Department', 'ReportsTo', 'Email', 'Phone', 'TeamID', 'SortOrder', 'CustomColor']);
   
   data.employees.forEach(function(emp) {
     empSheet.appendRow([
@@ -127,7 +128,8 @@ function saveOrgData(data) {
       emp.email || '',
       emp.phone || '',
       emp.teamId || '',
-      emp.sortOrder || 0
+      emp.sortOrder || 0,
+      emp.customColor || ''
     ]);
   });
   
