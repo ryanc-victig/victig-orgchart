@@ -2594,6 +2594,9 @@ function onDropDept(e, deptName, deptId) {
 }
 
 function onDropTeam(e, teamId, deptName, deptId) {
+  // Don't handle if dropped directly on a card (let onDropCard handle it)
+  if (e.target.closest('.emp-card')) return;
+  
   e.preventDefault();
   e.stopPropagation();
   if (!dragEmpId) return;
@@ -2615,9 +2618,14 @@ function onDropTeam(e, teamId, deptName, deptId) {
 }
 
 function onDropCard(e, targetEmpId) {
+  console.log('onDropCard called!', dragEmpId, '->', targetEmpId);
   e.preventDefault();
   e.stopPropagation();
-  if (!dragEmpId || dragEmpId === targetEmpId) return;
+  e.stopImmediatePropagation();
+  if (!dragEmpId || dragEmpId === targetEmpId) {
+    console.log('Same employee or no drag, returning');
+    return;
+  }
   
   const dragEmp = data.employees.find(e => e.id === dragEmpId);
   const targetEmp = data.employees.find(e => e.id === targetEmpId);
