@@ -2528,9 +2528,9 @@ function renderDeptCard(dept, branchType = 'executive') {
   
   html += `<div class="dept-body" ondragover="onDragOver(event)" ondrop="onDropDept(event,'${esc(dept.name)}','${dept.id}')">`;
   
-  // Department Manager Section - Only show if manager exists
+  // Department Manager Section
+  html += `<div class="dept-manager-section" style="color:${color}">`;
   if (manager) {
-    html += `<div class="dept-manager-section" style="color:${color}">`;
     const matchClass = isMatch(manager) ? ' search-match' : '';
     html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openEditEmployee('${manager.id}')">`;
     html += `<div class="dept-manager-header">`;
@@ -2546,8 +2546,12 @@ function renderDeptCard(dept, branchType = 'executive') {
     html += `<div style="text-align:center;margin-top:8px;">`;
     html += `<button class="btn btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:11px;padding:4px 8px;">Change Manager</button>`;
     html += `</div></div>`;
+  } else {
+    html += `<div style="text-align:center;padding:12px;">`;
+    html += `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:12px;">+ Assign Manager</button>`;
     html += `</div>`;
   }
+  html += `</div>`;
   
   // Teams Container
   if (teams.length > 0) {
