@@ -232,6 +232,50 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 }
 .dept-header .dept-actions button:hover { background: rgba(255,255,255,.4); }
 
+/* Dropdown menu for dept actions */
+.dept-actions-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dept-actions-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--shadow-lg);
+  min-width: 160px;
+  z-index: 1000;
+}
+.dept-actions-menu.show {
+  display: block;
+}
+.dept-actions-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text);
+  border-radius: 0;
+  height: auto;
+}
+.dept-actions-menu button:hover {
+  background: var(--bg);
+}
+.dept-actions-menu button:first-child {
+  border-radius: 6px 6px 0 0;
+}
+.dept-actions-menu button:last-child {
+  border-radius: 0 0 6px 6px;
+}
+
 .dept-body { padding: 8px; max-height: 600px; overflow-y: auto; }
 .dept-body::-webkit-scrollbar { width: 4px; }
 .dept-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
@@ -2523,14 +2567,20 @@ function renderDeptCard(dept, branchType = 'executive') {
   html += `<div class="dept-header" style="background:${color}" onclick="openEditDept('${dept.id}')">`;
   html += `<span>${esc(dept.name)} <span class="dept-count">${allEmps.length}</span></span>`;
   html += `<span class="dept-actions">`;
-  html += `<button onclick="event.stopPropagation();openAddEmployeeToDept('${esc(dept.name)}','${dept.id}')" title="Add employee">+</button>`;
+  html += `<div class="dept-actions-dropdown">`;
+  html += `<button onclick="event.stopPropagation();toggleDeptMenu('${dept.id}')" title="Department actions">+</button>`;
+  html += `<div class="dept-actions-menu" id="dept-menu-${dept.id}">`;
+  html += `<button onclick="event.stopPropagation();closeDeptMenu('${dept.id}');openAddEmployeeToDept('${esc(dept.name)}','${dept.id}')">+ Add Employee</button>`;
+  html += `<button onclick="event.stopPropagation();closeDeptMenu('${dept.id}');openAssignManager('${dept.id}')">👤 Assign Manager</button>`;
+  html += `</div>`;
+  html += `</div>`;
   html += `</span></div>`;
   
   html += `<div class="dept-body" ondragover="onDragOver(event)" ondrop="onDropDept(event,'${esc(dept.name)}','${dept.id}')">`;
   
-  // Department Manager Section
-  html += `<div class="dept-manager-section" style="color:${color}">`;
+  // Department Manager Section - Only show if manager exists
   if (manager) {
+    html += `<div class="dept-manager-section" style="color:${color}">`;
     const matchClass = isMatch(manager) ? ' search-match' : '';
     html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openEditEmployee('${manager.id}')">`;
     html += `<div class="dept-manager-header">`;
@@ -2546,12 +2596,8 @@ function renderDeptCard(dept, branchType = 'executive') {
     html += `<div style="text-align:center;margin-top:8px;">`;
     html += `<button class="btn btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:11px;padding:4px 8px;">Change Manager</button>`;
     html += `</div></div>`;
-  } else {
-    html += `<div style="text-align:center;padding:12px;">`;
-    html += `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:12px;">+ Assign Manager</button>`;
     html += `</div>`;
   }
-  html += `</div>`;
   
   // Teams Container
   if (teams.length > 0) {
@@ -2616,6 +2662,37 @@ function toggleTeam(teamId) {
   saveCollapseState(collapseState);
   render();
 }
+
+// ---- Department Actions Dropdown ----
+function toggleDeptMenu(deptId) {
+  // Close all other menus first
+  document.querySelectorAll('.dept-actions-menu').forEach(menu => {
+    if (menu.id !== `dept-menu-${deptId}`) {
+      menu.classList.remove('show');
+    }
+  });
+  
+  const menu = document.getElementById(`dept-menu-${deptId}`);
+  if (menu) {
+    menu.classList.toggle('show');
+  }
+}
+
+function closeDeptMenu(deptId) {
+  const menu = document.getElementById(`dept-menu-${deptId}`);
+  if (menu) {
+    menu.classList.remove('show');
+  }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.dept-actions-dropdown')) {
+    document.querySelectorAll('.dept-actions-menu').forEach(menu => {
+      menu.classList.remove('show');
+    });
+  }
+});
 
 // ---- Drag and Drop ----
 let dragEmpId = null;
