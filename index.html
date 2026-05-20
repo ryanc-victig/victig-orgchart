@@ -2153,8 +2153,11 @@ async function loadFromSheets() {
   try {
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXNEErmOnfafpuU1A-5i9joDsL0vTDxQdndQNoie3tdfHgtoDOTuo43I_n7oe_JN2I3w/exec';
     console.log('Fetching from Apps Script...');
-    const response = await fetch(APPS_SCRIPT_URL, {
-      redirect: 'follow'
+    // Add cache-busting timestamp to prevent browser caching
+    const cacheBuster = '?t=' + Date.now();
+    const response = await fetch(APPS_SCRIPT_URL + cacheBuster, {
+      redirect: 'follow',
+      cache: 'no-cache'
     });
     console.log('Response status:', response.status);
     if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -2170,7 +2173,7 @@ async function loadFromSheets() {
 }
 
 async function loadData() {
-  // ALWAYS try Apps Script first (fresh data from Google Sheets)
+  // ALWAYS load fresh from Google Sheets (localStorage DISABLED to prevent stale data)
   toast('Loading from Google Sheets...', 'info');
   const sheetsData = await loadFromSheets();
   if (sheetsData) {
@@ -2185,32 +2188,16 @@ async function loadData() {
     });
     migrateToTeams();
     migrateManagers();
-    saveData();  // Only save to localStorage, NOT to Sheets
+    // DO NOT save to localStorage - always load fresh from Sheets
     toast('✅ Loaded from Google Sheets', 'success');
     return;
   }
   
-  // Fallback to localStorage if Apps Script fails
-  toast('⚠️ Google Sheets unavailable, loading cached data...', 'info');
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) { 
-      data = JSON.parse(saved);
-      if (!data.teams) data.teams = [];
-      data.departments.forEach(d => {
-        if (!('managerId' in d)) d.managerId = null;
-      });
-      migrateToTeams();
-      migrateManagers();
-      return;
-    }
-  } catch(e) {}
-  
-  // Final fallback to default data
+  // If Google Sheets fails, show error - NO localStorage fallback
+  toast('❌ Failed to load from Google Sheets. Please refresh.', 'error');
   data = getDefaultData();
   migrateToTeams();
   migrateManagers();
-  saveData();
 }
 
 async function syncFromSheets() {
@@ -2276,9 +2263,9 @@ function migrateManagers() {
 }
 
 function saveData() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch(e) {}
+  // localStorage DISABLED - always load fresh from Google Sheets
+  // This prevents stale cached data from causing inconsistent charts
+  return;
 }
 
 async function saveToSheets() {
