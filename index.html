@@ -2376,7 +2376,7 @@ async function loadData() {
   });
   
   migrateToTeams();
-  migrateManagers();
+  // migrateManagers(); // Disabled - manual manager assignment only
   saveData(); // Save to localStorage for offline use
   toast('✅ Loaded', 'success');
 }
@@ -2392,7 +2392,7 @@ async function syncFromJSON() {
       if (!('managerId' in d)) d.managerId = null;
     });
     migrateToTeams();
-    migrateManagers();
+    // migrateManagers(); // Disabled - manual manager assignment only
     saveData();
     render();
     toast('✅ Reloaded', 'success');
@@ -3477,7 +3477,7 @@ function importJSON(e) {
       
       data = imported;
       migrateToTeams();
-      migrateManagers();
+      // migrateManagers(); // Disabled - manual manager assignment only
       saveData();
       render();
       toast(`Imported ${data.employees.length} employees`, 'success');
