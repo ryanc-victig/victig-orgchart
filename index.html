@@ -904,8 +904,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   </div>
   
   <input type="text" id="searchInput" placeholder="Search name, title, dept..." oninput="handleSearch(this.value)">
-  <button class="btn btn-primary" onclick="syncFromSheets()">🔄 Sync Sheets</button>
-  <button class="btn btn-secondary" onclick="window.open('https://docs.google.com/spreadsheets/d/1rVYp2eBuq8v39arij4Hy-mukstagxTgvHfWE-vlHV6E/edit', '_blank')">Edit Sheet</button>
+  <button class="btn btn-primary" onclick="syncFromJSON()">🔄 Reload Data</button>
   <button class="btn btn-primary" onclick="openAddEmployee()">+ Employee</button>
   <button class="btn btn-primary" onclick="openAddDept()">+ Department</button>
   <button class="btn btn-secondary" onclick="exportJSON()">Export JSON</button>
@@ -2149,65 +2148,57 @@ function deduplicateData(data) {
   }
 }
 
-async function loadFromSheets() {
+async function loadFromJSON() {
   try {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXNEErmOnfafpuU1A-5i9joDsL0vTDxQdndQNoie3tdfHgtoDOTuo43I_n7oe_JN2I3w/exec';
-    console.log('Fetching from Apps Script...');
-    // Add cache-busting timestamp to prevent browser caching
-    const cacheBuster = '?t=' + Date.now();
-    const response = await fetch(APPS_SCRIPT_URL + cacheBuster, {
-      redirect: 'follow',
+    console.log('Loading from data.json...');
+    const response = await fetch('data.json?t=' + Date.now(), {
       cache: 'no-cache'
     });
-    console.log('Response status:', response.status);
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    const data = await response.json();
-    console.log('Loaded employees:', data.employees?.length);
-    
-    return data;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const jsonData = await response.json();
+    console.log('Loaded employees:', jsonData.employees?.length);
+    return jsonData;
   } catch(e) {
-    console.error('Failed to load from Apps Script:', e);
-    toast(`⚠️ Could not load from Google Sheets. Make sure you're logged into a @victig.com account. Using cached data.`, 'error');
+    console.error('Failed to load data.json:', e);
     return null;
   }
 }
 
 async function loadData() {
-  // ALWAYS load fresh from Google Sheets (localStorage DISABLED to prevent stale data)
-  toast('Loading from Google Sheets...', 'info');
-  const sheetsData = await loadFromSheets();
-  if (sheetsData) {
-    data = sheetsData;
-    
-    // **CRITICAL: Deduplicate data immediately after loading**
-    deduplicateData(data);
-    
-    if (!data.teams) data.teams = [];
-    data.departments.forEach(d => {
-      if (!('managerId' in d)) d.managerId = null;
-    });
-    migrateToTeams();
-    migrateManagers();
-    // DO NOT save to localStorage - always load fresh from Sheets
-    toast('✅ Loaded from Google Sheets', 'success');
-    return;
+  toast('Loading org chart...', 'info');
+  
+  // Try to load from data.json first
+  const jsonData = await loadFromJSON();
+  if (jsonData) {
+    data = jsonData;
+  } else {
+    // Fallback to localStorage
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      data = JSON.parse(saved);
+    } else {
+      // Last resort: default data
+      data = getDefaultData();
+    }
   }
   
-  // If Google Sheets fails, show error - NO localStorage fallback
-  toast('❌ Failed to load from Google Sheets. Please refresh.', 'error');
-  data = getDefaultData();
+  // Ensure data structure is complete
+  if (!data.teams) data.teams = [];
+  data.departments.forEach(d => {
+    if (!('managerId' in d)) d.managerId = null;
+  });
+  
   migrateToTeams();
   migrateManagers();
+  saveData(); // Save to localStorage for offline use
+  toast('✅ Loaded', 'success');
 }
 
-async function syncFromSheets() {
-  toast('Syncing from Google Sheets...', 'info');
-  const sheetsData = await loadFromSheets();
-  if (sheetsData) {
-    data = sheetsData;
-    
-    // **CRITICAL: Deduplicate data immediately after loading**
-    deduplicateData(data);
+async function syncFromJSON() {
+  toast('Reloading from server...', 'info');
+  const jsonData = await loadFromJSON();
+  if (jsonData) {
+    data = jsonData;
     
     if (!data.teams) data.teams = [];
     data.departments.forEach(d => {
@@ -2217,7 +2208,7 @@ async function syncFromSheets() {
     migrateManagers();
     saveData();
     render();
-    toast('✅ Synced with Google Sheets!', 'success');
+    toast('✅ Reloaded', 'success');
   } else {
     toast('❌ Failed to sync with Google Sheets', 'error');
   }
@@ -2263,46 +2254,15 @@ function migrateManagers() {
 }
 
 function saveData() {
-  // localStorage DISABLED - always load fresh from Google Sheets
-  // This prevents stale cached data from causing inconsistent charts
-  return;
-}
-
-async function saveToSheets() {
   try {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXNEErmOnfafpuU1A-5i9joDsL0vTDxQdndQNoie3tdfHgtoDOTuo43I_n7oe_JN2I3w/exec';
-    
-    const response = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      redirect: 'follow',
-      body: JSON.stringify(data)
-    });
-    
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const result = await response.json();
-    
-    if (result.success) {
-      toast('✅ Saved to Google Sheets', 'success');
-      return true;
-    } else {
-      throw new Error(result.error || 'Unknown error');
-    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch(e) {
-    console.error('Failed to save to Sheets:', e);
-    toast(`⚠️ Could not save to Google Sheets. Changes saved locally only.`, 'error');
-    return false;
+    console.error('Failed to save to localStorage:', e);
   }
 }
 
-async function saveDataAndSync() {
-  // Don't save to localStorage (disabled to prevent stale data)
-  // Save directly to Google Sheets
-  toast('Saving to Google Sheets...', 'info');
-  const success = await saveToSheets();
-  if (!success) {
-    toast('⚠️ Failed to save to Google Sheets. Please try again.', 'error');
-  }
-  return success;
+function saveDataAndSync() {
+  saveData();
 }
 
 // ---- Team Collapse State ----
