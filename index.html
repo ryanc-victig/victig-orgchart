@@ -2294,9 +2294,15 @@ async function saveToSheets() {
   }
 }
 
-function saveDataAndSync() {
-  saveData(); // Save locally
-  saveToSheets(); // Save to Google Sheets
+async function saveDataAndSync() {
+  // Don't save to localStorage (disabled to prevent stale data)
+  // Save directly to Google Sheets
+  toast('Saving to Google Sheets...', 'info');
+  const success = await saveToSheets();
+  if (!success) {
+    toast('⚠️ Failed to save to Google Sheets. Please try again.', 'error');
+  }
+  return success;
 }
 
 // ---- Team Collapse State ----
