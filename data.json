@@ -218,7 +218,8 @@
       "email": "",
       "phone": "",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "teamId": "id-mngbtxsbfyvyc"
     },
     {
       "id": "id-mnf1whft7gyba",
@@ -1032,7 +1033,7 @@
       "name": "Customer Success",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": "id-mnf1whft07bd3"
+      "managerId": null
     },
     {
       "id": "id-mnz690q1qax7v",
