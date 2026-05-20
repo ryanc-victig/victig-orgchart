@@ -2087,6 +2087,68 @@ function getDefaultData() {
 // ---- Load / Save ----
 let data;
 
+// Deduplicate data arrays by ID (keeps first occurrence)
+function deduplicateData(data) {
+  if (!data) return;
+  
+  let originalCounts = {
+    employees: data.employees?.length || 0,
+    departments: data.departments?.length || 0,
+    teams: data.teams?.length || 0
+  };
+  
+  // Deduplicate employees
+  if (data.employees) {
+    const seen = new Set();
+    data.employees = data.employees.filter(emp => {
+      if (seen.has(emp.id)) {
+        console.warn(`Duplicate employee removed: ${emp.name} (${emp.id})`);
+        return false;
+      }
+      seen.add(emp.id);
+      return true;
+    });
+  }
+  
+  // Deduplicate departments
+  if (data.departments) {
+    const seen = new Set();
+    data.departments = data.departments.filter(dept => {
+      if (seen.has(dept.id)) {
+        console.warn(`Duplicate department removed: ${dept.name} (${dept.id})`);
+        return false;
+      }
+      seen.add(dept.id);
+      return true;
+    });
+  }
+  
+  // Deduplicate teams
+  if (data.teams) {
+    const seen = new Set();
+    data.teams = data.teams.filter(team => {
+      if (seen.has(team.id)) {
+        console.warn(`Duplicate team removed: ${team.name} (${team.id})`);
+        return false;
+      }
+      seen.add(team.id);
+      return true;
+    });
+  }
+  
+  // Log deduplication results
+  let removed = {
+    employees: originalCounts.employees - (data.employees?.length || 0),
+    departments: originalCounts.departments - (data.departments?.length || 0),
+    teams: originalCounts.teams - (data.teams?.length || 0)
+  };
+  
+  if (removed.employees > 0 || removed.departments > 0 || removed.teams > 0) {
+    console.log('🧹 Deduplication removed:', removed);
+    toast(`🧹 Removed ${removed.employees} duplicate employees, ${removed.departments} departments, ${removed.teams} teams`, 'info');
+  }
+}
+
 async function loadFromSheets() {
   try {
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXNEErmOnfafpuU1A-5i9joDsL0vTDxQdndQNoie3tdfHgtoDOTuo43I_n7oe_JN2I3w/exec';
@@ -2113,6 +2175,10 @@ async function loadData() {
   const sheetsData = await loadFromSheets();
   if (sheetsData) {
     data = sheetsData;
+    
+    // **CRITICAL: Deduplicate data immediately after loading**
+    deduplicateData(data);
+    
     if (!data.teams) data.teams = [];
     data.departments.forEach(d => {
       if (!('managerId' in d)) d.managerId = null;
@@ -2152,6 +2218,10 @@ async function syncFromSheets() {
   const sheetsData = await loadFromSheets();
   if (sheetsData) {
     data = sheetsData;
+    
+    // **CRITICAL: Deduplicate data immediately after loading**
+    deduplicateData(data);
+    
     if (!data.teams) data.teams = [];
     data.departments.forEach(d => {
       if (!('managerId' in d)) d.managerId = null;
