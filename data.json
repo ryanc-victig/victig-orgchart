@@ -10,7 +10,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -23,7 +23,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -36,7 +36,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 30,
       "customColor": null
     },
     {
@@ -49,14 +49,14 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 40,
       "customColor": null
     },
     {
       "id": "id-mnf1whft8qras",
       "initials": "DK",
       "name": "Deb Keller",
-      "title": "President",
+      "title": "President & Chief Compliance Officer",
       "department": "Executive",
       "reportsTo": "Matt Visser",
       "email": "dkeller@victig.com",
@@ -75,7 +75,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 0,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -88,7 +88,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 0,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -101,20 +101,20 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 50,
       "customColor": null
     },
     {
       "id": "id-mnf1whftn7c9u",
       "initials": "ER",
       "name": "Ericka Rodriguez",
-      "title": "Specialty Searches",
+      "title": "Drug Testing",
       "department": "Drug Testing",
       "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
-      "sortOrder": 0,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -166,7 +166,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 60,
       "customColor": null
     },
     {
@@ -179,7 +179,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 70,
       "customColor": null
     },
     {
@@ -192,7 +192,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 80,
       "customColor": null
     },
     {
@@ -205,7 +205,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 0,
+      "sortOrder": 30,
       "customColor": null
     },
     {
@@ -231,7 +231,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbnw1bg",
-      "sortOrder": 0,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -270,7 +270,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
-      "sortOrder": 0,
+      "sortOrder": 50,
       "customColor": null
     },
     {
@@ -283,7 +283,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 90,
       "customColor": null
     },
     {
@@ -296,7 +296,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 100,
       "customColor": null
     },
     {
@@ -309,7 +309,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
-      "sortOrder": 0,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -322,7 +322,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 110,
       "customColor": null
     },
     {
@@ -348,7 +348,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 120,
       "customColor": null
     },
     {
@@ -361,7 +361,7 @@
       "email": "btower@victig.com",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
-      "sortOrder": 0,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -400,7 +400,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 130,
       "customColor": null
     },
     {
@@ -452,7 +452,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 140,
       "customColor": null
     },
     {
@@ -491,7 +491,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 150,
       "customColor": null
     },
     {
@@ -504,7 +504,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 160,
       "customColor": null
     },
     {
@@ -517,7 +517,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 170,
       "customColor": null
     },
     {
@@ -543,7 +543,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbap1rq",
-      "sortOrder": 0,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -556,7 +556,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 180,
       "customColor": null
     },
     {
@@ -582,7 +582,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 190,
       "customColor": null
     },
     {
@@ -621,7 +621,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 0,
+      "sortOrder": 40,
       "customColor": null
     },
     {
@@ -634,7 +634,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbap1rq",
-      "sortOrder": 0,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -647,7 +647,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 0,
+      "sortOrder": 50,
       "customColor": null
     },
     {
@@ -660,7 +660,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 200,
       "customColor": null
     },
     {
@@ -673,7 +673,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
-      "sortOrder": 0,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -699,7 +699,7 @@
       "email": "alimcd@victig.com",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
-      "sortOrder": 0,
+      "sortOrder": 30,
       "customColor": null
     },
     {
@@ -712,7 +712,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 210,
       "customColor": null
     },
     {
@@ -777,7 +777,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 220,
       "customColor": null
     },
     {
@@ -803,7 +803,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 230,
       "customColor": null
     },
     {
@@ -842,7 +842,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 0,
+      "sortOrder": 60,
       "customColor": null
     },
     {
@@ -855,7 +855,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
-      "sortOrder": 0,
+      "sortOrder": 30,
       "customColor": null
     },
     {
@@ -894,7 +894,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
-      "sortOrder": 0,
+      "sortOrder": 40,
       "customColor": null
     },
     {
@@ -906,7 +906,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mobyjn6ftd5vj",
+      "teamId": "id-mngbtxsbap1rq",
       "sortOrder": 0,
       "customColor": null
     },
@@ -920,7 +920,7 @@
       "email": "kflorez@victig.com",
       "phone": "(866) 886-5644",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 0,
+      "sortOrder": 70,
       "customColor": null
     },
     {
@@ -946,7 +946,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 240,
       "customColor": null
     }
   ],
@@ -1012,7 +1012,7 @@
       "name": "Systems & Internal Support",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": "id-mnf1whftmou04"
+      "managerId": null
     },
     {
       "id": "id-mnf1whftnzyaq",
@@ -1033,7 +1033,7 @@
       "name": "Customer Success",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": "id-mnf1whft07bd3"
+      "managerId": null
     },
     {
       "id": "id-mnz690q1qax7v",
