@@ -75,7 +75,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 10,
+      "sortOrder": 50,
       "customColor": null
     },
     {
@@ -88,7 +88,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 20,
+      "sortOrder": 30,
       "customColor": null
     },
     {
@@ -205,7 +205,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 30,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -329,7 +329,7 @@
       "id": "id-mnf1whft31xif",
       "initials": "BV",
       "name": "Brooke Visser",
-      "title": "Contract - Marketing",
+      "title": "Content Marketing Specialist",
       "department": "Sales & Marketing",
       "reportsTo": null,
       "email": "",
@@ -361,7 +361,7 @@
       "email": "btower@victig.com",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
-      "sortOrder": 10,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -538,7 +538,7 @@
       "initials": "EM",
       "name": "Easton Maylett",
       "title": "Assistant",
-      "department": "Systems & Internal Support",
+      "department": "Product & Systems",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -564,7 +564,7 @@
       "initials": "DR",
       "name": "Dustin Roethel",
       "title": "Systems Admin / Marketing",
-      "department": "Systems & Internal Support",
+      "department": "Product & Systems",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -589,8 +589,8 @@
       "id": "id-mnf1whft0gs2w",
       "initials": "JE",
       "name": "Josh Elle",
-      "title": "VP of Systems &",
-      "department": "Systems & Internal Support",
+      "title": "VP of Product & Systems",
+      "department": "Product & Systems",
       "reportsTo": null,
       "email": "jelle@victig.com",
       "phone": "",
@@ -602,7 +602,7 @@
       "id": "id-mnf1whfti7goz",
       "initials": "JD",
       "name": "Josh Diederich",
-      "title": "Sales Development Rep.",
+      "title": "Account Executive",
       "department": "Sales & Marketing",
       "reportsTo": null,
       "email": "",
@@ -621,7 +621,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 40,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -629,7 +629,7 @@
       "initials": "VB",
       "name": "Valynne Bowers",
       "title": "Contract - Accounting",
-      "department": "Systems & Internal Support",
+      "department": "Product & Systems",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -647,7 +647,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
-      "sortOrder": 50,
+      "sortOrder": 40,
       "customColor": null
     },
     {
@@ -673,7 +673,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
-      "sortOrder": 20,
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -732,7 +732,7 @@
       "id": "id-mnf1whftnw91c",
       "initials": "ST",
       "name": "Stephan Treanor",
-      "title": "Senior Business Development Rep.",
+      "title": "Sales Development Representative",
       "department": "Sales & Marketing",
       "reportsTo": null,
       "email": "",
@@ -758,7 +758,7 @@
       "id": "id-mnf1whfterce1",
       "initials": "MV",
       "name": "Morgan Verhoef",
-      "title": "Sales Development Rep.",
+      "title": "Account Executive",
       "department": "Sales & Marketing",
       "reportsTo": null,
       "email": "",
@@ -849,7 +849,7 @@
       "id": "id-mnf1whfta6pgh",
       "initials": "RB",
       "name": "Rhio Barrera",
-      "title": "DT & OCC Coordinator",
+      "title": "Director of Drug Testing & Occupational Health",
       "department": "Drug Testing",
       "reportsTo": null,
       "email": "",
@@ -862,7 +862,7 @@
       "id": "id-mnf1whftxs5hr",
       "initials": "MR",
       "name": "Max Ramey",
-      "title": "Assistant to the Director of Marketing",
+      "title": "Marketing Coordinator",
       "department": "Sales & Marketing",
       "reportsTo": null,
       "email": "max@victig.com",
@@ -901,12 +901,12 @@
       "id": "id-mnf1whftmou04",
       "initials": "TT",
       "name": "Tristen Talbert",
-      "title": "Director of Development & Emerging Technology",
-      "department": "Systems & Internal Support",
+      "title": "Manager Technology",
+      "department": "Technology",
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mngbtxsbap1rq",
+      "teamId": "id-mpegzd097sxcr",
       "sortOrder": 0,
       "customColor": null
     },
@@ -927,7 +927,7 @@
       "id": "id-mnf1whft9zhnl",
       "initials": "BV",
       "name": "Blake Visser",
-      "title": "Director of Sales",
+      "title": "Vice President of Sales",
       "department": "Executive",
       "reportsTo": "Matt Visser",
       "email": "blakev@victig.com",
@@ -1009,7 +1009,7 @@
     },
     {
       "id": "id-mnf29bbntw6cq",
-      "name": "Systems & Internal Support",
+      "name": "Product & Systems",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
       "managerId": null
@@ -1041,6 +1041,13 @@
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
       "managerId": "id-mnf1whfte91uq"
+    },
+    {
+      "id": "id-mpegzd092xd95",
+      "name": "Technology",
+      "reportsTo": "Ryan Cauffman",
+      "managerId": null,
+      "color": "#4a90e2"
     }
   ],
   "teams": [
@@ -1117,12 +1124,6 @@
       "leaderId": null
     },
     {
-      "id": "id-mobyjn6ftd5vj",
-      "name": "Development & Technology",
-      "departmentId": "id-mnf29bbntw6cq",
-      "leaderId": "id-mnf1whftmou04"
-    },
-    {
       "id": "id-mohi1sspcmuzj",
       "name": "General Marketing",
       "departmentId": "id-mnf29bbntw6cq",
@@ -1139,6 +1140,12 @@
       "name": "Lead Gen",
       "departmentId": "id-mnf1whftktipw",
       "leaderId": "id-mnf1whftdodso"
+    },
+    {
+      "id": "id-mpegzd097sxcr",
+      "name": "General",
+      "departmentId": "id-mpegzd092xd95",
+      "leaderId": null
     }
   ]
 }
