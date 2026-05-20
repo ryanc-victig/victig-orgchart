@@ -217,7 +217,6 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mngbtxsbfyvyc",
       "sortOrder": 0,
       "customColor": null
     },
@@ -478,8 +477,7 @@
       "email": "",
       "phone": "",
       "sortOrder": 0,
-      "customColor": null,
-      "teamId": "id-mpegl7yyi99uh"
+      "customColor": null
     },
     {
       "id": "id-mnf1whfth2o47",
@@ -906,7 +904,6 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mpegzd097sxcr",
       "sortOrder": 0,
       "customColor": null
     },
@@ -998,7 +995,7 @@
       "name": "Sales & Marketing",
       "reportsTo": "Blake Visser",
       "color": "#e74c3c",
-      "managerId": null
+      "managerId": "id-mnf1whftdodso"
     },
     {
       "id": "id-mnf1whftlxlq2",
@@ -1033,7 +1030,7 @@
       "name": "Customer Success",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": null
+      "managerId": "id-mnf1whft07bd3"
     },
     {
       "id": "id-mnz690q1qax7v",
@@ -1046,7 +1043,7 @@
       "id": "id-mpegzd092xd95",
       "name": "Technology",
       "reportsTo": "Ryan Cauffman",
-      "managerId": null,
+      "managerId": "id-mnf1whftmou04",
       "color": "#4a90e2"
     }
   ],
