@@ -2089,7 +2089,7 @@ let data;
 
 async function loadFromSheets() {
   try {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw164mQmMNw7f8lGpowFdnaFutsZIq__fbQc3Vs9Vd1rTDXDWqrGSCeQLql8UjNTO8YiQ/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXNEErmOnfafpuU1A-5i9joDsL0vTDxQdndQNoie3tdfHgtoDOTuo43I_n7oe_JN2I3w/exec';
     console.log('Fetching from Apps Script...');
     const response = await fetch(APPS_SCRIPT_URL, {
       redirect: 'follow'
@@ -2119,7 +2119,7 @@ async function loadData() {
     });
     migrateToTeams();
     migrateManagers();
-    saveData();
+    saveData();  // Only save to localStorage, NOT to Sheets
     toast('✅ Loaded from Google Sheets', 'success');
     return;
   }
@@ -2213,7 +2213,7 @@ function saveData() {
 
 async function saveToSheets() {
   try {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw164mQmMNw7f8lGpowFdnaFutsZIq__fbQc3Vs9Vd1rTDXDWqrGSCeQLql8UjNTO8YiQ/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXNEErmOnfafpuU1A-5i9joDsL0vTDxQdndQNoie3tdfHgtoDOTuo43I_n7oe_JN2I3w/exec';
     
     const response = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
