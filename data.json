@@ -126,8 +126,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mngbtxsbqwxh5",
-      "sortOrder": 0,
+      "teamId": "id-mpeg5rspsvdnn",
+      "sortOrder": 30,
       "customColor": null
     },
     {
@@ -334,8 +334,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mnggq2z4mwzzc",
-      "sortOrder": 0,
+      "teamId": "id-mpegl7yyi99uh",
+      "sortOrder": 10,
       "customColor": null
     },
     {
@@ -479,7 +479,7 @@
       "phone": "",
       "sortOrder": 0,
       "customColor": null,
-      "teamId": "id-mpeg5rspsvdnn"
+      "teamId": "id-mpegl7yyi99uh"
     },
     {
       "id": "id-mnf1whfth2o47",
@@ -607,7 +607,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mngbtxsbqwxh5",
+      "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 0,
       "customColor": null
     },
@@ -737,7 +737,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mngbtxsbqwxh5",
+      "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 20,
       "customColor": null
     },
@@ -763,7 +763,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mngbtxsbqwxh5",
+      "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 10,
       "customColor": null
     },
@@ -867,8 +867,8 @@
       "reportsTo": null,
       "email": "max@victig.com",
       "phone": "",
-      "teamId": "id-mnggq2z4mwzzc",
-      "sortOrder": 0,
+      "teamId": "id-mpegl7yyi99uh",
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -1111,12 +1111,6 @@
       "leaderId": null
     },
     {
-      "id": "id-mnggq2z4mwzzc",
-      "name": "Lead Gen",
-      "departmentId": "id-mnf1whftktipw",
-      "leaderId": "id-mnf1whftdodso"
-    },
-    {
       "id": "id-mnz690q1utbcz",
       "name": "General",
       "departmentId": "id-mnz690q1qax7v",
@@ -1139,6 +1133,12 @@
       "name": "General",
       "departmentId": "id-mnf1whftktipw",
       "leaderId": null
+    },
+    {
+      "id": "id-mpegl7yyi99uh",
+      "name": "Lead Gen",
+      "departmentId": "id-mnf1whftktipw",
+      "leaderId": "id-mnf1whftdodso"
     }
   ]
 }
