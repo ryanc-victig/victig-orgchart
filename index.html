@@ -881,7 +881,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     overflow-x: auto;
   }
   .directory-table {
-    min-width: 600px;
+    min-width: 700px;
   }
   .directory-table th,
   .directory-table td {
@@ -930,6 +930,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
           <th onclick="sortTable('name')">Name <span class="sort-indicator"></span></th>
           <th onclick="sortTable('title')">Title <span class="sort-indicator"></span></th>
           <th onclick="sortTable('department')">Department <span class="sort-indicator"></span></th>
+          <th onclick="sortTable('team')">Team <span class="sort-indicator"></span></th>
           <th onclick="sortTable('email')">Email <span class="sort-indicator"></span></th>
           <th onclick="sortTable('phone')">Phone <span class="sort-indicator"></span></th>
         </tr>
@@ -3288,8 +3289,18 @@ function renderDirectory() {
   const tbody = document.getElementById('directoryTableBody');
   
   const sorted = [...data.employees].sort((a, b) => {
-    let aVal = a[sortColumn] || '';
-    let bVal = b[sortColumn] || '';
+    let aVal, bVal;
+    
+    if (sortColumn === 'team') {
+      // Special handling for team - need to look up team name
+      const aTeam = data.teams.find(t => t.id === a.teamId);
+      const bTeam = data.teams.find(t => t.id === b.teamId);
+      aVal = aTeam ? aTeam.name : '';
+      bVal = bTeam ? bTeam.name : '';
+    } else {
+      aVal = a[sortColumn] || '';
+      bVal = b[sortColumn] || '';
+    }
     
     if (typeof aVal === 'string') {
       aVal = aVal.toLowerCase();
@@ -3305,11 +3316,14 @@ function renderDirectory() {
   sorted.forEach(emp => {
     const email = emp.email ? `<a href="mailto:${esc(emp.email)}">${esc(emp.email)}</a>` : '—';
     const phone = emp.phone ? `<a href="tel:${esc(emp.phone)}">${esc(emp.phone)}</a>` : '—';
+    const team = emp.teamId ? data.teams.find(t => t.id === emp.teamId) : null;
+    const teamName = team ? esc(team.name) : '—';
     
     html += `<tr onclick="openEditEmployee('${emp.id}')">`;
     html += `<td>${esc(emp.name)}</td>`;
     html += `<td>${esc(emp.title)}</td>`;
     html += `<td>${esc(emp.department)}</td>`;
+    html += `<td>${teamName}</td>`;
     html += `<td>${email}</td>`;
     html += `<td>${phone}</td>`;
     html += `</tr>`;
