@@ -218,7 +218,8 @@
       "email": "",
       "phone": "",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "teamId": "id-mngbtxsbfyvyc"
     },
     {
       "id": "id-mnf1whft7gyba",
@@ -477,7 +478,8 @@
       "email": "",
       "phone": "",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "teamId": "id-mpegl7yyi99uh"
     },
     {
       "id": "id-mnf1whfth2o47",
@@ -592,7 +594,6 @@
       "reportsTo": null,
       "email": "jelle@victig.com",
       "phone": "",
-      "teamId": "id-mngbtxsbap1rq",
       "sortOrder": 0,
       "customColor": null
     },
@@ -905,7 +906,8 @@
       "email": "",
       "phone": "",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "teamId": "id-mpegzd097sxcr"
     },
     {
       "id": "id-mo079oj8qkqq0",
@@ -995,7 +997,7 @@
       "name": "Sales & Marketing",
       "reportsTo": "Blake Visser",
       "color": "#e74c3c",
-      "managerId": "id-mnf1whftdodso"
+      "managerId": null
     },
     {
       "id": "id-mnf1whftlxlq2",
@@ -1009,7 +1011,7 @@
       "name": "Product & Systems",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": null
+      "managerId": "id-mnf1whft0gs2w"
     },
     {
       "id": "id-mnf1whftnzyaq",
@@ -1030,7 +1032,7 @@
       "name": "Customer Success",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": "id-mnf1whft07bd3"
+      "managerId": null
     },
     {
       "id": "id-mnz690q1qax7v",
