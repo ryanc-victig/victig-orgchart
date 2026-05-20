@@ -2178,6 +2178,7 @@ function migrateToTeams() {
     
     deptEmps.forEach(emp => {
       if (!emp.teamId) emp.teamId = generalTeam.id;
+      if (typeof emp.sortOrder === 'undefined') emp.sortOrder = 0;
     });
   });
 }
@@ -2275,8 +2276,15 @@ function getDeptEmployees(deptName) {
 }
 
 function getTeamEmployees(teamId) {
+  const team = data.teams.find(t => t.id === teamId);
+  if (!team) return [];
+  
+  const dept = data.departments.find(d => d.id === team.departmentId);
+  const managerId = dept ? dept.managerId : null;
+  
   return data.employees
     .filter(e => e.teamId === teamId)
+    .filter(e => !managerId || e.id !== managerId)  // Exclude department manager
     .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
 }
 
@@ -2452,9 +2460,9 @@ function renderDeptCard(dept, branchType = 'executive') {
   
   html += `<div class="dept-body" ondragover="onDragOver(event)" ondrop="onDropDept(event,'${esc(dept.name)}','${dept.id}')">`;
   
-  // Department Manager Section
-  html += `<div class="dept-manager-section" style="color:${color}">`;
+  // Department Manager Section - Only show if manager exists
   if (manager) {
+    html += `<div class="dept-manager-section" style="color:${color}">`;
     const matchClass = isMatch(manager) ? ' search-match' : '';
     html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openEditEmployee('${manager.id}')">`;
     html += `<div class="dept-manager-header">`;
@@ -2470,12 +2478,8 @@ function renderDeptCard(dept, branchType = 'executive') {
     html += `<div style="text-align:center;margin-top:8px;">`;
     html += `<button class="btn btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:11px;padding:4px 8px;">Change Manager</button>`;
     html += `</div></div>`;
-  } else {
-    html += `<div class="dept-manager-placeholder" onclick="openAssignManager('${dept.id}')">`;
-    html += `<div class="dept-manager-placeholder-text">+ Assign Department Manager</div>`;
     html += `</div>`;
   }
-  html += `</div>`;
   
   // Teams Container
   if (teams.length > 0) {
@@ -2857,6 +2861,7 @@ function saveEmployee() {
   if (id) {
     const emp = data.employees.find(e => e.id === id);
     if (emp) {
+      const existingSortOrder = emp.sortOrder || 0;
       Object.assign(emp, {
         name,
         initials: finalInitials,
@@ -2865,7 +2870,8 @@ function saveEmployee() {
         teamId: finalTeamId,
         reportsTo,
         email,
-        phone
+        phone,
+        sortOrder: existingSortOrder
       });
     }
     toast(`Updated ${name}`, 'success');
