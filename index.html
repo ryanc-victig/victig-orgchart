@@ -2290,7 +2290,7 @@ async function saveToGitHub() {
     }
     
     btn.innerHTML = '✅ Saved!';
-    alert('Changes saved to GitHub! Commit: ' + result.sha.substring(0, 7));
+    alert('Changes saved to GitHub! Commit: ' + result.commit.substring(0, 7));
     
     setTimeout(() => {
       btn.innerHTML = originalText;
