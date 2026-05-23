@@ -122,7 +122,7 @@
       "initials": "RW",
       "name": "Richard White",
       "title": "Contract - Sales",
-      "department": "Sales & Marketing",
+      "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -330,7 +330,7 @@
       "initials": "BV",
       "name": "Brooke Visser",
       "title": "Content Marketing Specialist",
-      "department": "Sales & Marketing",
+      "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -473,7 +473,7 @@
       "initials": "DW",
       "name": "Derek Wood",
       "title": "Director of Marketing",
-      "department": "Sales & Marketing",
+      "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -563,12 +563,12 @@
       "id": "id-mnf1whft7jog4",
       "initials": "DR",
       "name": "Dustin Roethel",
-      "title": "Systems Admin / Marketing",
-      "department": "Product & Systems",
+      "title": "Director of Multimedia Content & Systems",
+      "department": "Marketing",
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "teamId": "id-mohi1sspcmuzj",
+      "teamId": "id-mphsdhwaox5pl",
       "sortOrder": 0,
       "customColor": null
     },
@@ -603,7 +603,7 @@
       "initials": "JD",
       "name": "Josh Diederich",
       "title": "Account Executive",
-      "department": "Sales & Marketing",
+      "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -733,7 +733,7 @@
       "initials": "ST",
       "name": "Stephan Treanor",
       "title": "Sales Development Representative",
-      "department": "Sales & Marketing",
+      "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -759,7 +759,7 @@
       "initials": "MV",
       "name": "Morgan Verhoef",
       "title": "Account Executive",
-      "department": "Sales & Marketing",
+      "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "",
       "phone": "",
@@ -863,7 +863,7 @@
       "initials": "MR",
       "name": "Max Ramey",
       "title": "Marketing Coordinator",
-      "department": "Sales & Marketing",
+      "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "max@victig.com",
       "phone": "",
@@ -958,7 +958,8 @@
       "teamId": "id-mngg1n4nc8het",
       "reportsTo": null,
       "email": "",
-      "phone": ""
+      "phone": "",
+      "sortOrder": 0
     }
   ],
   "departments": [
@@ -1006,7 +1007,7 @@
     },
     {
       "id": "id-mnf1whftktipw",
-      "name": "Sales & Marketing",
+      "name": "Sales & Lead Gen",
       "reportsTo": "Blake Visser",
       "color": "#e74c3c",
       "managerId": null
@@ -1058,6 +1059,13 @@
       "name": "Technology",
       "reportsTo": "Ryan Cauffman",
       "managerId": "id-mnf1whftmou04",
+      "color": "#4a90e2"
+    },
+    {
+      "id": "id-mphsdhwai9h0z",
+      "name": "Marketing",
+      "reportsTo": "Ryan Cauffman",
+      "managerId": null,
       "color": "#4a90e2"
     }
   ],
@@ -1156,6 +1164,12 @@
       "id": "id-mpegzd097sxcr",
       "name": "General",
       "departmentId": "id-mpegzd092xd95",
+      "leaderId": null
+    },
+    {
+      "id": "id-mphsdhwaox5pl",
+      "name": "General",
+      "departmentId": "id-mphsdhwai9h0z",
       "leaderId": null
     }
   ]
