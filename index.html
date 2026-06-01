@@ -434,9 +434,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .team-body {
   padding: 4px;
   max-height: 1000px;
-  overflow: hidden;
+  overflow-y: auto;
   transition: max-height .3s ease;
 }
+.team-body::-webkit-scrollbar { width: 4px; }
+.team-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
 .team-body.collapsed {
   max-height: 0;
   padding: 0;
