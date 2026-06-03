@@ -10,7 +10,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 10,
+      "sortOrder": 20,
       "customColor": null
     },
     {
@@ -23,7 +23,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 20,
+      "sortOrder": 30,
       "customColor": null
     },
     {
@@ -36,7 +36,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 30,
+      "sortOrder": 40,
       "customColor": null
     },
     {
@@ -49,7 +49,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 40,
+      "sortOrder": 50,
       "customColor": null
     },
     {
@@ -101,7 +101,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 50,
+      "sortOrder": 60,
       "customColor": null
     },
     {
@@ -166,7 +166,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 60,
+      "sortOrder": 70,
       "customColor": null
     },
     {
@@ -179,7 +179,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 70,
+      "sortOrder": 80,
       "customColor": null
     },
     {
@@ -192,7 +192,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 80,
+      "sortOrder": 90,
       "customColor": null
     },
     {
@@ -251,7 +251,7 @@
       "id": "id-mnf1whftz0u2r",
       "initials": "JP",
       "name": "Jake Pfau",
-      "title": "Onboarding Director",
+      "title": "Manager of Onboarding",
       "department": "Onboarding",
       "reportsTo": null,
       "email": "",
@@ -283,7 +283,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 90,
+      "sortOrder": 100,
       "customColor": null
     },
     {
@@ -296,7 +296,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 100,
+      "sortOrder": 110,
       "customColor": null
     },
     {
@@ -322,7 +322,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 110,
+      "sortOrder": 120,
       "customColor": null
     },
     {
@@ -348,7 +348,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 120,
+      "sortOrder": 130,
       "customColor": null
     },
     {
@@ -387,20 +387,20 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 0,
+      "sortOrder": 10,
       "customColor": null
     },
     {
       "id": "id-mnf1whftqjfk1",
       "initials": "TG",
       "name": "Trish Gustin",
-      "title": "Director of Verifications",
+      "title": "Manager of Verifications",
       "department": "Verifications",
       "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 130,
+      "sortOrder": 0,
       "customColor": null
     },
     {
@@ -472,7 +472,7 @@
       "id": "id-mnf1whftdodso",
       "initials": "DW",
       "name": "Derek Wood",
-      "title": "Director of Marketing",
+      "title": "CMO",
       "department": "Sales & Lead Gen",
       "reportsTo": null,
       "email": "",
@@ -563,7 +563,7 @@
       "id": "id-mnf1whft7jog4",
       "initials": "DR",
       "name": "Dustin Roethel",
-      "title": "Director of Multimedia Content & Systems",
+      "title": "Manager of Multimedia Content & Systems",
       "department": "Marketing",
       "reportsTo": null,
       "email": "",
@@ -693,7 +693,7 @@
       "id": "id-mnf1whfte91uq",
       "initials": "AH",
       "name": "Alison Hamill",
-      "title": "Director of Customer Support, Compliance & Disputes",
+      "title": "Manager of Customer Support, Compliance & Disputes",
       "department": "Customer Support",
       "reportsTo": null,
       "email": "alimcd@victig.com",
@@ -777,7 +777,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 220,
+      "sortOrder": 210,
       "customColor": null
     },
     {
@@ -803,7 +803,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 230,
+      "sortOrder": 220,
       "customColor": null
     },
     {
@@ -849,7 +849,7 @@
       "id": "id-mnf1whfta6pgh",
       "initials": "RB",
       "name": "Rhio Barrera",
-      "title": "Director of Drug Testing & Occupational Health",
+      "title": "Manager of Drug Testing & Occupational Health",
       "department": "Drug Testing",
       "reportsTo": null,
       "email": "",
@@ -914,7 +914,7 @@
       "id": "id-mo079oj8qkqq0",
       "initials": "KF",
       "name": "Kate Florez",
-      "title": "Director of Research & Quality Assurance",
+      "title": "Manager of Research & Quality Assurance",
       "department": "Research & Quality Assurance Team",
       "reportsTo": null,
       "email": "kflorez@victig.com",
@@ -946,7 +946,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
-      "sortOrder": 240,
+      "sortOrder": 230,
       "customColor": null
     },
     {
@@ -989,7 +989,7 @@
       "name": "Verifications",
       "reportsTo": "Rob Farnes",
       "color": "#2C3E50",
-      "managerId": "id-mnf1whftqjfk1"
+      "managerId": null
     },
     {
       "id": "id-mnf1whfts4k33",
@@ -1116,7 +1116,7 @@
       "id": "id-mngbtxsb5rwnv",
       "name": "General",
       "departmentId": "id-mnf1whftoyaqk",
-      "leaderId": null
+      "leaderId": "id-mnf1whftqjfk1"
     },
     {
       "id": "id-mngbtxsb03omf",
