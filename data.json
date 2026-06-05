@@ -712,7 +712,7 @@
       "email": "",
       "phone": "",
       "teamId": "id-mpvenwjr7m4su",
-      "sortOrder": 210,
+      "sortOrder": 0,
       "customColor": null
     },
     {
@@ -960,6 +960,18 @@
       "email": "",
       "phone": "",
       "sortOrder": 0
+    },
+    {
+      "id": "id-mq1ecj6mkstqb",
+      "name": "Blythe Bray",
+      "initials": "BB",
+      "title": "Education Verifier",
+      "department": "Verifications",
+      "teamId": "id-mpvenwjr7m4su",
+      "reportsTo": null,
+      "email": "",
+      "phone": "",
+      "sortOrder": 10
     }
   ],
   "departments": [
