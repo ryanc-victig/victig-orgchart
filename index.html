@@ -2776,7 +2776,7 @@ function renderOwnershipCard(emp) {
     ? `<div class="emp-avatar"><img src="${esc(emp.photoUrl)}" alt="${esc(emp.name)}" class="emp-photo"></div>`
     : `<div class="emp-avatar">${esc(emp.initials)}</div>`;
   
-  return `<div class="ownership-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+  return `<div class="ownership-card${matchClass}" onclick="openViewEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
     ${avatarHtml}
     <div class="emp-name">${esc(emp.name)}</div>
     <div class="emp-title">${esc(emp.title)}</div>
@@ -2795,7 +2795,7 @@ function renderExecCard(emp, branchClass = '') {
     ? `<div class="emp-avatar" style="background:${color}"><img src="${esc(emp.photoUrl)}" alt="${esc(emp.name)}" class="emp-photo"></div>`
     : `<div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>`;
   
-  return `<div class="exec-card ${branchClass}${matchClass}" ${borderStyle} onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
+  return `<div class="exec-card ${branchClass}${matchClass}" ${borderStyle} onclick="openViewEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
     ${avatarHtml}
     <div class="emp-name">${esc(emp.name)}</div>
     <div class="emp-title">${esc(emp.title)}</div>
@@ -2827,7 +2827,7 @@ function renderDeptCard(dept, branchType = 'executive') {
   if (manager) {
     html += `<div class="dept-manager-section" style="color:${color}">`;
     const matchClass = isMatch(manager) ? ' search-match' : '';
-    html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openEditEmployee('${manager.id}')">`;
+    html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openViewEmployee('${manager.id}')">`;
     html += `<div class="dept-manager-header">`;
     const managerAvatarHtml = manager.photoUrl 
       ? `<div class="dept-manager-avatar" style="background:${color}"><img src="${esc(manager.photoUrl)}" alt="${esc(manager.name)}" class="emp-photo"></div>`
