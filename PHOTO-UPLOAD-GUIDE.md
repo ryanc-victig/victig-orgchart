@@ -8,61 +8,41 @@
 4. **Wait for the success message** - your photo is uploaded to Google Drive
 5. **Click Save** to save your employee record
 
-**Note:** Your photo won't display immediately. It needs to be approved and committed by an admin (usually within 24 hours).
+**Note:** Your photo will display automatically within 1 hour. The system syncs uploaded photos every hour via GitHub Actions.
 
 ---
 
-## For Admins: How to Sync Uploaded Photos
+## How It Works (Automated)
 
-When employees upload photos, they go to Google Drive first. To make them display on the org chart, you need to download them and commit them to the GitHub repository.
+When you upload a photo:
+1. **Photo goes to Google Drive** (temporary staging area)
+2. **GitHub Actions runs every hour** and checks for new uploads
+3. **Photos are automatically downloaded** to the repo's `photos/` folder
+4. **Changes are committed and deployed** to the live site
+5. **Your photo appears** on the org chart (usually within 1 hour)
 
-### Quick Method (Automated Script)
+**No manual steps required!** ✨
 
-Run this command from the org chart directory:
+---
 
+## For Admins: Manual Sync (Optional)
+
+If you need to sync photos immediately instead of waiting for the hourly automatic sync:
+
+### Option 1: Trigger GitHub Action Manually
+1. Go to [GitHub Actions](https://github.com/ryanc-victig/victig-orgchart/actions)
+2. Click "Auto-sync Employee Photos"
+3. Click "Run workflow" → "Run workflow"
+4. Photos will sync in ~30 seconds
+
+### Option 2: Run Script Locally
 ```bash
+cd ~/.openclaw/workspace/victig-orgchart
 ./sync-photos.sh
-```
-
-This script will:
-1. Find all Google Drive photo URLs in `data.json`
-2. Download each photo to the `photos/` folder
-3. Update `data.json` to use local paths
-4. Show you the next steps to commit and push
-
-After running the script:
-
-```bash
 git add photos/ data.json
 git commit -m "Add employee photos"
 git push origin main
 ```
-
-### Manual Method
-
-If you prefer to do it manually:
-
-1. **Find the Google Drive URL** in `data.json`:
-   ```json
-   "photoUrl": "https://drive.google.com/uc?export=view&id=1D5q9zuVkfDvfZSoYQxqyQc5iFJWwgi9a"
-   ```
-
-2. **Download the photo**:
-   ```bash
-   curl -L "https://drive.google.com/uc?export=download&id=FILE_ID_HERE" -o photos/employee-name.jpg
-   ```
-
-3. **Update `data.json`** to use the local path:
-   ```json
-   "photoUrl": "photos/employee-name.jpg"
-   ```
-
-4. **Commit and push**:
-   ```bash
-   git add photos/employee-name.jpg data.json
-   git commit -m "Add photo for Employee Name"
-   git push origin main
-   ```
 
 ---
 

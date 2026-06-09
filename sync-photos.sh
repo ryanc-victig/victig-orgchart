@@ -55,8 +55,12 @@ while IFS= read -r line; do
   curl -L "https://drive.google.com/uc?export=download&id=$file_id" -o "$local_path" 2>/dev/null
   
   if [ -f "$local_path" ]; then
-    # Update data.json to use local path
-    sed -i '' "s|\"photoUrl\": \"$url\"|\"photoUrl\": \"$local_path\"|g" data.json
+    # Update data.json to use local path (cross-platform sed)
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      sed -i '' "s|\"photoUrl\": \"$url\"|\"photoUrl\": \"$local_path\"|g" data.json
+    else
+      sed -i "s|\"photoUrl\": \"$url\"|\"photoUrl\": \"$local_path\"|g" data.json
+    fi
     count=$((count + 1))
     echo "  ✅ Downloaded and updated: $employee_name"
   else

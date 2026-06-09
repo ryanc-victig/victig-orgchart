@@ -1,0 +1,45 @@
+name: Auto-sync Employee Photos
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  workflow_dispatch: # Allow manual trigger from GitHub UI
+
+jobs:
+  sync-photos:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name 'Photo Sync Bot'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      
+      - name: Run photo sync script
+        run: |
+          chmod +x sync-photos.sh
+          ./sync-photos.sh || echo "No photos to sync"
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected!"
+          fi
+      
+      - name: Commit and push if changes exist
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git add photos/ data.json
+          git commit -m "Auto-sync employee photos from Google Drive"
+          git push
