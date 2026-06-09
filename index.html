@@ -3232,12 +3232,23 @@ async function handlePhotoUpload() {
     });
     
     const result = await response.json();
+    console.log('Upload response:', result);
     
     if (result.success) {
-      document.getElementById('empPhotoUrl').value = result.url;
-      statusDiv.textContent = '✓ Photo uploaded!';
+      const photoUrlInput = document.getElementById('empPhotoUrl');
+      photoUrlInput.value = result.url;
+      console.log('Photo URL field updated to:', result.url);
+      console.log('Photo URL field value is now:', photoUrlInput.value);
+      
+      // Flash the input to show it was updated
+      photoUrlInput.style.border = '2px solid #10b981';
+      setTimeout(() => {
+        photoUrlInput.style.border = '';
+      }, 2000);
+      
+      statusDiv.textContent = '✓ Photo uploaded! URL copied to field.';
       statusDiv.style.color = '#10b981';
-      toast('Photo uploaded successfully!', 'success');
+      toast('Photo uploaded successfully! Photo URL has been updated.', 'success');
     } else {
       throw new Error(result.error || 'Upload failed');
     }
