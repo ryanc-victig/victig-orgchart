@@ -672,6 +672,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   gap: 8px;
   border-top: 1px solid var(--border);
 }
+.view-field {
+  margin-bottom: 12px;
+  padding: 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+.view-field strong {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.view-field span, .view-field div {
+  color: var(--text);
+  margin-left: 8px;
+}
 .form-group { margin-bottom: 14px; }
 .form-group label {
   display: block;
@@ -1049,6 +1063,31 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <button class="btn btn-danger" id="empDeleteBtn" onclick="deleteEmployee()">Delete</button>
       <button class="btn btn-secondary" onclick="closeModal('empModal')">Cancel</button>
       <button class="btn btn-primary" onclick="saveEmployee()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Employee Modal (Read-only) -->
+<div class="modal-overlay" id="viewEmpModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="viewEmpName">Employee Details</h2>
+      <button class="modal-close" onclick="closeModal('viewEmpModal')">&times;</button>
+    </div>
+    <div class="modal-body" style="max-height:500px;overflow-y:auto;">
+      <div id="viewEmpPhoto" style="text-align:center;margin-bottom:16px;"></div>
+      <div class="view-field"><strong>Title:</strong> <span id="viewEmpTitle"></span></div>
+      <div class="view-field"><strong>Department:</strong> <span id="viewEmpDept"></span></div>
+      <div class="view-field"><strong>Team:</strong> <span id="viewEmpTeam"></span></div>
+      <div class="view-field"><strong>Reports To:</strong> <span id="viewEmpReportsTo"></span></div>
+      <div class="view-field"><strong>Email:</strong> <span id="viewEmpEmail"></span></div>
+      <div class="view-field"><strong>Phone:</strong> <span id="viewEmpPhone"></span></div>
+      <div class="view-field" id="viewEmpInterestsDiv" style="display:none;"><strong>Interests & Hobbies:</strong><div id="viewEmpInterests" style="margin-top:4px;white-space:pre-wrap;"></div></div>
+      <div class="view-field" id="viewEmpRolesDiv" style="display:none;"><strong>Roles & Responsibilities:</strong><div id="viewEmpRoles" style="margin-top:4px;white-space:pre-wrap;"></div></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="openEditEmployeeFromView()">Edit</button>
+      <button class="btn btn-secondary" onclick="closeModal('viewEmpModal')">Close</button>
     </div>
   </div>
 </div>
@@ -2859,7 +2898,7 @@ function renderEmpCard(emp, color, teamLeaderId) {
     ? `<div class="emp-avatar" style="background:${color}"><img src="${esc(emp.photoUrl)}" alt="${esc(emp.name)}" class="emp-photo"></div>`
     : `<div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>`;
   
-  return `<div class="emp-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true"
+  return `<div class="emp-card${matchClass}" onclick="openViewEmployee('${emp.id}')" draggable="true"
     ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event,'${emp.id}')">
     ${avatarHtml}
     <div class="emp-info">
@@ -3145,6 +3184,63 @@ function saveDepartmentManager() {
 }
 
 // ---- Employee CRUD ----
+let currentViewEmployeeId = null;
+
+function openViewEmployee(id) {
+  const emp = data.employees.find(e => e.id === id);
+  if (!emp) return;
+  
+  currentViewEmployeeId = id;
+  
+  document.getElementById('viewEmpName').textContent = emp.name;
+  document.getElementById('viewEmpTitle').textContent = emp.title || '—';
+  document.getElementById('viewEmpDept').textContent = emp.department || '—';
+  
+  const team = data.teams.find(t => t.id === emp.teamId);
+  document.getElementById('viewEmpTeam').textContent = team ? team.name : 'General';
+  
+  document.getElementById('viewEmpReportsTo').textContent = emp.reportsTo || 'None';
+  document.getElementById('viewEmpEmail').textContent = emp.email || '—';
+  document.getElementById('viewEmpPhone').textContent = emp.phone || '—';
+  
+  // Photo
+  const photoDiv = document.getElementById('viewEmpPhoto');
+  if (emp.photoUrl) {
+    photoDiv.innerHTML = `<img src="${esc(emp.photoUrl)}" alt="${esc(emp.name)}" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">`;
+  } else {
+    const deptObj = data.departments.find(d => d.name === emp.department);
+    const color = deptObj ? deptObj.color : '#4A90E2';
+    photoDiv.innerHTML = `<div style="width:120px;height:120px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700;color:white;margin:0 auto;">${esc(emp.initials)}</div>`;
+  }
+  
+  // Interests
+  const interestsDiv = document.getElementById('viewEmpInterestsDiv');
+  if (emp.interests && emp.interests.trim()) {
+    document.getElementById('viewEmpInterests').textContent = emp.interests;
+    interestsDiv.style.display = 'block';
+  } else {
+    interestsDiv.style.display = 'none';
+  }
+  
+  // Roles
+  const rolesDiv = document.getElementById('viewEmpRolesDiv');
+  if (emp.roles && emp.roles.trim()) {
+    document.getElementById('viewEmpRoles').textContent = emp.roles;
+    rolesDiv.style.display = 'block';
+  } else {
+    rolesDiv.style.display = 'none';
+  }
+  
+  openModal('viewEmpModal');
+}
+
+function openEditEmployeeFromView() {
+  closeModal('viewEmpModal');
+  if (currentViewEmployeeId) {
+    openEditEmployee(currentViewEmployeeId);
+  }
+}
+
 function openEditEmployee(id) {
   const emp = data.employees.find(e => e.id === id);
   if (!emp) return;
@@ -3789,7 +3885,7 @@ function renderDirectory() {
       ? `<img src="${esc(emp.photoUrl)}" class="directory-photo" alt="${esc(emp.name)}"> ${esc(emp.name)}`
       : esc(emp.name);
     
-    html += `<tr onclick="openEditEmployee('${emp.id}')">`;
+    html += `<tr onclick="openViewEmployee('${emp.id}')">`;
     html += `<td>${photoHtml}</td>`;
     html += `<td>${esc(emp.title)}</td>`;
     html += `<td>${esc(emp.department)}</td>`;
