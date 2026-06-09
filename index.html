@@ -1028,7 +1028,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <div class="form-group"><label>Reports To</label><select id="empReportsTo"><option value="">None (Top-level)</option></select></div>
       <div class="form-group"><label>Email</label><input type="email" id="empEmail"></div>
       <div class="form-group"><label>Phone</label><input type="tel" id="empPhone"></div>
-      <div class="form-group"><label>Photo URL</label><input type="url" id="empPhotoUrl" placeholder="https://example.com/photo.jpg"></div>
+      <div class="form-group">
+        <label>Profile Photo</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="url" id="empPhotoUrl" placeholder="Or paste a photo URL..." style="flex:1;">
+          <input type="file" id="empPhotoFile" accept="image/*" style="display:none;" onchange="handlePhotoUpload()">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('empPhotoFile').click()" style="white-space:nowrap;">
+            📤 Upload Photo
+          </button>
+        </div>
+        <div id="uploadStatus" style="margin-top:4px;font-size:12px;color:#64748b;"></div>
+      </div>
       <div class="form-group"><label>Interests & Hobbies</label><textarea id="empInterests" rows="3" placeholder="e.g., hiking, photography, cooking..."></textarea></div>
     </div>
     <div class="modal-footer">
@@ -3171,6 +3181,76 @@ function openAddEmployeeToDept(deptName, deptId) {
   openAddEmployee();
   document.getElementById('empDept').value = deptName;
   updateTeamSelect();
+}
+
+async function handlePhotoUpload() {
+  const fileInput = document.getElementById('empPhotoFile');
+  const file = fileInput.files[0];
+  
+  if (!file) return;
+  
+  // Validate file type
+  if (!file.type.startsWith('image/')) {
+    toast('Please select an image file', 'error');
+    return;
+  }
+  
+  // Validate file size (5MB max)
+  if (file.size > 5 * 1024 * 1024) {
+    toast('Image must be under 5MB', 'error');
+    return;
+  }
+  
+  const statusDiv = document.getElementById('uploadStatus');
+  statusDiv.textContent = 'Uploading...';
+  statusDiv.style.color = '#3b82f6';
+  
+  try {
+    // Read file as base64
+    const reader = new FileReader();
+    const base64Promise = new Promise((resolve, reject) => {
+      reader.onload = () => resolve(reader.result.split(',')[1]); // Remove data:image/... prefix
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+    
+    const base64Data = await base64Promise;
+    const employeeName = document.getElementById('empName').value.trim() || 'employee';
+    
+    // Upload to Google Drive via Apps Script
+    const scriptUrl = 'YOUR_APPS_SCRIPT_WEB_APP_URL'; // You'll need to deploy the Apps Script and paste the URL here
+    
+    const formData = new URLSearchParams();
+    formData.append('file', base64Data);
+    formData.append('mimeType', file.type);
+    formData.append('fileName', file.name);
+    formData.append('employeeName', employeeName);
+    
+    const response = await fetch(scriptUrl, {
+      method: 'POST',
+      body: formData
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      document.getElementById('empPhotoUrl').value = result.url;
+      statusDiv.textContent = '✓ Photo uploaded!';
+      statusDiv.style.color = '#10b981';
+      toast('Photo uploaded successfully!', 'success');
+    } else {
+      throw new Error(result.error || 'Upload failed');
+    }
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    statusDiv.textContent = '✗ Upload failed';
+    statusDiv.style.color = '#ef4444';
+    toast('Photo upload failed: ' + error.message, 'error');
+  }
+  
+  // Clear the file input
+  fileInput.value = '';
 }
 
 function saveEmployee() {
