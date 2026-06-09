@@ -2417,14 +2417,18 @@ function migrateToTeams() {
     const deptEmps = data.employees.filter(e => e.department === dept.name);
     const deptTeams = data.teams.filter(t => t.departmentId === dept.id);
     
-    let generalTeam = deptTeams.find(t => t.name === 'General');
-    if (!generalTeam) {
-      generalTeam = { id: uid(), name: 'General', departmentId: dept.id, leaderId: null };
-      data.teams.push(generalTeam);
+    // Only create a "General" team if the department has NO teams at all
+    let defaultTeam;
+    if (deptTeams.length === 0) {
+      defaultTeam = { id: uid(), name: 'General', departmentId: dept.id, leaderId: null };
+      data.teams.push(defaultTeam);
+    } else {
+      // Use the first existing team as the default for unassigned employees
+      defaultTeam = deptTeams[0];
     }
     
     deptEmps.forEach(emp => {
-      if (!emp.teamId) emp.teamId = generalTeam.id;
+      if (!emp.teamId) emp.teamId = defaultTeam.id;
       if (typeof emp.sortOrder === 'undefined') emp.sortOrder = 0;
     });
   });
