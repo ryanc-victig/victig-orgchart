@@ -433,7 +433,7 @@
       "id": "id-mnf1whftyqkj9",
       "initials": "RM",
       "name": "Rob McDermott",
-      "title": "Customer Success Manager",
+      "title": "Client Services Specialist",
       "department": "Customer Success",
       "reportsTo": null,
       "email": "",
@@ -982,7 +982,8 @@
       "teamId": "id-mpvenwjr7m4su",
       "reportsTo": null,
       "email": "",
-      "phone": ""
+      "phone": "",
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f2j2g1s5lk",
@@ -993,7 +994,8 @@
       "teamId": "id-mpvenwjr7m4su",
       "reportsTo": null,
       "email": "",
-      "phone": ""
+      "phone": "",
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f2td6j2drt",
@@ -1004,7 +1006,8 @@
       "teamId": "id-mpvenwjr7m4su",
       "reportsTo": null,
       "email": "",
-      "phone": ""
+      "phone": "",
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f33xlvw60n",
@@ -1015,7 +1018,8 @@
       "teamId": "id-mpvenwjr7m4su",
       "reportsTo": null,
       "email": "",
-      "phone": ""
+      "phone": "",
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f3fqp4obpp",
@@ -1026,7 +1030,8 @@
       "teamId": "id-mpvenwjr7m4su",
       "reportsTo": null,
       "email": "",
-      "phone": ""
+      "phone": "",
+      "sortOrder": 0
     }
   ],
   "departments": [
@@ -1181,7 +1186,7 @@
     },
     {
       "id": "id-mngbtxsb5rwnv",
-      "name": "General",
+      "name": "Employment Verifications",
       "departmentId": "id-mnf1whftoyaqk",
       "leaderId": "id-mnf1whftqjfk1"
     },
