@@ -489,6 +489,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   font-size: 14px;
   color: #fff;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.emp-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.directory-photo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 8px;
 }
 .emp-info {
   flex: 1;
@@ -666,7 +681,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   color: var(--text-secondary);
 }
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
   width: 100%;
   padding: 8px 12px;
   border: 1px solid var(--border);
@@ -674,9 +690,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   font-size: 14px;
   outline: none;
   transition: border .2s;
+  font-family: inherit;
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 60px;
 }
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   border-color: var(--exec);
 }
 
@@ -980,6 +1002,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
           <th onclick="sortTable('team')">Team <span class="sort-indicator"></span></th>
           <th onclick="sortTable('email')">Email <span class="sort-indicator"></span></th>
           <th onclick="sortTable('phone')">Phone <span class="sort-indicator"></span></th>
+          <th onclick="sortTable('interests')">Interests & Hobbies <span class="sort-indicator"></span></th>
         </tr>
       </thead>
       <tbody id="directoryTableBody">
@@ -1005,6 +1028,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <div class="form-group"><label>Reports To</label><select id="empReportsTo"><option value="">None (Top-level)</option></select></div>
       <div class="form-group"><label>Email</label><input type="email" id="empEmail"></div>
       <div class="form-group"><label>Phone</label><input type="tel" id="empPhone"></div>
+      <div class="form-group"><label>Photo URL</label><input type="url" id="empPhotoUrl" placeholder="https://example.com/photo.jpg"></div>
+      <div class="form-group"><label>Interests & Hobbies</label><textarea id="empInterests" rows="3" placeholder="e.g., hiking, photography, cooking..."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger" id="empDeleteBtn" onclick="deleteEmployee()">Delete</button>
@@ -2692,8 +2717,12 @@ function render() {
 
 function renderOwnershipCard(emp) {
   const matchClass = isMatch(emp) ? ' search-match' : '';
+  const avatarHtml = emp.photoUrl 
+    ? `<div class="emp-avatar"><img src="${esc(emp.photoUrl)}" alt="${esc(emp.name)}" class="emp-photo"></div>`
+    : `<div class="emp-avatar">${esc(emp.initials)}</div>`;
+  
   return `<div class="ownership-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
-    <div class="emp-avatar">${esc(emp.initials)}</div>
+    ${avatarHtml}
     <div class="emp-name">${esc(emp.name)}</div>
     <div class="emp-title">${esc(emp.title)}</div>
   </div>`;
@@ -2707,8 +2736,12 @@ function renderExecCard(emp, branchClass = '') {
   const isBlueOwner = (emp.name === 'Matt Visser' || emp.name === 'Brent Ramey');
   const borderStyle = isBlueOwner ? 'style="border: 3px solid #3498DB;"' : '';
   
+  const avatarHtml = emp.photoUrl 
+    ? `<div class="emp-avatar" style="background:${color}"><img src="${esc(emp.photoUrl)}" alt="${esc(emp.name)}" class="emp-photo"></div>`
+    : `<div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>`;
+  
   return `<div class="exec-card ${branchClass}${matchClass}" ${borderStyle} onclick="openEditEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
-    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+    ${avatarHtml}
     <div class="emp-name">${esc(emp.name)}</div>
     <div class="emp-title">${esc(emp.title)}</div>
   </div>`;
@@ -2741,7 +2774,10 @@ function renderDeptCard(dept, branchType = 'executive') {
     const matchClass = isMatch(manager) ? ' search-match' : '';
     html += `<div class="dept-manager-card${matchClass}" style="border-color:${color}" onclick="openEditEmployee('${manager.id}')">`;
     html += `<div class="dept-manager-header">`;
-    html += `<div class="dept-manager-avatar" style="background:${color}">${esc(manager.initials)}</div>`;
+    const managerAvatarHtml = manager.photoUrl 
+      ? `<div class="dept-manager-avatar" style="background:${color}"><img src="${esc(manager.photoUrl)}" alt="${esc(manager.name)}" class="emp-photo"></div>`
+      : `<div class="dept-manager-avatar" style="background:${color}">${esc(manager.initials)}</div>`;
+    html += managerAvatarHtml;
     html += `<div class="dept-manager-info">`;
     html += `<div class="dept-manager-name">`;
     html += `${esc(manager.name)}`;
@@ -2803,9 +2839,13 @@ function renderDeptCard(dept, branchType = 'executive') {
 function renderEmpCard(emp, color, teamLeaderId) {
   const matchClass = isMatch(emp) ? ' search-match' : '';
   const isLeader = emp.id === teamLeaderId;
+  const avatarHtml = emp.photoUrl 
+    ? `<div class="emp-avatar" style="background:${color}"><img src="${esc(emp.photoUrl)}" alt="${esc(emp.name)}" class="emp-photo"></div>`
+    : `<div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>`;
+  
   return `<div class="emp-card${matchClass}" onclick="openEditEmployee('${emp.id}')" draggable="true"
     ondragstart="onDragStart(event,'${emp.id}')" ondragover="onDragOver(event)" ondrop="onDropCard(event,'${emp.id}')">
-    <div class="emp-avatar" style="background:${color}">${esc(emp.initials)}</div>
+    ${avatarHtml}
     <div class="emp-info">
       <div class="emp-name">${esc(emp.name)}${isLeader ? ' <span class="leader-badge">⭐</span>' : ''}</div>
       <div class="emp-title">${esc(emp.title)}</div>
@@ -3100,6 +3140,8 @@ function openEditEmployee(id) {
   document.getElementById('empTitleInput').value = emp.title;
   document.getElementById('empEmail').value = emp.email || '';
   document.getElementById('empPhone').value = emp.phone || '';
+  document.getElementById('empPhotoUrl').value = emp.photoUrl || '';
+  document.getElementById('empInterests').value = emp.interests || '';
   populateDeptSelect('empDept', emp.department);
   updateTeamSelect();
   document.getElementById('empTeam').value = emp.teamId || '';
@@ -3116,6 +3158,8 @@ function openAddEmployee() {
   document.getElementById('empTitleInput').value = '';
   document.getElementById('empEmail').value = '';
   document.getElementById('empPhone').value = '';
+  document.getElementById('empPhotoUrl').value = '';
+  document.getElementById('empInterests').value = '';
   populateDeptSelect('empDept', '');
   updateTeamSelect();
   populateReportsToSelect('');
@@ -3139,6 +3183,8 @@ function saveEmployee() {
   const reportsTo = document.getElementById('empReportsTo').value || null;
   const email = document.getElementById('empEmail').value.trim();
   const phone = document.getElementById('empPhone').value.trim();
+  const photoUrl = document.getElementById('empPhotoUrl').value.trim();
+  const interests = document.getElementById('empInterests').value.trim();
 
   if (!name) {
     toast('Name is required', 'error');
@@ -3177,6 +3223,8 @@ function saveEmployee() {
         reportsTo,
         email,
         phone,
+        photoUrl,
+        interests,
         sortOrder: existingSortOrder
       });
     }
@@ -3191,7 +3239,11 @@ function saveEmployee() {
       teamId: finalTeamId,
       reportsTo,
       email,
-      phone
+      phone,
+      photoUrl,
+      interests,
+      sortOrder: 0,
+      customColor: null
     });
     toast(`Added ${name}`, 'success');
   }
@@ -3623,14 +3675,19 @@ function renderDirectory() {
     const phone = emp.phone ? `<a href="tel:${esc(emp.phone)}">${esc(emp.phone)}</a>` : '—';
     const team = emp.teamId ? data.teams.find(t => t.id === emp.teamId) : null;
     const teamName = team ? esc(team.name) : '—';
+    const interests = emp.interests ? esc(emp.interests) : '—';
+    const photoHtml = emp.photoUrl 
+      ? `<img src="${esc(emp.photoUrl)}" class="directory-photo" alt="${esc(emp.name)}"> ${esc(emp.name)}`
+      : esc(emp.name);
     
     html += `<tr onclick="openEditEmployee('${emp.id}')">`;
-    html += `<td>${esc(emp.name)}</td>`;
+    html += `<td>${photoHtml}</td>`;
     html += `<td>${esc(emp.title)}</td>`;
     html += `<td>${esc(emp.department)}</td>`;
     html += `<td>${teamName}</td>`;
     html += `<td>${email}</td>`;
     html += `<td>${phone}</td>`;
+    html += `<td>${interests}</td>`;
     html += `</tr>`;
   });
   
