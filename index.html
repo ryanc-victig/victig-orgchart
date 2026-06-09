@@ -3218,7 +3218,7 @@ async function handlePhotoUpload() {
     const employeeName = document.getElementById('empName').value.trim() || 'employee';
     
     // Upload to Google Drive via Apps Script
-    const scriptUrl = 'YOUR_APPS_SCRIPT_WEB_APP_URL'; // You'll need to deploy the Apps Script and paste the URL here
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwpmnmIn8fpgbb_roPG8tGcNRM3jqVKA9boog8KxnKxuErk2zPTG4KVq5atAW6apRxg/exec';
     
     const formData = new URLSearchParams();
     formData.append('file', base64Data);
