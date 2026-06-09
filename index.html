@@ -1043,6 +1043,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
         </div>
       </div>
       <div class="form-group"><label>Interests & Hobbies</label><textarea id="empInterests" rows="3" placeholder="e.g., hiking, photography, cooking..."></textarea></div>
+      <div class="form-group"><label>Roles & Responsibilities</label><textarea id="empRoles" rows="4" placeholder="e.g., Lead customer onboarding, manage sales pipeline, coordinate with marketing team..."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger" id="empDeleteBtn" onclick="deleteEmployee()">Delete</button>
@@ -1064,6 +1065,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <div class="form-group"><label>Department Name</label><input type="text" id="deptName"></div>
       <div class="form-group"><label>Reports To (Executive)</label><select id="deptReportsTo"><option value="">None</option></select></div>
       <div class="form-group"><label>Color</label><input type="color" id="deptColor" value="#4A90E2"></div>
+      <div class="form-group"><label>Roles & Responsibilities</label><textarea id="deptRoles" rows="4" placeholder="e.g., Oversee all customer-facing operations, ensure compliance with regulations, coordinate cross-functional projects..."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger" id="deptDeleteBtn" onclick="deleteDepartment()">Delete</button>
@@ -1112,6 +1114,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <input type="hidden" id="teamDeptId">
       <div class="form-group"><label>Team Name</label><input type="text" id="teamName"></div>
       <div class="form-group"><label>Team Leader</label><select id="teamLeader"><option value="">No leader</option></select></div>
+      <div class="form-group"><label>Roles & Responsibilities</label><textarea id="teamRoles" rows="4" placeholder="e.g., Handle all inbound customer inquiries, process verification requests, maintain quality standards..."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger" id="teamDeleteBtn" onclick="deleteTeam()" style="display:none">Delete</button>
@@ -3155,6 +3158,7 @@ function openEditEmployee(id) {
   document.getElementById('empPhone').value = emp.phone || '';
   document.getElementById('empPhotoUrl').value = emp.photoUrl || '';
   document.getElementById('empInterests').value = emp.interests || '';
+  document.getElementById('empRoles').value = emp.roles || '';
   populateDeptSelect('empDept', emp.department);
   updateTeamSelect();
   document.getElementById('empTeam').value = emp.teamId || '';
@@ -3173,6 +3177,7 @@ function openAddEmployee() {
   document.getElementById('empPhone').value = '';
   document.getElementById('empPhotoUrl').value = '';
   document.getElementById('empInterests').value = '';
+  document.getElementById('empRoles').value = '';
   populateDeptSelect('empDept', '');
   updateTeamSelect();
   populateReportsToSelect('');
@@ -3279,6 +3284,7 @@ function saveEmployee() {
   const phone = document.getElementById('empPhone').value.trim();
   const photoUrl = document.getElementById('empPhotoUrl').value.trim();
   const interests = document.getElementById('empInterests').value.trim();
+  const roles = document.getElementById('empRoles').value.trim();
 
   if (!name) {
     toast('Name is required', 'error');
@@ -3319,6 +3325,7 @@ function saveEmployee() {
         phone,
         photoUrl,
         interests,
+        roles,
         sortOrder: existingSortOrder
       });
     }
@@ -3336,6 +3343,7 @@ function saveEmployee() {
       phone,
       photoUrl,
       interests,
+      roles,
       sortOrder: 0,
       customColor: null
     });
@@ -3379,6 +3387,7 @@ function openEditDept(id) {
   document.getElementById('deptId').value = dept.id;
   document.getElementById('deptName').value = dept.name;
   document.getElementById('deptColor').value = dept.color;
+  document.getElementById('deptRoles').value = dept.roles || '';
   populateDeptReportsTo(dept.reportsTo);
   document.getElementById('deptDeleteBtn').style.display = '';
   openModal('deptModal');
@@ -3389,6 +3398,7 @@ function openAddDept() {
   document.getElementById('deptId').value = '';
   document.getElementById('deptName').value = '';
   document.getElementById('deptColor').value = '#4A90E2';
+  document.getElementById('deptRoles').value = '';
   populateDeptReportsTo('');
   document.getElementById('deptDeleteBtn').style.display = 'none';
   openModal('deptModal');
@@ -3399,6 +3409,7 @@ function saveDepartment() {
   const name = document.getElementById('deptName').value.trim();
   const reportsTo = document.getElementById('deptReportsTo').value || null;
   const color = document.getElementById('deptColor').value;
+  const roles = document.getElementById('deptRoles').value.trim();
 
   if (!name) {
     toast('Department name is required', 'error');
@@ -3409,7 +3420,7 @@ function saveDepartment() {
     const dept = data.departments.find(d => d.id === id);
     if (dept) {
       const oldName = dept.name;
-      Object.assign(dept, { name, reportsTo, color });
+      Object.assign(dept, { name, reportsTo, color, roles });
       
       if (oldName !== name) {
         data.employees.filter(e => e.department === oldName).forEach(e => {
@@ -3423,7 +3434,7 @@ function saveDepartment() {
       toast('Department already exists', 'error');
       return;
     }
-    const newDept = { id: uid(), name, reportsTo, managerId: null, color };
+    const newDept = { id: uid(), name, reportsTo, managerId: null, color, roles };
     data.departments.push(newDept);
     
     data.teams.push({
@@ -3469,6 +3480,7 @@ function openAddTeam(deptId, deptName) {
   document.getElementById('teamId').value = '';
   document.getElementById('teamDeptId').value = deptId;
   document.getElementById('teamName').value = '';
+  document.getElementById('teamRoles').value = '';
   
   const dept = data.departments.find(d => d.id === deptId);
   const sel = document.getElementById('teamLeader');
@@ -3500,6 +3512,7 @@ function openEditTeam(teamId) {
   document.getElementById('teamId').value = team.id;
   document.getElementById('teamDeptId').value = team.departmentId;
   document.getElementById('teamName').value = team.name;
+  document.getElementById('teamRoles').value = team.roles || '';
   
   const sel = document.getElementById('teamLeader');
   sel.innerHTML = '<option value="">No leader</option>';
@@ -3525,6 +3538,7 @@ function saveTeam() {
   const name = document.getElementById('teamName').value.trim();
   const deptId = document.getElementById('teamDeptId').value;
   const leaderId = document.getElementById('teamLeader').value || null;
+  const roles = document.getElementById('teamRoles').value.trim();
 
   if (!name) {
     toast('Team name is required', 'error');
@@ -3534,7 +3548,7 @@ function saveTeam() {
   if (id) {
     const team = data.teams.find(t => t.id === id);
     if (team) {
-      Object.assign(team, { name, leaderId });
+      Object.assign(team, { name, leaderId, roles });
     }
     toast(`Updated ${name}`, 'success');
   } else {
@@ -3542,7 +3556,8 @@ function saveTeam() {
       id: uid(),
       name,
       departmentId: deptId,
-      leaderId
+      leaderId,
+      roles
     });
     toast(`Created ${name}`, 'success');
   }
