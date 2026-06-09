@@ -71,12 +71,15 @@
       "name": "Jana Munar",
       "title": "Researcher",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
+      "reportsTo": "Kate Florez",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 50,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftvc2f3",
@@ -84,12 +87,15 @@
       "name": "Lawrence Lubang",
       "title": "Researcher",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
+      "reportsTo": "Kate Florez",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 30,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftuvnly",
@@ -203,12 +209,15 @@
       "name": "Mackensie Schwab",
       "title": "Researcher",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
+      "reportsTo": "Kate Florez",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whft07bd3",
@@ -216,12 +225,15 @@
       "name": "Kim Bass",
       "title": "Master of Client Happiness",
       "department": "Customer Success",
-      "reportsTo": null,
+      "reportsTo": "Ryan Cauffman",
       "email": "",
       "phone": "",
       "sortOrder": 0,
       "customColor": null,
-      "teamId": "id-mngbtxsbfyvyc"
+      "teamId": "id-mngbtxsbfyvyc",
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whft7gyba",
@@ -398,12 +410,15 @@
       "name": "Trish Gustin",
       "title": "Manager of Employment Verifications",
       "department": "Verifications",
-      "reportsTo": null,
+      "reportsTo": "Rob Farnes",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whft8e7x9",
@@ -411,12 +426,15 @@
       "name": "Ian Hamill",
       "title": "Research Support Lead",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
+      "reportsTo": "Kate Florez",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whft9dpxm",
@@ -437,12 +455,15 @@
       "name": "Rob McDermott",
       "title": "Client Services Specialist",
       "department": "Customer Success",
-      "reportsTo": null,
+      "reportsTo": "Ryan Cauffman",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbfyvyc",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftph2ho",
@@ -541,12 +562,15 @@
       "name": "Easton Maylett",
       "title": "Revenue Operations Technician",
       "department": "Product & Systems",
-      "reportsTo": null,
+      "reportsTo": "Josh Elle",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbap1rq",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftla045",
@@ -567,12 +591,15 @@
       "name": "Dustin Roethel",
       "title": "Manager of Multimedia Content & Systems",
       "department": "Marketing",
-      "reportsTo": null,
+      "reportsTo": "Ryan Cauffman",
       "email": "",
       "phone": "",
       "teamId": "id-mphsdhwaox5pl",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftw99i2",
@@ -593,7 +620,7 @@
       "name": "Josh Elle",
       "title": "VP of Product & Systems",
       "department": "Product & Systems",
-      "reportsTo": null,
+      "reportsTo": "Ryan Cauffman",
       "email": "jelle@victig.com",
       "phone": "",
       "sortOrder": 0,
@@ -609,12 +636,15 @@
       "name": "Josh Diederich",
       "title": "Account Executive",
       "department": "Sales & Lead Gen",
-      "reportsTo": null,
+      "reportsTo": "Blake Visser",
       "email": "",
       "phone": "",
       "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whft8anxu",
@@ -622,12 +652,15 @@
       "name": "Jan Pineda",
       "title": "Researcher",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
+      "reportsTo": "Kate Florez",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 20,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftm1are",
@@ -635,12 +668,15 @@
       "name": "Valynne Bowers",
       "title": "Contract - Accounting",
       "department": "Product & Systems",
-      "reportsTo": null,
+      "reportsTo": "Josh Elle",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbap1rq",
       "sortOrder": 20,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftwuhww",
@@ -739,12 +775,15 @@
       "name": "Stephen Treanor",
       "title": "Sales Development Representative",
       "department": "Sales & Lead Gen",
-      "reportsTo": null,
+      "reportsTo": "Blake Visser",
       "email": "",
       "phone": "",
       "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 20,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftp88q6",
@@ -765,12 +804,15 @@
       "name": "Morgan Verhoef",
       "title": "Account Executive",
       "department": "Sales & Lead Gen",
-      "reportsTo": null,
+      "reportsTo": "Blake Visser",
       "email": "",
       "phone": "",
       "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftghxa5",
@@ -830,12 +872,15 @@
       "name": "Annah Madsen",
       "title": "Customer Success Manager",
       "department": "Customer Success",
-      "reportsTo": null,
+      "reportsTo": "Ryan Cauffman",
       "email": "alane@victig.com",
       "phone": "",
       "teamId": "id-mngbtxsbfyvyc",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mo07e665akw11",
@@ -843,12 +888,15 @@
       "name": "Sarah Freeman",
       "title": "Researcher",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
+      "reportsTo": "Kate Florez",
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 60,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whfta6pgh",
@@ -908,12 +956,15 @@
       "name": "Tristen Talbert",
       "title": "Lead Engineer",
       "department": "Technology",
-      "reportsTo": null,
+      "reportsTo": "Ryan Cauffman",
       "email": "",
       "phone": "",
       "sortOrder": 0,
       "customColor": null,
-      "teamId": "id-mpegzd097sxcr"
+      "teamId": "id-mpegzd097sxcr",
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mo079oj8qkqq0",
@@ -921,12 +972,15 @@
       "name": "Kate Florez",
       "title": "Manager of Research & Quality Assurance",
       "department": "Research & Quality Assurance Team",
-      "reportsTo": null,
+      "reportsTo": "Rob Farnes",
       "email": "kflorez@victig.com",
       "phone": "(866) 886-5644",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 70,
-      "customColor": null
+      "customColor": null,
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whft9zhnl",
