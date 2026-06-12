@@ -11,7 +11,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 20,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfttft4z",
@@ -24,7 +25,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 30,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftjawfo",
@@ -37,7 +39,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 40,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftahnxp",
@@ -50,7 +53,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 50,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft8qras",
@@ -63,7 +67,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mo07do93hcn01",
@@ -79,7 +84,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftvc2f3",
@@ -95,7 +101,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftuvnly",
@@ -108,7 +115,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 60,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftn7c9u",
@@ -121,7 +129,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftfqyl1",
@@ -134,7 +143,8 @@
       "phone": "",
       "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 30,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfthtjlg",
@@ -149,7 +159,8 @@
       "sortOrder": 0,
       "customColor": null,
       "photoUrl": "photos/ryan-cauffman.jpg",
-      "interests": ""
+      "interests": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftrxy78",
@@ -162,7 +173,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft9o4qo",
@@ -175,7 +187,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 70,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftxudog",
@@ -188,7 +201,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 80,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft7z6bm",
@@ -201,7 +215,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 90,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfttzh7m",
@@ -217,7 +232,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft07bd3",
@@ -233,7 +249,8 @@
       "teamId": "id-mngbtxsbfyvyc",
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft7gyba",
@@ -246,7 +263,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbnw1bg",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftk7th5",
@@ -259,7 +277,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftz0u2r",
@@ -272,7 +291,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbdc4t0",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mo077au5bhgxz",
@@ -285,7 +305,8 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 50,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftu4z4h",
@@ -298,7 +319,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 100,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftsptow",
@@ -311,7 +333,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 110,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftg1rk2",
@@ -324,7 +347,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 20,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftumibj",
@@ -337,7 +361,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 120,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft31xif",
@@ -350,7 +375,8 @@
       "phone": "",
       "teamId": "id-mpegl7yyi99uh",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfttbtty",
@@ -363,7 +389,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 130,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft7asbu",
@@ -376,7 +403,8 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 20,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft7zhq8",
@@ -389,7 +417,8 @@
       "phone": "",
       "teamId": "id-mngg1n4nc8het",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftmevmy",
@@ -402,7 +431,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftqjfk1",
@@ -418,7 +448,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft8e7x9",
@@ -434,7 +465,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft9dpxm",
@@ -447,7 +479,8 @@
       "phone": "",
       "teamId": "id-mngg1n4nc8het",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftyqkj9",
@@ -463,7 +496,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftph2ho",
@@ -476,7 +510,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 140,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftuohhi",
@@ -489,7 +524,8 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftdodso",
@@ -502,7 +538,8 @@
       "phone": "",
       "sortOrder": 0,
       "customColor": null,
-      "teamId": "id-mpegl7yyi99uh"
+      "teamId": "id-mpegl7yyi99uh",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfth2o47",
@@ -515,7 +552,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 150,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfthbdz2",
@@ -528,7 +566,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 160,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftqvl9a",
@@ -541,7 +580,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 170,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mngg9mb4lp4t6",
@@ -554,7 +594,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbnw1bg",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf23xvtks3uc",
@@ -570,7 +611,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftla045",
@@ -583,7 +625,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 180,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft7jog4",
@@ -599,7 +642,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftw99i2",
@@ -612,7 +656,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 190,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft0gs2w",
@@ -628,7 +673,8 @@
       "teamId": "id-mngbtxsbap1rq",
       "photoUrl": "photos/josh-elle.jpg",
       "interests": "Lifting Weights, Volunteering",
-      "roles": "Monthly vendor audits"
+      "roles": "Monthly vendor audits",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfti7goz",
@@ -644,7 +690,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft8anxu",
@@ -660,7 +707,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftm1are",
@@ -676,7 +724,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftwuhww",
@@ -689,7 +738,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 40,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftsx4ix",
@@ -702,7 +752,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 200,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftjvjso",
@@ -715,7 +766,8 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 10,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftpb1e3",
@@ -728,7 +780,8 @@
       "phone": "",
       "teamId": "id-mngg1n4nc8het",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfte91uq",
@@ -741,7 +794,8 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 30,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft54t3r",
@@ -754,7 +808,8 @@
       "phone": "",
       "teamId": "id-mpvenwjr7m4su",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftnt941",
@@ -767,7 +822,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb03omf",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftnw91c",
@@ -783,7 +839,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftp88q6",
@@ -796,7 +853,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfterce1",
@@ -812,7 +870,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftghxa5",
@@ -825,7 +884,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 210,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftpgxvw",
@@ -838,7 +898,8 @@
       "phone": "307-921-4557",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft3s9z6",
@@ -851,7 +912,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 220,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftfkhfp",
@@ -864,7 +926,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft2d0qq",
@@ -880,7 +943,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mo07e665akw11",
@@ -896,7 +960,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whfta6pgh",
@@ -909,7 +974,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 30,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftxs5hr",
@@ -922,7 +988,8 @@
       "phone": "",
       "teamId": "id-mpegl7yyi99uh",
       "sortOrder": 20,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf20eei7x9rw",
@@ -935,7 +1002,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbgd3zm",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftcs6u3",
@@ -948,7 +1016,8 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 40,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whftmou04",
@@ -964,7 +1033,8 @@
       "teamId": "id-mpegzd097sxcr",
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mo079oj8qkqq0",
@@ -980,7 +1050,8 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": ""
+      "roles": "",
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft9zhnl",
@@ -993,7 +1064,8 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mnf1whft29oxo",
@@ -1006,7 +1078,8 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 230,
-      "customColor": null
+      "customColor": null,
+      "birthday": ""
     },
     {
       "id": "id-mpehxrii9mexh",
@@ -1018,7 +1091,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0
+      "sortOrder": 0,
+      "birthday": ""
     },
     {
       "id": "id-mq1ecj6mkstqb",
@@ -1030,7 +1104,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 10
+      "sortOrder": 10,
+      "birthday": ""
     },
     {
       "id": "id-mq1f28pp1i37e",
@@ -1042,7 +1117,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0
+      "sortOrder": 0,
+      "birthday": ""
     },
     {
       "id": "id-mq1f2j2g1s5lk",
@@ -1054,7 +1130,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0
+      "sortOrder": 0,
+      "birthday": ""
     },
     {
       "id": "id-mq1f2td6j2drt",
@@ -1066,7 +1143,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0
+      "sortOrder": 0,
+      "birthday": ""
     },
     {
       "id": "id-mq1f33xlvw60n",
@@ -1078,7 +1156,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0
+      "sortOrder": 0,
+      "birthday": ""
     },
     {
       "id": "id-mq1f3fqp4obpp",
@@ -1090,7 +1169,8 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0
+      "sortOrder": 0,
+      "birthday": ""
     }
   ],
   "departments": [

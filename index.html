@@ -1042,6 +1042,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <div class="form-group"><label>Reports To</label><select id="empReportsTo"><option value="">None (Top-level)</option></select></div>
       <div class="form-group"><label>Email</label><input type="email" id="empEmail"></div>
       <div class="form-group"><label>Phone</label><input type="tel" id="empPhone"></div>
+      <div class="form-group"><label>Birthday</label><input type="date" id="empBirthday"></div>
       <div class="form-group">
         <label>Profile Photo</label>
         <div style="display:flex;gap:8px;align-items:center;">
@@ -1082,6 +1083,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <div class="view-field"><strong>Reports To:</strong> <span id="viewEmpReportsTo"></span></div>
       <div class="view-field"><strong>Email:</strong> <span id="viewEmpEmail"></span></div>
       <div class="view-field"><strong>Phone:</strong> <span id="viewEmpPhone"></span></div>
+      <div class="view-field" id="viewEmpBirthdayDiv" style="display:none;"><strong>Birthday:</strong> <span id="viewEmpBirthday"></span></div>
       <div class="view-field" id="viewEmpInterestsDiv" style="display:none;"><strong>Interests & Hobbies:</strong><div id="viewEmpInterests" style="margin-top:4px;white-space:pre-wrap;"></div></div>
       <div class="view-field" id="viewEmpRolesDiv" style="display:none;"><strong>Roles & Responsibilities:</strong><div id="viewEmpRoles" style="margin-top:4px;white-space:pre-wrap;"></div></div>
     </div>
@@ -3299,6 +3301,17 @@ function openViewEmployee(id) {
   document.getElementById('viewEmpEmail').textContent = emp.email || '—';
   document.getElementById('viewEmpPhone').textContent = emp.phone || '—';
   
+  // Birthday
+  const birthdayDiv = document.getElementById('viewEmpBirthdayDiv');
+  if (emp.birthday && emp.birthday.trim()) {
+    const birthdayDate = new Date(emp.birthday + 'T00:00:00');
+    const formattedBirthday = birthdayDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    document.getElementById('viewEmpBirthday').textContent = formattedBirthday;
+    birthdayDiv.style.display = 'block';
+  } else {
+    birthdayDiv.style.display = 'none';
+  }
+  
   // Photo
   const photoDiv = document.getElementById('viewEmpPhoto');
   if (emp.photoUrl) {
@@ -3348,6 +3361,7 @@ function openEditEmployee(id) {
   document.getElementById('empTitleInput').value = emp.title;
   document.getElementById('empEmail').value = emp.email || '';
   document.getElementById('empPhone').value = emp.phone || '';
+  document.getElementById('empBirthday').value = emp.birthday || '';
   document.getElementById('empPhotoUrl').value = emp.photoUrl || '';
   document.getElementById('empInterests').value = emp.interests || '';
   document.getElementById('empRoles').value = emp.roles || '';
@@ -3367,6 +3381,7 @@ function openAddEmployee() {
   document.getElementById('empTitleInput').value = '';
   document.getElementById('empEmail').value = '';
   document.getElementById('empPhone').value = '';
+  document.getElementById('empBirthday').value = '';
   document.getElementById('empPhotoUrl').value = '';
   document.getElementById('empInterests').value = '';
   document.getElementById('empRoles').value = '';
@@ -3474,6 +3489,7 @@ function saveEmployee() {
   const reportsTo = document.getElementById('empReportsTo').value || null;
   const email = document.getElementById('empEmail').value.trim();
   const phone = document.getElementById('empPhone').value.trim();
+  const birthday = document.getElementById('empBirthday').value.trim();
   const photoUrl = document.getElementById('empPhotoUrl').value.trim();
   const interests = document.getElementById('empInterests').value.trim();
   const roles = document.getElementById('empRoles').value.trim();
@@ -3515,6 +3531,7 @@ function saveEmployee() {
         reportsTo,
         email,
         phone,
+        birthday,
         photoUrl,
         interests,
         roles,
@@ -3533,6 +3550,7 @@ function saveEmployee() {
       reportsTo,
       email,
       phone,
+      birthday,
       photoUrl,
       interests,
       roles,
