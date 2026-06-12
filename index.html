@@ -1105,6 +1105,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <div class="form-group"><label>Reports To (Executive)</label><select id="deptReportsTo"><option value="">None</option></select></div>
       <div class="form-group"><label>Color</label><input type="color" id="deptColor" value="#4A90E2"></div>
       <div class="form-group"><label>Roles & Responsibilities</label><textarea id="deptRoles" rows="4" placeholder="e.g., Oversee all customer-facing operations, ensure compliance with regulations, coordinate cross-functional projects..."></textarea></div>
+      <div class="form-group">
+        <label>Department Emails</label>
+        <div id="deptEmailsList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;"></div>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="addDeptEmail()">+ Add Email</button>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger" id="deptDeleteBtn" onclick="deleteDepartment()">Delete</button>
@@ -2823,6 +2828,21 @@ function renderDeptCard(dept, branchType = 'executive') {
   
   html += `<div class="dept-body" ondragover="onDragOver(event)" ondrop="onDropDept(event,'${esc(dept.name)}','${dept.id}')">`;
   
+  // Department Emails Section - Only show if emails exist
+  if (dept.emails && dept.emails.length > 0) {
+    html += `<div class="dept-emails-section" style="padding:12px;background:rgba(0,0,0,0.02);border-bottom:1px solid var(--border);font-size:12px;">`;
+    html += `<div style="font-weight:600;margin-bottom:8px;color:${color};">📧 Department Emails</div>`;
+    dept.emails.forEach(emailObj => {
+      html += `<div style="margin-bottom:6px;padding:6px;background:white;border-radius:4px;border:1px solid var(--border);">`;
+      html += `<div style="font-weight:500;color:${color};">${esc(emailObj.address)}</div>`;
+      if (emailObj.description) {
+        html += `<div style="color:var(--text-secondary);margin-top:2px;">${esc(emailObj.description)}</div>`;
+      }
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+  
   // Department Manager Section - Only show if manager exists
   if (manager) {
     html += `<div class="dept-manager-section" style="color:${color}">`;
@@ -3126,6 +3146,82 @@ function populateDeptReportsTo(selectedVal) {
     if (e.name === selectedVal) opt.selected = true;
     sel.appendChild(opt);
   });
+}
+
+// ---- Department Emails ----
+function populateDeptEmails(emails) {
+  const container = document.getElementById('deptEmailsList');
+  container.innerHTML = '';
+  
+  emails.forEach((emailObj, index) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;gap:8px;align-items:start;';
+    row.innerHTML = `
+      <input type="email" placeholder="email@example.com" value="${esc(emailObj.address || '')}" 
+        style="flex:1;padding:8px;border:1px solid var(--border);border-radius:4px;font-size:13px;"
+        data-email-index="${index}" class="dept-email-address">
+      <input type="text" placeholder="When to use this email" value="${esc(emailObj.description || '')}" 
+        style="flex:2;padding:8px;border:1px solid var(--border);border-radius:4px;font-size:13px;"
+        data-email-index="${index}" class="dept-email-description">
+      <button type="button" class="btn btn-danger btn-sm" onclick="removeDeptEmail(${index})" 
+        style="padding:6px 12px;">Remove</button>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function addDeptEmail() {
+  const container = document.getElementById('deptEmailsList');
+  const index = container.children.length;
+  
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;gap:8px;align-items:start;';
+  row.innerHTML = `
+    <input type="email" placeholder="email@example.com" value="" 
+      style="flex:1;padding:8px;border:1px solid var(--border);border-radius:4px;font-size:13px;"
+      data-email-index="${index}" class="dept-email-address">
+    <input type="text" placeholder="When to use this email" value="" 
+      style="flex:2;padding:8px;border:1px solid var(--border);border-radius:4px;font-size:13px;"
+      data-email-index="${index}" class="dept-email-description">
+    <button type="button" class="btn btn-danger btn-sm" onclick="removeDeptEmail(${index})" 
+      style="padding:6px 12px;">Remove</button>
+  `;
+  container.appendChild(row);
+}
+
+function removeDeptEmail(index) {
+  const container = document.getElementById('deptEmailsList');
+  const rows = Array.from(container.children);
+  if (rows[index]) {
+    rows[index].remove();
+    // Re-index remaining rows
+    Array.from(container.children).forEach((row, newIndex) => {
+      row.querySelectorAll('[data-email-index]').forEach(input => {
+        input.setAttribute('data-email-index', newIndex);
+      });
+      const removeBtn = row.querySelector('button');
+      if (removeBtn) {
+        removeBtn.setAttribute('onclick', `removeDeptEmail(${newIndex})`);
+      }
+    });
+  }
+}
+
+function getDeptEmailsFromForm() {
+  const addresses = document.querySelectorAll('.dept-email-address');
+  const descriptions = document.querySelectorAll('.dept-email-description');
+  const emails = [];
+  
+  addresses.forEach((addrInput, index) => {
+    const address = addrInput.value.trim();
+    const description = descriptions[index] ? descriptions[index].value.trim() : '';
+    
+    if (address) { // Only include if email address is not empty
+      emails.push({ address, description });
+    }
+  });
+  
+  return emails;
 }
 
 // ---- Department Manager ----
@@ -3485,6 +3581,7 @@ function openEditDept(id) {
   document.getElementById('deptColor').value = dept.color;
   document.getElementById('deptRoles').value = dept.roles || '';
   populateDeptReportsTo(dept.reportsTo);
+  populateDeptEmails(dept.emails || []);
   document.getElementById('deptDeleteBtn').style.display = '';
   openModal('deptModal');
 }
@@ -3496,6 +3593,7 @@ function openAddDept() {
   document.getElementById('deptColor').value = '#4A90E2';
   document.getElementById('deptRoles').value = '';
   populateDeptReportsTo('');
+  populateDeptEmails([]);
   document.getElementById('deptDeleteBtn').style.display = 'none';
   openModal('deptModal');
 }
@@ -3506,6 +3604,7 @@ function saveDepartment() {
   const reportsTo = document.getElementById('deptReportsTo').value || null;
   const color = document.getElementById('deptColor').value;
   const roles = document.getElementById('deptRoles').value.trim();
+  const emails = getDeptEmailsFromForm();
 
   if (!name) {
     toast('Department name is required', 'error');
@@ -3516,7 +3615,7 @@ function saveDepartment() {
     const dept = data.departments.find(d => d.id === id);
     if (dept) {
       const oldName = dept.name;
-      Object.assign(dept, { name, reportsTo, color, roles });
+      Object.assign(dept, { name, reportsTo, color, roles, emails });
       
       if (oldName !== name) {
         data.employees.filter(e => e.department === oldName).forEach(e => {
@@ -3530,7 +3629,7 @@ function saveDepartment() {
       toast('Department already exists', 'error');
       return;
     }
-    const newDept = { id: uid(), name, reportsTo, managerId: null, color, roles };
+    const newDept = { id: uid(), name, reportsTo, managerId: null, color, roles, emails };
     data.departments.push(newDept);
     
     data.teams.push({

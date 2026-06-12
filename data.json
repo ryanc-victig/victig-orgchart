@@ -1099,105 +1099,120 @@
       "name": "Research & Quality Assurance Team",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mo079oj8qkqq0"
+      "managerId": "id-mo079oj8qkqq0",
+      "emails": []
     },
     {
       "id": "id-mnf1whft85uok",
       "name": "Executive",
       "reportsTo": null,
       "color": "#4A90E2",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnf1whfty3unx",
       "name": "Accounting",
       "reportsTo": "Nathan Carrizales",
       "color": "#27ae60",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnf1whftoyaqk",
       "name": "Verifications",
       "reportsTo": "Rob Farnes",
       "color": "#2C3E50",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnf1whfts4k33",
       "name": "Legal",
       "reportsTo": "Deb Keller",
       "color": "#1abc9c",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnf25c2k658ou",
       "name": "Risk Management",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnf1whftktipw",
       "name": "Sales & Lead Gen",
       "reportsTo": "Blake Visser",
       "color": "#e74c3c",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnf1whftlxlq2",
       "name": "Onboarding",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mnf1whftz0u2r"
+      "managerId": "id-mnf1whftz0u2r",
+      "emails": []
     },
     {
       "id": "id-mnf29bbntw6cq",
       "name": "Product & Systems",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": "id-mnf1whft0gs2w"
+      "managerId": "id-mnf1whft0gs2w",
+      "emails": []
     },
     {
       "id": "id-mnf1whftnzyaq",
       "name": "Drug Testing",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mnf1whfta6pgh"
+      "managerId": "id-mnf1whfta6pgh",
+      "emails": []
     },
     {
       "id": "id-mngg1n4nncwk2",
       "name": "Specialty Searches",
       "reportsTo": "Deb Keller",
       "color": "#1abc9c",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnf1whft9x5oh",
       "name": "Customer Success",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": null
+      "managerId": null,
+      "emails": []
     },
     {
       "id": "id-mnz690q1qax7v",
       "name": "Customer Support",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mnf1whfte91uq"
+      "managerId": "id-mnf1whfte91uq",
+      "emails": []
     },
     {
       "id": "id-mpegzd092xd95",
       "name": "Technology",
       "reportsTo": "Ryan Cauffman",
       "managerId": "id-mnf1whftmou04",
-      "color": "#4a90e2"
+      "color": "#4a90e2",
+      "emails": []
     },
     {
       "id": "id-mphsdhwai9h0z",
       "name": "Marketing",
       "reportsTo": "Ryan Cauffman",
       "managerId": null,
-      "color": "#4a90e2"
+      "color": "#4a90e2",
+      "emails": []
     }
   ],
   "teams": [
