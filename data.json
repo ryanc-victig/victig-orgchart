@@ -1100,7 +1100,13 @@
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
       "managerId": "id-mo079oj8qkqq0",
-      "emails": []
+      "emails": [
+        {
+          "address": "dot@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mnf1whft85uok",
@@ -1116,15 +1122,43 @@
       "reportsTo": "Nathan Carrizales",
       "color": "#27ae60",
       "managerId": null,
-      "emails": []
+      "emails": [
+        {
+          "address": "finance@victig.com",
+          "description": "Internal email for all things related to finance."
+        },
+        {
+          "address": "AR@victig.com",
+          "description": "For external communication for anything related to accounts receivables."
+        },
+        {
+          "address": "AP@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mnf1whftoyaqk",
       "name": "Verifications",
       "reportsTo": "Rob Farnes",
-      "color": "#2C3E50",
+      "color": "#2c3e50",
       "managerId": null,
-      "emails": []
+      "emails": [
+        {
+          "address": "verifications@victig.com",
+          "description": ""
+        },
+        {
+          "address": "verify@victig.com",
+          "description": ""
+        },
+        {
+          "address": "education@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mnf1whfts4k33",
@@ -1148,7 +1182,25 @@
       "reportsTo": "Blake Visser",
       "color": "#e74c3c",
       "managerId": null,
-      "emails": []
+      "emails": [
+        {
+          "address": "clientsales@victig.com",
+          "description": ""
+        },
+        {
+          "address": "ultimateleads@victig.com",
+          "description": ""
+        },
+        {
+          "address": "sales@victig.com",
+          "description": ""
+        },
+        {
+          "address": "leads@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mnf1whftlxlq2",
@@ -1164,7 +1216,13 @@
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
       "managerId": "id-mnf1whft0gs2w",
-      "emails": []
+      "emails": [
+        {
+          "address": "auditing@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mnf1whftnzyaq",
@@ -1172,7 +1230,17 @@
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
       "managerId": "id-mnf1whfta6pgh",
-      "emails": []
+      "emails": [
+        {
+          "address": "scheduling@victig.com",
+          "description": "Only used for outgoing mail. Incoming is forwarded directly to drugtest@victig.com"
+        },
+        {
+          "address": "drugtest@victig.com",
+          "description": "Used fro client and applicant interaction."
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mngg1n4nncwk2",
@@ -1188,7 +1256,17 @@
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
       "managerId": null,
-      "emails": []
+      "emails": [
+        {
+          "address": "clientservices@victig.com",
+          "description": ""
+        },
+        {
+          "address": "wecare@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mnz690q1qax7v",
@@ -1196,7 +1274,21 @@
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
       "managerId": "id-mnf1whfte91uq",
-      "emails": []
+      "emails": [
+        {
+          "address": "reportdecision@victig.com",
+          "description": ""
+        },
+        {
+          "address": "support@victig.com",
+          "description": ""
+        },
+        {
+          "address": "disputes@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mpegzd092xd95",
@@ -1212,7 +1304,13 @@
       "reportsTo": "Ryan Cauffman",
       "managerId": null,
       "color": "#4a90e2",
-      "emails": []
+      "emails": [
+        {
+          "address": "socialmedia@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     }
   ],
   "teams": [
