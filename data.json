@@ -1199,6 +1199,23 @@
       "phone": "",
       "sortOrder": 0,
       "birthday": ""
+    },
+    {
+      "id": "id-mqfnuwua5zzcu",
+      "name": "Kennady Peck",
+      "initials": "KP",
+      "title": "Assistant",
+      "department": "Accounting",
+      "teamId": "id-mngbtxsbgd3zm",
+      "reportsTo": "Nathan Carrizales",
+      "email": "kennadyp@victig.com",
+      "phone": "",
+      "birthday": "",
+      "photoUrl": "",
+      "interests": "",
+      "roles": "",
+      "sortOrder": 0,
+      "customColor": null
     }
   ],
   "departments": [
