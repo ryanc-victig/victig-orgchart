@@ -426,12 +426,15 @@
       "title": "Specialty Searches",
       "department": "Specialty Searches",
       "reportsTo": "Deb Keller",
-      "email": "",
+      "email": "kramey@victig.com",
       "phone": "",
       "teamId": "id-mngg1n4nc8het",
       "sortOrder": 0,
       "customColor": null,
-      "birthday": ""
+      "birthday": "",
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whftmevmy",
