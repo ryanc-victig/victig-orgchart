@@ -1225,12 +1225,7 @@
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
       "managerId": "id-mo079oj8qkqq0",
-      "emails": [
-        {
-          "address": "dot@victig.com",
-          "description": ""
-        }
-      ],
+      "emails": [],
       "roles": ""
     },
     {
@@ -1373,7 +1368,17 @@
       "reportsTo": "Deb Keller",
       "color": "#1abc9c",
       "managerId": null,
-      "emails": []
+      "emails": [
+        {
+          "address": "dot@victig.com",
+          "description": ""
+        },
+        {
+          "address": "customercare@victig.com",
+          "description": ""
+        }
+      ],
+      "roles": ""
     },
     {
       "id": "id-mnf1whft9x5oh",
