@@ -538,13 +538,16 @@
       "name": "Kayla Thompson",
       "title": "Customer Support, Team Lead",
       "department": "Customer Support",
-      "reportsTo": null,
-      "email": "",
-      "phone": "",
+      "reportsTo": "Alison Hamill",
+      "email": "kaylat@victig.com",
+      "phone": "(801) 436-6210",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 0,
       "customColor": null,
-      "birthday": ""
+      "birthday": "08-02",
+      "photoUrl": "",
+      "interests": "Family time, Hot yoga, Traveling, Making Jewelry, Entrepreneurship, Poetry, Sports, Cats, Health & Nutrition, Micro-learning, Sunsets on the Beach",
+      "roles": "Team cheer leader, providing 5/5 client/applicant satisfaction, expert GIF dropper, product/package refinement, lassoing G2 reviews like there's no tomorrow!"
     },
     {
       "id": "id-mnf1whftdodso",
