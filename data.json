@@ -815,7 +815,7 @@
       "id": "id-mnf1whfte91uq",
       "initials": "AH",
       "name": "Alison Hamill",
-      "title": "Manager of Customer Support, Compliance & Disputes",
+      "title": "Manager of Customer Support",
       "department": "Customer Support",
       "reportsTo": null,
       "email": "alimcd@victig.com",
@@ -823,7 +823,10 @@
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 30,
       "customColor": null,
-      "birthday": ""
+      "birthday": "",
+      "photoUrl": "",
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whft54t3r",
