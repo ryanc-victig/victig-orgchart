@@ -1228,6 +1228,23 @@
       "roles": "",
       "sortOrder": 0,
       "customColor": null
+    },
+    {
+      "id": "id-mqjxsq0fkw8ad",
+      "name": "Whitney Hamill",
+      "initials": "WH",
+      "title": "Researcher",
+      "department": "Research & Quality Assurance Team",
+      "teamId": "id-mngbtxsbhfe7w",
+      "reportsTo": "Kate Florez",
+      "email": "",
+      "phone": "",
+      "birthday": "",
+      "photoUrl": "",
+      "interests": "",
+      "roles": "",
+      "sortOrder": 0,
+      "customColor": null
     }
   ],
   "departments": [
