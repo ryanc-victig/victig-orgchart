@@ -2867,7 +2867,7 @@ function renderDeptCard(dept, branchType = 'executive') {
     html += `<span class="dept-manager-badge" style="background:${color}">`;
     html += manager.title.toLowerCase().includes('director') ? 'Director' : 'Manager';
     html += `</span></div>`;
-    html += `<div class="dept-manager-title">${esc(manager.title)}</div>`;
+    html += `<div class="dept-manager-title">${formatTitle(manager.title)}</div>`;
     html += `</div></div>`;
     html += `<div style="text-align:center;margin-top:8px;">`;
     html += `<button class="btn btn-sm" onclick="event.stopPropagation();openAssignManager('${dept.id}')" style="font-size:11px;padding:4px 8px;">Change Manager</button>`;
@@ -4069,7 +4069,7 @@ function renderDirectory() {
     
     html += `<tr onclick="openViewEmployee('${emp.id}')">`;
     html += `<td>${photoHtml}</td>`;
-    html += `<td>${esc(emp.title)}</td>`;
+    html += `<td>${formatTitle(emp.title)}</td>`;
     html += `<td>${esc(emp.department)}</td>`;
     html += `<td>${teamName}</td>`;
     html += `<td>${email}</td>`;
