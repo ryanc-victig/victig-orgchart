@@ -523,9 +523,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .emp-title {
   font-size: 11px;
   color: var(--text-secondary);
-  white-space: pre-line;
+  white-space: normal;
   text-align: center;
   line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Ownership & Executive card variants */
@@ -2675,6 +2677,12 @@ function esc(s) {
   return d.innerHTML;
 }
 
+function formatTitle(title) {
+  if (!title) return '';
+  // Escape HTML first, then convert \n to <br>
+  return esc(title).replace(/\n/g, '<br>');
+}
+
 // ---- Custom Two-Branch Render ----
 function render() {
   const container = document.getElementById('chartContainer');
@@ -2786,7 +2794,7 @@ function renderOwnershipCard(emp) {
   return `<div class="ownership-card${matchClass}" onclick="openViewEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
     ${avatarHtml}
     <div class="emp-name">${esc(emp.name)}</div>
-    <div class="emp-title">${esc(emp.title)}</div>
+    <div class="emp-title">${formatTitle(emp.title)}</div>
   </div>`;
 }
 
@@ -2805,7 +2813,7 @@ function renderExecCard(emp, branchClass = '') {
   return `<div class="exec-card ${branchClass}${matchClass}" ${borderStyle} onclick="openViewEmployee('${emp.id}')" draggable="true" ondragstart="onDragStart(event,'${emp.id}')">
     ${avatarHtml}
     <div class="emp-name">${esc(emp.name)}</div>
-    <div class="emp-title">${esc(emp.title)}</div>
+    <div class="emp-title">${formatTitle(emp.title)}</div>
   </div>`;
 }
 
@@ -2925,7 +2933,7 @@ function renderEmpCard(emp, color, teamLeaderId) {
     ${avatarHtml}
     <div class="emp-info">
       <div class="emp-name">${esc(emp.name)}${isLeader ? ' <span class="leader-badge">⭐</span>' : ''}</div>
-      <div class="emp-title">${esc(emp.title)}</div>
+      <div class="emp-title">${formatTitle(emp.title)}</div>
     </div>
   </div>`;
 }
