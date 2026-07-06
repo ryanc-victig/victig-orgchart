@@ -11,8 +11,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 20,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whfttft4z",
@@ -25,8 +24,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 30,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftjawfo",
@@ -39,8 +37,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 40,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftahnxp",
@@ -53,8 +50,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 50,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft8qras",
@@ -67,8 +63,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mo07do93hcn01",
@@ -84,8 +79,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftvc2f3",
@@ -101,8 +95,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftuvnly",
@@ -115,8 +108,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 60,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftn7c9u",
@@ -124,16 +116,12 @@
       "name": "Ericka Rodriguez",
       "title": "Drug Testing",
       "department": "Drug Testing",
-      "reportsTo": "Rhio Barrera",
+      "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 10,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftfqyl1",
@@ -146,8 +134,7 @@
       "phone": "",
       "teamId": "id-mpeg5rspsvdnn",
       "sortOrder": 30,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whfthtjlg",
@@ -162,9 +149,7 @@
       "sortOrder": 0,
       "customColor": null,
       "photoUrl": "photos/ryan-cauffman.jpg",
-      "interests": "My number 1 interest is my kids which means I have no hobbies. :) Prior to spending all of my free time chasing kids I loved mountain biking and being outdoors. I also love spending time in WY riding my horse.",
-      "birthday": "07-20",
-      "roles": ""
+      "interests": ""
     },
     {
       "id": "id-mnf1whftrxy78",
@@ -177,8 +162,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft9o4qo",
@@ -191,8 +175,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 70,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftxudog",
@@ -205,8 +188,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 80,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft7z6bm",
@@ -219,8 +201,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 90,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whfttzh7m",
@@ -236,8 +217,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whft07bd3",
@@ -246,15 +226,14 @@
       "title": "Master of Client Happiness",
       "department": "Customer Success",
       "reportsTo": "Ryan Cauffman",
-      "email": "kimb@vicitig.com",
+      "email": "",
       "phone": "",
       "sortOrder": 0,
       "customColor": null,
       "teamId": "id-mngbtxsbfyvyc",
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whft7gyba",
@@ -267,8 +246,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbnw1bg",
       "sortOrder": 10,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftk7th5",
@@ -277,15 +255,11 @@
       "title": "Chief Operating Officer",
       "department": "Executive",
       "reportsTo": "Matt Visser",
-      "email": "rfarnes@victig.com",
+      "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftz0u2r",
@@ -293,16 +267,12 @@
       "name": "Jake Pfau",
       "title": "Manager of Onboarding",
       "department": "Onboarding",
-      "reportsTo": "Rob Farnes",
+      "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbdc4t0",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mo077au5bhgxz",
@@ -315,8 +285,7 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 50,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftu4z4h",
@@ -329,8 +298,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 100,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftsptow",
@@ -343,8 +311,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 110,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftg1rk2",
@@ -352,16 +319,12 @@
       "name": "Janette Captain",
       "title": "Drug Testing",
       "department": "Drug Testing",
-      "reportsTo": "Rhio Barrera",
+      "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 20,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftumibj",
@@ -374,8 +337,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 120,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft31xif",
@@ -388,8 +350,7 @@
       "phone": "",
       "teamId": "id-mpegl7yyi99uh",
       "sortOrder": 10,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whfttbtty",
@@ -402,8 +363,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 130,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft7asbu",
@@ -416,8 +376,7 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 20,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft7zhq8",
@@ -426,15 +385,11 @@
       "title": "Specialty Searches",
       "department": "Specialty Searches",
       "reportsTo": "Deb Keller",
-      "email": "kramey@victig.com",
+      "email": "",
       "phone": "",
       "teamId": "id-mngg1n4nc8het",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftmevmy",
@@ -447,8 +402,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 10,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftqjfk1",
@@ -464,8 +418,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whft8e7x9",
@@ -481,8 +434,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whft9dpxm",
@@ -490,16 +442,12 @@
       "name": "Sam Salvador",
       "title": "Specialty Searches",
       "department": "Specialty Searches",
-      "reportsTo": "Deb Keller",
+      "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngg1n4nc8het",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftyqkj9",
@@ -508,15 +456,14 @@
       "title": "Client Services Specialist",
       "department": "Customer Success",
       "reportsTo": "Ryan Cauffman",
-      "email": "robm@victig.com",
+      "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbfyvyc",
       "sortOrder": 0,
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftph2ho",
@@ -529,8 +476,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 140,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftuohhi",
@@ -538,16 +484,12 @@
       "name": "Kayla Thompson",
       "title": "Customer Support, Team Lead",
       "department": "Customer Support",
-      "reportsTo": "Alison Hamill",
-      "email": "kaylat@victig.com",
-      "phone": "(801) 436-6210",
+      "reportsTo": null,
+      "email": "",
+      "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": "08-02",
-      "photoUrl": "",
-      "interests": "Family time, Hot yoga, Traveling, Making Jewelry, Entrepreneurship, Poetry, Sports, Cats, Health & Nutrition, Micro-learning, Sunsets on the Beach",
-      "roles": "Team cheer leader, providing 5/5 client/applicant satisfaction, dispute processing, expert GIF dropper, product/package refinement, lassoing G2 reviews like there's no tomorrow!"
+      "customColor": null
     },
     {
       "id": "id-mnf1whftdodso",
@@ -560,8 +502,7 @@
       "phone": "",
       "sortOrder": 0,
       "customColor": null,
-      "teamId": "id-mpegl7yyi99uh",
-      "birthday": ""
+      "teamId": "id-mpegl7yyi99uh"
     },
     {
       "id": "id-mnf1whfth2o47",
@@ -574,8 +515,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 150,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whfthbdz2",
@@ -588,8 +528,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 160,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftqvl9a",
@@ -602,8 +541,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 170,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mngg9mb4lp4t6",
@@ -616,8 +554,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbnw1bg",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf23xvtks3uc",
@@ -626,15 +563,14 @@
       "title": "Revenue Operations Technician",
       "department": "Product & Systems",
       "reportsTo": "Josh Elle",
-      "email": "eastonm@victig.com",
+      "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbap1rq",
       "sortOrder": 10,
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftla045",
@@ -647,8 +583,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 180,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft7jog4",
@@ -657,15 +592,14 @@
       "title": "Manager of Multimedia Content & Systems",
       "department": "Marketing",
       "reportsTo": "Ryan Cauffman",
-      "email": "dustinr@victig.com",
+      "email": "",
       "phone": "",
       "teamId": "id-mphsdhwaox5pl",
       "sortOrder": 0,
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftw99i2",
@@ -678,8 +612,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 190,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft0gs2w",
@@ -694,9 +627,8 @@
       "customColor": null,
       "teamId": "id-mngbtxsbap1rq",
       "photoUrl": "photos/josh-elle.jpg",
-      "interests": "Lifting Weights, Volunteering",
-      "roles": "Monthly vendor audits",
-      "birthday": ""
+      "interests": "",
+      "roles": ""
     },
     {
       "id": "id-mnf1whfti7goz",
@@ -712,8 +644,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whft8anxu",
@@ -729,8 +660,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftm1are",
@@ -739,15 +669,14 @@
       "title": "Contract - Accounting",
       "department": "Product & Systems",
       "reportsTo": "Josh Elle",
-      "email": "vbowers@victig.com",
+      "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbap1rq",
       "sortOrder": 20,
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftwuhww",
@@ -760,8 +689,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbhfe7w",
       "sortOrder": 40,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftsx4ix",
@@ -774,8 +702,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 200,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftjvjso",
@@ -784,15 +711,11 @@
       "title": "Customer Support, Communications",
       "department": "Customer Support",
       "reportsTo": "Alison Hamill",
-      "email": "tobanion@victig.com",
+      "email": "",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 10,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "photos/tannah-obanion.jpg",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftpb1e3",
@@ -800,33 +723,25 @@
       "name": "Tiffany Fitzgerald",
       "title": "Specialty Searches",
       "department": "Specialty Searches",
-      "reportsTo": "Deb Keller",
+      "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngg1n4nc8het",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whfte91uq",
       "initials": "AH",
       "name": "Alison Hamill",
-      "title": "Customer Support Manager\nCompliance & Disputes Lead",
+      "title": "Manager of Customer Support, Compliance & Disputes",
       "department": "Customer Support",
       "reportsTo": null,
       "email": "alimcd@victig.com",
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 30,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft54t3r",
@@ -839,8 +754,7 @@
       "phone": "",
       "teamId": "id-mpvenwjr7m4su",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftnt941",
@@ -853,8 +767,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb03omf",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftnw91c",
@@ -870,8 +783,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftp88q6",
@@ -884,8 +796,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whfterce1",
@@ -901,8 +812,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whftghxa5",
@@ -915,8 +825,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 210,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftpgxvw",
@@ -929,8 +838,7 @@
       "phone": "307-921-4557",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft3s9z6",
@@ -943,8 +851,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 220,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftfkhfp",
@@ -952,22 +859,18 @@
       "name": "Chris Floto",
       "title": "Team Lead for Drug Testing & Occupational Health",
       "department": "Drug Testing",
-      "reportsTo": "Rhio Barrera",
+      "reportsTo": null,
       "email": "cfloto@victig.com",
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft2d0qq",
       "initials": "AM",
       "name": "Annah Madsen",
-      "title": "Customer Success Operations Manager",
+      "title": "Customer Success Manager",
       "department": "Customer Success",
       "reportsTo": "Ryan Cauffman",
       "email": "alane@victig.com",
@@ -975,10 +878,9 @@
       "teamId": "id-mngbtxsbfyvyc",
       "sortOrder": 0,
       "customColor": null,
-      "photoUrl": "photos/annah-madsen.jpg",
+      "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mo07e665akw11",
@@ -994,8 +896,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whfta6pgh",
@@ -1003,16 +904,12 @@
       "name": "Rhio Barrera",
       "title": "Manager of Drug Testing & Occupational Health",
       "department": "Drug Testing",
-      "reportsTo": "Rob Farnes",
+      "reportsTo": null,
       "email": "",
       "phone": "",
       "teamId": "id-mngbtxsbsatjw",
       "sortOrder": 30,
-      "customColor": null,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftxs5hr",
@@ -1025,8 +922,7 @@
       "phone": "",
       "teamId": "id-mpegl7yyi99uh",
       "sortOrder": 20,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf20eei7x9rw",
@@ -1039,8 +935,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbgd3zm",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftcs6u3",
@@ -1053,8 +948,7 @@
       "phone": "",
       "teamId": "id-mnz690q1utbcz",
       "sortOrder": 40,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whftmou04",
@@ -1063,15 +957,14 @@
       "title": "Lead Engineer",
       "department": "Technology",
       "reportsTo": "Ryan Cauffman",
-      "email": "tristent@victig.com",
+      "email": "",
       "phone": "",
       "sortOrder": 0,
       "customColor": null,
       "teamId": "id-mpegzd097sxcr",
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mo079oj8qkqq0",
@@ -1087,8 +980,7 @@
       "customColor": null,
       "photoUrl": "",
       "interests": "",
-      "roles": "",
-      "birthday": ""
+      "roles": ""
     },
     {
       "id": "id-mnf1whft9zhnl",
@@ -1101,8 +993,7 @@
       "phone": "",
       "teamId": "id-mngbtxsbgioc9",
       "sortOrder": 0,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mnf1whft29oxo",
@@ -1115,8 +1006,7 @@
       "phone": "",
       "teamId": "id-mngbtxsb5rwnv",
       "sortOrder": 230,
-      "customColor": null,
-      "birthday": ""
+      "customColor": null
     },
     {
       "id": "id-mpehxrii9mexh",
@@ -1125,14 +1015,10 @@
       "title": "Specialty Searches",
       "department": "Specialty Searches",
       "teamId": "id-mngg1n4nc8het",
-      "reportsTo": "Deb Keller",
+      "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0,
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": ""
+      "sortOrder": 0
     },
     {
       "id": "id-mq1ecj6mkstqb",
@@ -1144,8 +1030,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 10,
-      "birthday": ""
+      "sortOrder": 10
     },
     {
       "id": "id-mq1f28pp1i37e",
@@ -1157,8 +1042,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0,
-      "birthday": ""
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f2j2g1s5lk",
@@ -1170,8 +1054,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0,
-      "birthday": ""
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f2td6j2drt",
@@ -1183,8 +1066,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0,
-      "birthday": ""
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f33xlvw60n",
@@ -1196,8 +1078,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0,
-      "birthday": ""
+      "sortOrder": 0
     },
     {
       "id": "id-mq1f3fqp4obpp",
@@ -1209,42 +1090,7 @@
       "reportsTo": null,
       "email": "",
       "phone": "",
-      "sortOrder": 0,
-      "birthday": ""
-    },
-    {
-      "id": "id-mqfnuwua5zzcu",
-      "name": "Kennady Peck",
-      "initials": "KP",
-      "title": "Assistant",
-      "department": "Accounting",
-      "teamId": "id-mngbtxsbgd3zm",
-      "reportsTo": "Nathan Carrizales",
-      "email": "kennadyp@victig.com",
-      "phone": "",
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": "",
-      "sortOrder": 0,
-      "customColor": null
-    },
-    {
-      "id": "id-mqjxsq0fkw8ad",
-      "name": "Whitney Hamill",
-      "initials": "WH",
-      "title": "Researcher",
-      "department": "Research & Quality Assurance Team",
-      "teamId": "id-mngbtxsbhfe7w",
-      "reportsTo": "Kate Florez",
-      "email": "",
-      "phone": "",
-      "birthday": "",
-      "photoUrl": "",
-      "interests": "",
-      "roles": "",
-      "sortOrder": 0,
-      "customColor": null
+      "sortOrder": 0
     }
   ],
   "departments": [
@@ -1253,223 +1099,105 @@
       "name": "Research & Quality Assurance Team",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mo079oj8qkqq0",
-      "emails": [],
-      "roles": ""
+      "managerId": "id-mo079oj8qkqq0"
     },
     {
       "id": "id-mnf1whft85uok",
       "name": "Executive",
       "reportsTo": null,
       "color": "#4A90E2",
-      "managerId": null,
-      "emails": []
+      "managerId": null
     },
     {
       "id": "id-mnf1whfty3unx",
       "name": "Accounting",
       "reportsTo": "Nathan Carrizales",
       "color": "#27ae60",
-      "managerId": null,
-      "emails": [
-        {
-          "address": "finance@victig.com",
-          "description": "Internal email for all things related to finance."
-        },
-        {
-          "address": "AR@victig.com",
-          "description": "For external communication for anything related to accounts receivables."
-        },
-        {
-          "address": "AP@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "managerId": null
     },
     {
       "id": "id-mnf1whftoyaqk",
       "name": "Verifications",
       "reportsTo": "Rob Farnes",
-      "color": "#2c3e50",
-      "managerId": null,
-      "emails": [
-        {
-          "address": "verifications@victig.com",
-          "description": ""
-        },
-        {
-          "address": "verify@victig.com",
-          "description": ""
-        },
-        {
-          "address": "education@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "color": "#2C3E50",
+      "managerId": null
     },
     {
       "id": "id-mnf1whfts4k33",
       "name": "Legal",
       "reportsTo": "Deb Keller",
       "color": "#1abc9c",
-      "managerId": null,
-      "emails": []
+      "managerId": null
     },
     {
       "id": "id-mnf25c2k658ou",
       "name": "Risk Management",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": null,
-      "emails": []
+      "managerId": null
     },
     {
       "id": "id-mnf1whftktipw",
       "name": "Sales & Lead Gen",
       "reportsTo": "Blake Visser",
       "color": "#e74c3c",
-      "managerId": null,
-      "emails": [
-        {
-          "address": "clientsales@victig.com",
-          "description": ""
-        },
-        {
-          "address": "ultimateleads@victig.com",
-          "description": ""
-        },
-        {
-          "address": "sales@victig.com",
-          "description": ""
-        },
-        {
-          "address": "leads@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "managerId": null
     },
     {
       "id": "id-mnf1whftlxlq2",
       "name": "Onboarding",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mnf1whftz0u2r",
-      "emails": []
+      "managerId": "id-mnf1whftz0u2r"
     },
     {
       "id": "id-mnf29bbntw6cq",
       "name": "Product & Systems",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": "id-mnf1whft0gs2w",
-      "emails": [
-        {
-          "address": "auditing@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "managerId": "id-mnf1whft0gs2w"
     },
     {
       "id": "id-mnf1whftnzyaq",
       "name": "Drug Testing",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mnf1whfta6pgh",
-      "emails": [
-        {
-          "address": "scheduling@victig.com",
-          "description": "Only used for outgoing mail. Incoming is forwarded directly to drugtest@victig.com"
-        },
-        {
-          "address": "drugtest@victig.com",
-          "description": "Used for client and applicant interaction."
-        }
-      ],
-      "roles": ""
+      "managerId": "id-mnf1whfta6pgh"
     },
     {
       "id": "id-mngg1n4nncwk2",
       "name": "Specialty Searches",
       "reportsTo": "Deb Keller",
       "color": "#1abc9c",
-      "managerId": null,
-      "emails": [
-        {
-          "address": "dot@victig.com",
-          "description": ""
-        },
-        {
-          "address": "customercare@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "managerId": null
     },
     {
       "id": "id-mnf1whft9x5oh",
       "name": "Customer Success",
       "reportsTo": "Ryan Cauffman",
       "color": "#4a90e2",
-      "managerId": null,
-      "emails": [
-        {
-          "address": "clientservices@victig.com",
-          "description": ""
-        },
-        {
-          "address": "wecare@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "managerId": null
     },
     {
       "id": "id-mnz690q1qax7v",
       "name": "Customer Support",
       "reportsTo": "Rob Farnes",
       "color": "#2c3e50",
-      "managerId": "id-mnf1whfte91uq",
-      "emails": [
-        {
-          "address": "reportdecision@victig.com",
-          "description": ""
-        },
-        {
-          "address": "support@victig.com",
-          "description": ""
-        },
-        {
-          "address": "disputes@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "managerId": "id-mnf1whfte91uq"
     },
     {
       "id": "id-mpegzd092xd95",
       "name": "Technology",
       "reportsTo": "Ryan Cauffman",
       "managerId": "id-mnf1whftmou04",
-      "color": "#4a90e2",
-      "emails": []
+      "color": "#4a90e2"
     },
     {
       "id": "id-mphsdhwai9h0z",
       "name": "Marketing",
       "reportsTo": "Ryan Cauffman",
       "managerId": null,
-      "color": "#4a90e2",
-      "emails": [
-        {
-          "address": "socialmedia@victig.com",
-          "description": ""
-        }
-      ],
-      "roles": ""
+      "color": "#4a90e2"
     }
   ],
   "teams": [
@@ -1529,10 +1257,9 @@
     },
     {
       "id": "id-mngbtxsbap1rq",
-      "name": "Auditing",
+      "name": "General",
       "departmentId": "id-mnf29bbntw6cq",
-      "leaderId": null,
-      "roles": ""
+      "leaderId": "id-mnf1whft0gs2w"
     },
     {
       "id": "id-mngg1n4nc8het",
