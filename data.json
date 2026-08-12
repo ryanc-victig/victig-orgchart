@@ -844,17 +844,20 @@
     },
     {
       "id": "id-mnf1whftnt941",
-      "initials": "OL",
-      "name": "Ophelia Lachen",
+      "initials": "OLD",
+      "name": "Ophelia Lachen Dudley",
       "title": "Account Risk Specialist",
       "department": "Risk Management",
       "reportsTo": "Ryan Cauffman",
-      "email": "",
+      "email": "olachen@victig.com",
       "phone": "",
       "teamId": "id-mngbtxsb03omf",
       "sortOrder": 0,
       "customColor": null,
-      "birthday": ""
+      "birthday": "05-25",
+      "photoUrl": "https://drive.google.com/uc?export=view&id=1h_qhiFUGK9-KQU4PDabwggN_R_FkAvmc",
+      "interests": "Music, Creating, Adventures, finding Joy and Wonder.",
+      "roles": "I teach and help explain the background check process, along with auditing the packages ensuring they have it set how they need."
     },
     {
       "id": "id-mnf1whftnw91c",
